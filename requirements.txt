@@ -1,0 +1,4 @@
+numpy >= 1.6.0
+click
+bokeh
+pyproj
