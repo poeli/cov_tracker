@@ -21,9 +21,10 @@ class PlotDataSource(object):
     prepare_week_spike_mutation()
     """
     
-    def __init__(self, data):
+    def __init__(self, data, target_lineage=None):
 
         self.data = data
+        self.target_lineage = target_lineage
         self.voc_list = self.data.df_v_info.loc[self.data.df_v_info['type']=='VOC', 'lineage'].to_list()
         self.voi_list = self.data.df_v_info.loc[self.data.df_v_info['type']=='VOI', 'lineage'].to_list()
         
@@ -36,6 +37,10 @@ class PlotDataSource(object):
         self.dis_lineage = [x for x in top10_list if x not in self.voc_list+self.voi_list]
         self.dis_lineage = ["Others"] + self.voc_list+ self.voi_list + self.dis_lineage
 
+        # adding target lineage to list of displaying lineages
+        if target_lineage and not target_lineage in self.dis_lineage:
+            self.dis_lineage = self.dis_lineage + [target_lineage]
+
         # set lineage colors
         self.lineage_colors = self.color_mapper(len(self.dis_lineage))
 
@@ -47,6 +52,7 @@ class PlotDataSource(object):
         df_variant['color'] = '#AAAAAA'
         df_variant.loc[(df_variant['type']=='VOC') & (df_variant['not_all']=='N'), 'color'] = '#D03A49'
         df_variant.loc[(df_variant['type']=='VOI') & (df_variant['not_all']=='N'), 'color'] = '#FDE724'
+        df_variant.loc[(df_variant['type']=='EDGE') & (df_variant['not_all']=='N'), 'color'] = '#F87748'
         self.data.df_variant = df_variant
         
         # axis labels
@@ -142,7 +148,7 @@ class PlotDataSource(object):
         self.ds_geo_country = ds_geo_country
     
     
-    def prepare_geo_state(self, target_variant=None, target_lineage=None, periods=90):
+    def prepare_geo_state(self, periods=90):
         logging.info(f'Preparing datasource geographical plot in state-scale...')
         
         import bokeh.sampledata
@@ -163,6 +169,8 @@ class PlotDataSource(object):
         top10_list = lineage_list
         if len(lineage_list) > 10:
             top10_list = lineage_list[:10]
+        if self.target_lineage and not self.target_lineage in top10_list:
+            top10_list = top10_list+[lineage_list]
 
         df_periods['lineage_type'] = df_periods['pango_lineage']
         df_periods.loc[~df_periods['pango_lineage'].isin(top10_list), 'lineage_type'] = 'Others'
@@ -220,7 +228,7 @@ class PlotDataSource(object):
         self.ds_geo_state_lineage = ColumnDataSource(df_periods_states)
         
     
-    def prepare_geo_county(self, state, target_variant=None, target_lineage=None, periods=90):
+    def prepare_geo_county(self, state, periods=90):
         logging.info(f'Preparing datasource geographical plot in county-scale...')
         import bokeh.sampledata
         bokeh.sampledata.download()
@@ -241,6 +249,8 @@ class PlotDataSource(object):
         top10_list = lineage_list
         if len(lineage_list) > 10:
             top10_list = lineage_list[:10]
+        if self.target_lineage and not self.target_lineage in top10_list:
+            top10_list = top10_list+[lineage_list]
 
         df_periods['lineage_type'] = df_periods['pango_lineage']
         df_periods.loc[~df_periods['pango_lineage'].isin(top10_list), 'lineage_type'] = 'Others'
@@ -420,83 +430,3 @@ class PlotDataSource(object):
         mutation_list.sort(key=lambda x: m_fisrt_app.index(x) if x in m_fisrt_app else 999, reverse=True)
         
         return df_lineage, mutation_list
-    
-    def update_df_lineage_week_us_states(self, region, **kwargs):
-        # get entries for target states
-        df = self.df_meta[self.df_meta.us_region==region]
-        # total target_lineage count for week/state
-        df_lineage_trend_w_s_total = pd.crosstab(df.week, df.division)
-        # get column=value pair and limit the lineage;
-        # like lineage='AY.2' or variant=''
-        for col, value in kwargs.items():
-            df_lineage_trend = df[df[col]==value]
-
-        df_lineage_trend_w_s = pd.crosstab(df_lineage_trend.week, df_lineage_trend.division)
-        df_lineage_trend_w_s_freq = df_lineage_trend_w_s.div(df_lineage_trend_w_s_total)
-        df_lineage_trend_w_s_freq = df_lineage_trend_w_s_freq.dropna(how='all', axis=1)
-        df_lineage_trend_w_s_freq = df_lineage_trend_w_s_freq.dropna(how='all', axis=0)
-        df_lineage_trend_w_s_freq = df_lineage_trend_w_s_freq.fillna(0)
-
-        return ColumnDataSource(df_lineage_trend_w_s), ColumnDataSource(df_lineage_trend_w_s_freq)
-
-    def update_df_lineage_week_us_regions(self, **kwargs):
-        df_lineage_trend = pd.DataFrame()
-        for col, value in kwargs.items():
-            df_lineage_trend = self.df_meta[self.df_meta[col]==value]
-        # total target_lineage count for week/region
-        df_lineage_trend_w_s_total = pd.crosstab(self.df_meta.week, self.df_meta.us_region)
-        df_lineage_trend_w_s = pd.crosstab(df_lineage_trend.week, df_lineage_trend.us_region)
-        df_lineage_trend_w_s_freq = df_lineage_trend_w_s.div(df_lineage_trend_w_s_total)
-        df_lineage_trend_w_s_freq = df_lineage_trend_w_s_freq.dropna(how='all', axis=1)
-        df_lineage_trend_w_s_freq = df_lineage_trend_w_s_freq.dropna(how='all', axis=0)
-        df_lineage_trend_w_s_freq = df_lineage_trend_w_s_freq.fillna(0)
-
-        return ColumnDataSource(df_lineage_trend_w_s), ColumnDataSource(df_lineage_trend_w_s_freq)
-    
-    
-class StatesRegionsLookup(object):
-    def __init__(self):
-        self.region_states_lookup = {
-            "I": ["Connecticut", "Maine", "Massachusetts", "New Hampshire", "Rhode Island", "Vermont"],
-            "II": ["New Jersey", "New York", "Puerto Rico", "US Virgin Islands"],
-            "III": ["Delaware", "District of Columbia", "Maryland", "Pennsylvania", "Virginia", "West Virginia"],
-            "IV": ["Alabama", "Florida", "Georgia", "Kentucky", "Mississippi", "North Carolina", "South Carolina", "Tennessee"],
-            "V": ["Illinois", "Indiana", "Michigan", "Minnesota", "Ohio", "Wisconsin"],
-            "VI": ["Arkansas", "Louisiana", "New Mexico", "Oklahoma", "Texas"],
-            "VII": ["Iowa", "Kansas", "Missouri", "Nebraska"],
-            "VIII": ["Colorado", "Montana", "North Dakota", "South Dakota", "Utah", "Wyoming"],
-            "IX": ["Arizona", "California", "Hawaii", "Nevada", "Guam"],
-            "X": ["Alaska", "Idaho", "Oregon", "Washington"],  
-        }
-        self.state_abbv_lookup = {
-            'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ', 'Arkansas': 'AR', 'California': 'CA', 'Canal Zone': 'CZ',
-            'Colorado': 'CO', 'Connecticut': 'CT', 'Delaware': 'DE', 'District of Columbia': 'DC', 'Florida': 'FL', 'Georgia': 'GA',
-            'Guam': 'GU', 'Hawaii': 'HI', 'Idaho': 'ID', 'Illinois': 'IL', 'Indiana': 'IN', 'Iowa': 'IA', 'Kansas': 'KS',
-            'Kentucky': 'KY', 'Louisiana': 'LA', 'Maine': 'ME', 'Maryland': 'MD', 'Massachusetts': 'MA', 'Michigan': 'MI',
-            'Minnesota': 'MN', 'Mississippi': 'MS', 'Missouri': 'MO', 'Montana': 'MT', 'Nebraska': 'NE', 'Nevada': 'NV',
-            'New Hampshire': 'NH', 'New Jersey': 'NJ', 'New Mexico': 'NM', 'New York': 'NY', 'North Carolina': 'NC', 'North Dakota': 'ND',
-            'Ohio': 'OH', 'Oklahoma': 'OK', 'Oregon': 'OR', 'Pennsylvania': 'PA', 'Puerto Rico': 'PR', 'Rhode Island': 'RI',
-            'South Carolina': 'SC', 'South Dakota': 'SD', 'Tennessee': 'TN', 'Texas': 'TX', 'Utah': 'UT', 'Vermont': 'VT',
-            'US Virgin Islands': 'VI', 'Virginia': 'VA', 'Washington': 'WA', 'West Virginia': 'WV', 'Wisconsin': 'WI', 'Wyoming': 'WY',
-        }
-
-        self.state_region_lookup = {s:r for r in self.region_states_lookup for s in self.region_states_lookup[r]}
-        self.region_abbv_lookup = {r: [self.state_abbv_lookup[s] for s in self.region_states_lookup[r]] for r in self.region_states_lookup}
-        
-    def region_to_states(self, region):
-        try:
-            return self.region_states_lookup[region]
-        except:
-            return None
-            
-    def state_to_region(self, state):
-        try:
-            return self.state_region_lookup[state]
-        except:
-            return None
-
-    def get_all_regions(self):
-        try:
-            return list(self.region_states_lookup.keys())
-        except:
-            return None

@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import os
 import logging
 import variant_viz.surv_viz.us_state_abbrev as us
@@ -83,7 +84,8 @@ class CovidMetadata(object):
         :type  filename_meta: str
         """
         import pandas as pd
-        
+        import numpy as np
+
         # loading metadata.tsv file
         df_meta = pd.read_csv(filename_meta, sep="\t", low_memory=False)
         
@@ -154,16 +156,12 @@ class CovidMetadata(object):
         # cleaning parentheses, unwanted strings in aa_sub
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('\(|\)', '')
         df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'NS[\w\d]+,?', '') # NSP\d+ and NS\d+ are removed for now until we can map them to the protein
-        df_mutation['mutation'] = df_mutation['mutation'].str.replace(r',[^,]+_ins[\w\d]+', '') # remove insertion
         df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'Spike', 'S')
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('del', '*')
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('_', ':')
-        df_mutation['mutation'] = df_mutation['mutation'].str.replace(r',$', '')
 
         # split variants, explode into rows, and extract genes/positions
-        df_mutation = df_mutation.assign(snp=df_mutation['mutation'].str.split(',')).explode('snp')
-        df_mutation = df_mutation.drop(columns=['mutation'])
-        df_mutation = df_mutation.rename(columns={'snp':'mutation'})
+        df_mutation = df_mutation.assign(variant=df_mutation['mutation'].str.split(',')).explode('mutation')
         df_mutation[['gene','pos']] = df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
 
         # dropping reference genomes
@@ -195,7 +193,6 @@ class CovidMetadata(object):
         :type  country: str
         """
         if country:
-            logging.info(f'Specifying country to {country}...')
             self.df_meta     = self.df_meta_orig[self.df_meta_orig['country']==country].copy()
             self.df_mutation = self.df_mutation_orig[self.df_mutation_orig['country']==country].copy()
     
@@ -208,6 +205,5 @@ class CovidMetadata(object):
         :type  division: str
         """
         if division:
-            logging.info(f'Specifying division/state to {division}...')
             self.df_meta     = self.df_meta_orig[self.df_meta_orig['division']==division].copy()
             self.df_mutation = self.df_mutation_orig[self.df_mutation_orig['division']==division].copy()

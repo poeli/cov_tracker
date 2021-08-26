@@ -907,9 +907,8 @@ H2 {
 
                 
     def layout(self):
-        from bokeh.layouts import column, row, layout, gridplot
-        
         logging.info(f'Layouting plots...')
+        from bokeh.layouts import column, layout, gridplot
 
         layout = gridplot([
             [None, self.header, None],
@@ -945,3 +944,53 @@ H2 {
         if template is None:
             template = self.template
         save(self.output_layout, template=template)
+        
+class StatesRegionsLookup(object):
+    """
+    This is the class for conversion of US states and federal regions
+    """
+    def __init__(self):
+        self.region_states_lookup = {
+            "I": ["Connecticut", "Maine", "Massachusetts", "New Hampshire", "Rhode Island", "Vermont"],
+            "II": ["New Jersey", "New York", "Puerto Rico", "US Virgin Islands"],
+            "III": ["Delaware", "District of Columbia", "Maryland", "Pennsylvania", "Virginia", "West Virginia"],
+            "IV": ["Alabama", "Florida", "Georgia", "Kentucky", "Mississippi", "North Carolina", "South Carolina", "Tennessee"],
+            "V": ["Illinois", "Indiana", "Michigan", "Minnesota", "Ohio", "Wisconsin"],
+            "VI": ["Arkansas", "Louisiana", "New Mexico", "Oklahoma", "Texas"],
+            "VII": ["Iowa", "Kansas", "Missouri", "Nebraska"],
+            "VIII": ["Colorado", "Montana", "North Dakota", "South Dakota", "Utah", "Wyoming"],
+            "IX": ["Arizona", "California", "Hawaii", "Nevada", "Guam"],
+            "X": ["Alaska", "Idaho", "Oregon", "Washington"],  
+        }
+        self.state_abbv_lookup = {
+            'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ', 'Arkansas': 'AR', 'California': 'CA', 'Canal Zone': 'CZ',
+            'Colorado': 'CO', 'Connecticut': 'CT', 'Delaware': 'DE', 'District of Columbia': 'DC', 'Florida': 'FL', 'Georgia': 'GA',
+            'Guam': 'GU', 'Hawaii': 'HI', 'Idaho': 'ID', 'Illinois': 'IL', 'Indiana': 'IN', 'Iowa': 'IA', 'Kansas': 'KS',
+            'Kentucky': 'KY', 'Louisiana': 'LA', 'Maine': 'ME', 'Maryland': 'MD', 'Massachusetts': 'MA', 'Michigan': 'MI',
+            'Minnesota': 'MN', 'Mississippi': 'MS', 'Missouri': 'MO', 'Montana': 'MT', 'Nebraska': 'NE', 'Nevada': 'NV',
+            'New Hampshire': 'NH', 'New Jersey': 'NJ', 'New Mexico': 'NM', 'New York': 'NY', 'North Carolina': 'NC', 'North Dakota': 'ND',
+            'Ohio': 'OH', 'Oklahoma': 'OK', 'Oregon': 'OR', 'Pennsylvania': 'PA', 'Puerto Rico': 'PR', 'Rhode Island': 'RI',
+            'South Carolina': 'SC', 'South Dakota': 'SD', 'Tennessee': 'TN', 'Texas': 'TX', 'Utah': 'UT', 'Vermont': 'VT',
+            'US Virgin Islands': 'VI', 'Virginia': 'VA', 'Washington': 'WA', 'West Virginia': 'WV', 'Wisconsin': 'WI', 'Wyoming': 'WY',
+        }
+
+        self.state_region_lookup = {s:r for r in self.region_states_lookup for s in self.region_states_lookup[r]}
+        self.region_abbv_lookup = {r: [self.state_abbv_lookup[s] for s in self.region_states_lookup[r]] for r in self.region_states_lookup}
+        
+    def region_to_states(self, region):
+        try:
+            return self.region_states_lookup[region]
+        except:
+            return None
+            
+    def state_to_region(self, state):
+        try:
+            return self.state_region_lookup[state]
+        except:
+            return None
+
+    def get_all_regions(self):
+        try:
+            return list(self.region_states_lookup.keys())
+        except:
+            return None
