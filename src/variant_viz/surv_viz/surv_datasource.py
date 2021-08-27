@@ -60,6 +60,8 @@ class PlotDataSource(object):
         
         # dataScource
         self.ds_variant = ColumnDataSource(df_variant)
+        self.ds_week_variant = None
+        self.ds_week_variant_freq = None
         self.ds_week_lineage = None
         self.ds_week_lineage_freq = None
         self.ds_geo_country = None
@@ -128,14 +130,19 @@ class PlotDataSource(object):
         col = ~df.lineage.isin(self.dis_lineage)
         df.loc[col, 'lineage'] = "Others"
 
-        ds_week_lineage = ColumnDataSource(pd.crosstab(df.week, df.lineage))
-        ds_week_lineage_freq = ColumnDataSource(pd.crosstab(df.week, df.lineage, normalize='index'))
-        
+        ds_week_variant = ColumnDataSource(pd.crosstab(df.week, df.lineage))
+        ds_week_variant_freq = ColumnDataSource(pd.crosstab(df.week, df.lineage, normalize='index'))
+
+        ds_week_lineage = ColumnDataSource(pd.crosstab(df.week, df.pango_lineage))
+        ds_week_lineage_freq = ColumnDataSource(pd.crosstab(df.week, df.pango_lineage, normalize='index'))
+
         self.week_ticks = df.week.unique()
         self.week_ticks.sort()
+        self.ds_week_variant = ds_week_variant
+        self.ds_week_variant_freq = ds_week_variant_freq
+
         self.ds_week_lineage = ds_week_lineage
-        self.ds_week_lineage_freq = ds_week_lineage_freq
-    
+        self.ds_week_lineage_freq = ds_week_lineage_freq    
     
     def prepare_geo_country(self):
         logging.info(f'Preparing datasource for geographical plot in country-scale...')
@@ -409,13 +416,13 @@ class PlotDataSource(object):
         self.trend_lineage_10 = var_list
         self.trend_position_10 = mu_list
 
-    def prepare_mutation_tracking_per_variant(self, lineage_name):
-        logging.info(f'Preparing datasource for mutations of {lineage_name}...')
+    def prepare_mutation_tracking_per_variant(self, variant_name):
+        logging.info(f'Preparing datasource for mutations of variant: {variant_name}...')
         # mutation in spike protein
         df_mutation_S = self.data.df_mutation[self.data.df_mutation.gene=='S']
         
-        # mutations in variants
-        mutation_list = self.data.df_variant[self.data.df_variant.lineage==lineage_name].mutation.to_list()
+        # mutations in a variant
+        mutation_list = self.data.df_variant[self.data.df_variant.lineage==variant_name].mutation.to_list()
         
         # filter in specific variants only (heatmap source: df_lineage)
         df_mutation_lineage = df_mutation_S[df_mutation_S['mutation'].isin(mutation_list)]

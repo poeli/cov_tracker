@@ -96,7 +96,6 @@ class GISAID_stats():
         # save html
         page.save_html(outfile=outfile)
 
-
     def _regional_lineage_trending(self, df_meta, target_lineage):
         """
         Tracking trending of 10 regions for input lineage
@@ -369,27 +368,32 @@ class GISAID_stats():
 
         region_state_map = cplot.StatesRegionsLookup()
 
-        # init datasource
-        ds = cdata.PlotDataSource(self.data)
-        # init plots
-        sars_cov_2_plots = cplot.CovidPlots()
-        page = cplot.CovidViz(sars_cov_2_plots)
-
         # Need to load EC19 project's SNP file and parse them. After we extract the fields,
         # add the mutations as a variant to ds.data.df_v_muta
-        df_ec19_data = EC19_data(snp=ec19_snp_file, pango=ec19_pango_file)
-        df_ec19 = df_ec19_data.df_ec19
+        ec19_obj = EC19_data(snps=ec19_snp_file, pango=ec19_pango_file)
+        df_ec19 = ec19_obj.df_ec19
 
         df_ec19_s_mut = df_ec19[df_ec19.Product=='S'].copy()
         df_ec19_s_mut['Chromosome'] = ec19_sample_name
         df_ec19_s_mut = df_ec19_s_mut[['Chromosome','Mutation','Product','AA_pos']].rename(columns={'Chromosome':'lineage', 'Mutation':'mutation', 'Product':'gene', 'AA_pos':'pos'})
         df_ec19_s_mut['not_all'] = 'N'
 
-        ds.data.df_v_muta = pd.concat([ds.data.df_v_muta, df_ec19_s_mut])
+        self.data.df_v_muta = pd.concat([self.data.df_v_muta, df_ec19_s_mut])
 
-        # Add this sample as a variant to ds.data.df_v_info
-        [target_lineage, variant, version, pangolin_version, pangoLEARN_version, pango_version] = ds.df_ec19_pango.loc[0, ['lineage', 'variant', 'version', 'pangolin_version', 'pangoLEARN_version', 'pango_version']].to_list()
-        ds.data.df_v_info.loc[len(ds.data.df_v_info.index)] = [ec19_sample_name, target_lineage, variant, 'EDGE', '', '', ''] 
+        # 1) Retrieving pango-lineage and related information
+        # 2) Finding the first date and country of the lineage
+        # 3) Add this sample as a variant to ds.data.df_v_info
+        [target_lineage, variant, version, pangolin_ver, pangolearn_ver, pango_ver] = ec19_obj.df_ec19_pango.loc[0, ['lineage', 'variant', 'version', 'pangolin_version', 'pangoLEARN_version', 'pango_version']].to_list()
+        temp = self.data.df_meta_orig[self.data.df_meta_orig.pango_lineage==target_lineage].sort_values(by='date').head(1)[['date', 'country']].values.tolist()[0]
+        first_date = str(temp[0].date())
+        first_country = temp[1]
+        self.data.df_v_info.loc[len(self.data.df_v_info.index)] = [ec19_sample_name, target_lineage, variant, 'EDGE', first_date, f'{first_country} {first_date}', '']
+
+        # init datasource
+        ds = cdata.PlotDataSource(self.data, target_lineage=target_lineage)
+        # init plots
+        sars_cov_2_plots = cplot.CovidPlots()
+        page = cplot.CovidViz(sars_cov_2_plots)
 
         # plot geo visualization
         ds.prepare_geo_country()
@@ -400,7 +404,7 @@ class GISAID_stats():
             ds.prepare_geo_state()
             sars_cov_2_plots.plot_geo_state(ds)
         elif geo_type=='state':
-            abbr =  region_state_map.state_abbv_lookup[self.state]
+            abbr = region_state_map.state_abbv_lookup[self.state]
             ds.prepare_geo_county(state=abbr)
             sars_cov_2_plots.plot_geo_county(ds)
                 
@@ -412,16 +416,42 @@ class GISAID_stats():
         ds.prepare_protein_hotspot()
         sars_cov_2_plots.plot_protein_hotspot(ds)
 
+        # Spike_substitution_tracking
+        ds.prepare_spike_substitution_tracking()
+        sars_cov_2_plots.plot_spike_substitution_tracking(ds)
+
         # lineage regional trending
-        lineage_regional_plot = self._regional_lineage_trending(ds.df_meta, target_lineage)
+        lineage_regional_plot = self._regional_lineage_trending(ds.data.df_meta, target_lineage)
         
         # trending plot
         ds.prepare_trends()
         sars_cov_2_plots.plot_trends(ds)
 
+        # lineage mutation plot
+        sars_cov_2_plots.plot_lineage_mutation_tracking(ds, target_variant=ec19_sample_name, target_lineage=target_lineage)
+
         # layouting plots
         logging.info(f'Layouting plots...')
         from bokeh.layouts import column, layout, gridplot
+        from datetime import date
+
+        update_date = date.today().strftime("%Y-%m-%d")
+
+        page.header.text = f"""
+        <H2>{ec19_sample_name}</H2>
+        <div>
+        Pango-lineage: {target_lineage} | 
+        Pango ver: {pango_ver} | 
+        Pangolin ver: {pangolin_ver} | 
+        PangoLEARN ver: {pangolearn_ver} |
+        Last update: {update_date} |
+        Enabled by data from 
+            <a href="https://www.gisaid.org/" target="_blank"><img src="http://gisaid.org/fileadmin/gisaid/img/schild.png" style="width: 71px; height: 25px; vertical-align: middle;" alt="GISAID Initiative" class="ml-2"></a>
+        </div>
+        """
+
+        page.trending_t.text = f"<H2>{target_lineage} Trending</H2>"
+        page.trending_p.text = f"Tracking {target_lineage} lineage circulating in the United States and calculates the proportion of lineage over weeks by HHS region (I-X). States of each region break down in tabs."
 
         layout = gridplot([
             [None, page.header, None],
@@ -445,7 +475,7 @@ class GISAID_stats():
         page.output_layout = column(
             layout,
             layout_lin, 
-            self.footer)
+            page.footer)
 
         # save html
         page.save_html(outfile=outfile)
@@ -510,9 +540,9 @@ class EC19_data():
             df_ec19['AA_pos']       = df_ec19['AA_pos'].astype(str)
             df_ec19["Mutation"]     = df_ec19.Product + ":" + df_ec19.aa_Ref + df_ec19.AA_pos.astype(str).str.replace(r'\.0$', '') + df_ec19.aa_Sub
             self.df_ec19 = df_ec19
-            logging.info(f'EC19 file ({self.filename_ec19}) loaded.')
+            logging.info(f'EC19 SNPs file ({self.filename_ec19}) loaded.')
         except:
-            logging.info(f'EC19 file ({self.filename_ec19}) not loaded.')
+            logging.info(f'EC19 SNPs file ({self.filename_ec19}) not loaded.')
 
         #
         # loading EC19 alnstats report 
@@ -522,9 +552,9 @@ class EC19_data():
                                         names=["Sample", "Ref_len", "Ref_GC_pct", "Mapped_reads", "Ref_recovery_pct", "Avg_fold_x", "Fold_std", "Num_of_Gap", "Total_Gap_bases", "Num_of_SNPs", "Num_of_INDELs"],
                                         comment='R')
             self.df_ec19_alnstats = df_ec19_alnstats
-            logging.info(f'EC19 file ({self.filename_alnstats}) loaded.')
+            logging.info(f'EC19 alnstats file ({self.filename_alnstats}) loaded.')
         except:
-            logging.info(f'EC19 file ({self.filename_alnstats}) not loaded.')
+            logging.info(f'EC19 alnstats file ({self.filename_alnstats}) not loaded.')
 
         #
         # loading EC19 pango lineage
@@ -536,9 +566,9 @@ class EC19_data():
             idx = df_ec19_pango['scorpio_call'].notnull()
             df_ec19_pango.loc[idx, 'variant'] = df_ec19_pango.loc[idx, 'scorpio_call']  
             self.df_ec19_pango = df_ec19_pango 
-            logging.info(f'EC19 file ({self.filename_pango}) loaded.')
+            logging.info(f'EC19 pango file ({self.filename_pango}) loaded.')
         except:
-            logging.info(f'EC19 file ({self.filename_pango}) not loaded.')
+            logging.info(f'EC19 pango file ({self.filename_pango}) not loaded.')
         
         #
         # loading EC19 metadata
@@ -549,9 +579,9 @@ class EC19_data():
             df_ec19_meta = df_ec19_meta.drop(df_ec19_meta[df_ec19_meta.virus_name=="virus_name"].index) # removing additional header lines
             df_ec19_meta = df_ec19_meta.dropna(subset=['virus_name']) # removing 'empty' lines
             self.df_ec19_meta = df_ec19_meta
-            logging.info(f'EC19 file ({self.filename_metadata}) loaded.')
+            logging.info(f'EC19 metadata file ({self.filename_metadata}) loaded.')
         except:
-            logging.info(f'EC19 file ({self.filename_metadata}) not loaded.')
+            logging.info(f'EC19 metadata file ({self.filename_metadata}) not loaded.')
 
         #
         # EC19 gaps report 
@@ -566,11 +596,10 @@ class EC19_data():
             idx = df_ec19_gaps['gap_aa_start']<=0
             df_ec19_gaps.loc[idx, 'gap_aa_start'] = 1
             self.df_ec19_gaps = df_ec19_gaps
-            logging.info(f'EC19 file ({self.filename_gaps}) loaded.')
+            logging.info(f'EC19 gaps file ({self.filename_gaps}) loaded.')
         except:
-            logging.info(f'EC19 file ({self.filename_gaps}) not loaded.')
+            logging.info(f'EC19 gaps file ({self.filename_gaps}) not loaded.')
         
-
     def generate_EC_repot(self):
         """
         The mehtod is used to generate following plots and save to a html file:

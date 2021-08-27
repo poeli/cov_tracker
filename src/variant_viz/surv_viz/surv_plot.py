@@ -68,14 +68,14 @@ class CovidPlots(object):
             return p
 
         # week_lineage_bar_plot raw number
-        p_tl = lineage_plot(ds.ds_week_lineage)
+        p_tl = lineage_plot(ds.ds_week_variant)
 
         t = Title()
         t.text = 'Lineage'
         p_tl.title = t
         
         # week_lineage_bar_plot raw freq
-        p_tl_freq = lineage_plot(ds.ds_week_lineage_freq)
+        p_tl_freq = lineage_plot(ds.ds_week_variant_freq)
         
         # plots in grid
         p_week_lineage = gridplot([[p_tl],[p_tl_freq]], toolbar_options=dict(logo=None))
@@ -603,10 +603,16 @@ class CovidPlots(object):
         self.trending_plot = row(p_trending_lin, p_trending_mu)
     
     
-    def plot_lineage_mutation_tracking(self, ds):
+    def plot_lineage_mutation_tracking(self, ds, target_variant=None, target_lineage=None):
         logging.info(f'Plotting lineage mutation tracking...')
         
-        def lineage_var_plot(lineage_name, df_lineage, mut_list, lineage_list, title, display_type='count'):
+        def lineage_var_plot(lineage_name, df_lineage, mut_list, lineage_list, title, display_type='count', target_lineage=None):
+
+            ds_week = ds.ds_week_variant_freq if display_type == 'prop' else ds.ds_week_variant
+            if target_lineage:
+                ds_week = ds.ds_week_lineage_freq if display_type == 'prop' else ds.ds_week_lineage
+                lineage_name = target_lineage
+
             # display raw count or proportion
             display_col = 'prop' if display_type == 'prop' else 'count'
 
@@ -642,9 +648,7 @@ class CovidPlots(object):
             p_count.axis.major_label_standoff = 0
             p_count.yaxis.minor_tick_line_color = None
             # p_count.yaxis.axis_label = 'Count (log)'
-            
-            ds_week = ds.ds_week_lineage_freq if display_type == 'prop' else ds.ds_week_lineage
-            
+                        
             p_count.vbar(
                x='week',
                top=lineage_name,
@@ -734,24 +738,27 @@ class CovidPlots(object):
             return (p_count, p_aa, p_variant)
 
 
-        lineage_list = ds.data.df_v_info.lineage
+        variant_list = ds.data.df_v_info.lineage
+        target_variants = variant_list
+        if target_variant:
+            target_variants = [target_variant] # only run the target variant
         lineage_plots_raw = []
         lineage_plots_prop = []
 
-        for lineage_name in lineage_list:
+        for variant_name in target_variants:
 
-            df_lineage, mut_list = ds.prepare_mutation_tracking_per_variant(lineage_name)
-            
+            df_lineage, mut_list = ds.prepare_mutation_tracking_per_variant(variant_name)
+
             # lineage info
-            v_info = ds.data.df_v_info[ds.data.df_v_info.lineage==lineage_name]
+            v_info = ds.data.df_v_info[ds.data.df_v_info.lineage==variant_name]
             nextstrain_clade = v_info.iloc[0,1]
             v_type = v_info.iloc[0,2]
-            first_detected = v_info.iloc[0,3]
+            first_detected = v_info.iloc[0,5]
             
-            title = f'{lineage_name} ({nextstrain_clade}) {v_type} first detected in {first_detected}'
+            title = f'{variant_name} ({nextstrain_clade}) {v_type} first detected in {first_detected}'
             
             # calculating raw counts
-            (p_count, p_aa, p_voc) = lineage_var_plot(lineage_name, df_lineage, mut_list, lineage_list, title, 'count')
+            (p_count, p_aa, p_voc) = lineage_var_plot(variant_name, df_lineage, mut_list, variant_list, title, 'count', target_lineage)
             lineage_plots_raw.append(
                 gridplot([
                     [p_count, None],
@@ -760,7 +767,7 @@ class CovidPlots(object):
             )
 
             # calculating propotion charts
-            (p_count, p_aa, p_voc) = lineage_var_plot(lineage_name, df_lineage, mut_list, lineage_list, title,'prop')
+            (p_count, p_aa, p_voc) = lineage_var_plot(variant_name, df_lineage, mut_list, variant_list, title,'prop', target_lineage)
             lineage_plots_prop.append(
                 gridplot([
                     [p_count, None],
@@ -801,10 +808,9 @@ class CovidViz(object):
 
         self.template = """
 {% block postamble %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <style type="text/css">
-@import url('https://fonts.googleapis.com/css?family=Quicksand');
+/* @import url('https://fonts.googleapis.com/css?family=Quicksand');
 H1, H2, H3 {
     margin-top: 1em;
     font-weight: 600;
@@ -815,7 +821,7 @@ H1 {
 }
 H2 {
     font-size: 1.5rem;
-}
+} */
 
 .bk-tabs-header .bk-tab.bk-active {
     background-color: #e6e6e6 !important;
@@ -842,7 +848,6 @@ H2 {
         self.padding_div = Div(text=' ', width=150)
 
         # geo_country_t
-
         self.header = Div(text=f"""
         <H1>{self.title}</H1>
         <div>
@@ -853,7 +858,6 @@ H2 {
         """, width=self.plots.main_plot_width)
 
         # geo_country_p
-        
         self.geo_p = Paragraph(text="""
         Multiple variants of SARS-CoV-2, the virus that causes COVID-19, have emerged or spread throughout different parts of the world, including the United States. Variant viruses may carry mutations that could be associated with differences in diagnostic test performance, changes in disease epidemiology, clinical outcomes, and effectiveness of certain therapeutics or vaccines. The genome information and metadata are downloaded from the Global Initiative on Sharing Avian Influenza Data (GISAID).
         """, width=self.plots.main_plot_width)
