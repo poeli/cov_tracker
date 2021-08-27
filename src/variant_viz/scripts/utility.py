@@ -462,6 +462,7 @@ class GISAID_stats():
         page.trending_p.text = f"Tracking {target_lineage} lineage circulating in the United States and calculates the proportion of lineage over weeks by HHS region (I-X). States of each region break down in tabs."
 
         page.lineage_mutation_tracking_t.text = f"""<H2>Characteristics of {ec19_sample_name}</H2>"""
+        page.plots.geo_plot.title.text = 'Genome sequence distribution (last 90 days)'
 
         layout = gridplot([
             [None, page.header, None],
