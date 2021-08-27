@@ -361,7 +361,7 @@ class GISAID_stats():
 
         return column(p_variant_trend_w_r_col, region_tabs)
 
-    def generate_ec19_sample_html(self, ec19_sample_name, ec19_snp_file, ec19_pango_file, outfile, geo_type):
+    def generate_ec19_sample_html(self, ec19_sample_name, ec19_snp_file, ec19_pango_file, outfile, geo_type, virus_name, collection_date, location):
         """
         Generate stats html file for input EC19
         """
@@ -437,10 +437,18 @@ class GISAID_stats():
 
         update_date = date.today().strftime("%Y-%m-%d")
 
+        title = ec19_sample_name
+        if virus_name:
+            title += f" ({virus_name})"
+        #if collection_date:
+        #    title += f" | {collection_date}"
+        #if location:
+        #    title += f" | {location}"
+
         page.header.text = f"""
-        <H2>{ec19_sample_name}</H2>
+        <H2>{title}</H2>
         <div>
-        Pango-lineage: {target_lineage} | 
+        {target_lineage} | 
         Pango ver: {pango_ver} | 
         Pangolin ver: {pangolin_ver} | 
         PangoLEARN ver: {pangolearn_ver} |
@@ -452,6 +460,8 @@ class GISAID_stats():
 
         page.trending_t.text = f"<H2>{target_lineage} Trending</H2>"
         page.trending_p.text = f"Tracking {target_lineage} lineage circulating in the United States and calculates the proportion of lineage over weeks by HHS region (I-X). States of each region break down in tabs."
+
+        page.lineage_mutation_tracking_t.text = f"""<H2>Characteristics of {ec19_sample_name}</H2>"""
 
         layout = gridplot([
             [None, page.header, None],
@@ -478,7 +488,33 @@ class GISAID_stats():
             page.footer)
 
         # save html
-        page.save_html(outfile=outfile)
+        template = """
+{% block postamble %}
+<style type="text/css">
+H1, H2, H3 {
+    margin-top: 1em;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
+}
+H1 {
+    font-size: 2em;
+}
+H2 {
+    font-size: 1.5em;
+}
+
+.bk-tabs-header .bk-tab.bk-active {
+    background-color: #e6e6e6 !important;
+}
+.plot-tooltip {
+    margin: 10px;
+}
+.bk-root {
+    display: flex !important;
+    justify-content: center !important;
+}
+</style>
+{% endblock %}"""
+        page.save_html(outfile=outfile, template=template)
 
 
 class EC19_data():

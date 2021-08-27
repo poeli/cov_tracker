@@ -87,6 +87,10 @@ def gisaid_stats(meta_pkl, mut_pkl, geo_type, country, state, output):
               help='EC19 Pangolin lineage tsv file (NC_045512.2_consensus_lineage.txt)',
               required=True,
               type=click.File(mode='r'))
+@click.option('-m', '--metadata',
+              help='EC19 metadata file (metadata_gisaid_ncbi.txt)',
+              required=True,
+              type=click.File(mode='r'))
 @click.option('-o', '--output',
               help='output filename for stats html',
               required=True,
@@ -104,15 +108,30 @@ def gisaid_stats(meta_pkl, mut_pkl, geo_type, country, state, output):
               required=False,
               type=str)
 
-def project(meta_pkl, mut_pkl, sample, snps, pango, output, geo_type, country, state):
+def project(meta_pkl, mut_pkl, sample, snps, pango, metadata, output, geo_type, country, state):
     """
     Generate a stats html for a particular EC19 project
     """
     if geo_type=='state' and state==None:
         print(f"ERROR: --geo-type is set to 'state' but --state is not specified.")
         sys.exit(1)
+    
+    virus_name=None
+    collection_date=None
+    location=None
+
+    for line in metadata:
+        line.strip()
+        f = line.split('=')
+        if line.startswith('virus_name'):
+            virus_name = f[1]
+        if line.startswith('collection_date'):
+            collection_date = f[1]
+        if line.startswith('location'):
+            location = f[1]
+
     gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl, country=country, state=state)
-    gisaid.generate_ec19_sample_html(sample, snps, pango, output, geo_type)
+    gisaid.generate_ec19_sample_html(sample, snps, pango, output, geo_type, virus_name, collection_date, location)
 
 @vizcli.command('report')
 @click.option('-s', '--snps',
