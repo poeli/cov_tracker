@@ -25,6 +25,7 @@ def tsv2pkl(tsv, prefix):
     """
     Convert GISAID metadata.tsv file to .pkl files
     """
+    print(f"Running tsv2pkl command on...")
     gisaid = GISAID_stats(gisaid_tsv=tsv)
     gisaid.tsv2pkl(prefix)
 
@@ -59,6 +60,7 @@ def gisaid_stats(meta_pkl, mut_pkl, geo_type, country, state, output):
     """
     Generate a stats html file from GISAID data
     """
+    print(f"Running gisaid_stats command...")
     if geo_type=='state' and state==None:
         print(f"ERROR: --geo-type is set to 'state' but --state is not specified.")
         sys.exit(1)
@@ -115,7 +117,8 @@ def project(meta_pkl, mut_pkl, sample, snps, pango, metadata, output, geo_type, 
     if geo_type=='state' and state==None:
         print(f"ERROR: --geo-type is set to 'state' but --state is not specified.")
         sys.exit(1)
-    
+
+    print(f"Running project command...")
     virus_name=None
     collection_date=None
     location=None
@@ -163,6 +166,7 @@ def report(snps, gaps, alnstats, pango, metadata, output):
     """
     Generate a visualization report for EDGE-Covid19 workflow
     """
+    print(f"Running report command...")
     report = EC19_data(snps, gaps, alnstats, pango, metadata, output)
     report.generate_EC_repot()
 

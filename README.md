@@ -40,13 +40,13 @@ ec19_varviz gisaid_stats \
 ec19_varviz project \
     --meta-pkl test/metadata.pkl \
     --mut-pkl  test/metadata.mutation.pkl \
-    --sample   "2251_119" \
-    --snps     test/2251_119.snp.tsv \
-    --pango    test/2251_119.lineage_report.tsv \
+    --sample   2251_127 \
+    --snps     test/NC_045512.2_consensus.SNPs_report.txt \
+    --pango    test/NC_045512.2_consensus_lineage.txt \
     --metadata test/metadata_gisaid_ncbi.txt \
     --geo-type country \
     --country  USA \
-    --output   test/ec19_project_test.html
+    --output   test/ec19_project_2251_127.html
 
 # generate report for EC19 projects
 ec19_varviz report \
