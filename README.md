@@ -36,13 +36,14 @@ ec19_varviz gisaid_stats \
     --state    California \
     --output   test/metadata_CA.html
 
-# generate lineage tracking info for an EC19 project
+# generate lineage tracking info for an EC19 project (USA only)
 ec19_varviz project \
     --meta-pkl test/metadata.pkl \
     --mut-pkl  test/metadata.mutation.pkl \
     --sample   "2251_119" \
     --snps     test/2251_119.snp.tsv \
     --pango    test/2251_119.lineage_report.tsv \
+    --metadata test/metadata_gisaid_ncbi.txt \
     --geo-type country \
     --country  USA \
     --output   test/ec19_project_test.html
