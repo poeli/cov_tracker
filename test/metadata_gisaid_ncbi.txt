@@ -1,0 +1,10 @@
+virus_name=hCoV-19/USA/LANL/2021
+virus_passage=
+collection_date=2021-06-21
+location=USA/New Mexico
+host=
+gender=
+age=
+status=
+sequencing_technology=
+bioproject=

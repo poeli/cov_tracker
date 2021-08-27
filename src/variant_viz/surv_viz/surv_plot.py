@@ -808,20 +808,19 @@ class CovidViz(object):
 
         self.template = """
 {% block postamble %}
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <style type="text/css">
-/* @import url('https://fonts.googleapis.com/css?family=Quicksand');
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
 H1, H2, H3 {
     margin-top: 1em;
-    font-weight: 600;
     font-family: Quicksand;
 }
 H1 {
-    font-size: 2rem;
+    font-size: 2em;
 }
 H2 {
-    font-size: 1.5rem;
-} */
+    font-size: 1.5em;
+}
 
 .bk-tabs-header .bk-tab.bk-active {
     background-color: #e6e6e6 !important;
