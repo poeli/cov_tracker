@@ -446,13 +446,13 @@ class GISAID_stats():
         #    title += f" | {location}"
 
         page.header.text = f"""
-        <H2>{title}</H2>
+        <H1>{title}</H1>
         <div>
         {target_lineage} | 
         Pango ver: {pango_ver} | 
         Pangolin ver: {pangolin_ver} | 
         PangoLEARN ver: {pangolearn_ver} |
-        Last update: {update_date} |
+        Report generated: {update_date} |
         Enabled by data from 
             <a href="https://www.gisaid.org/" target="_blank"><img src="http://gisaid.org/fileadmin/gisaid/img/schild.png" style="width: 71px; height: 25px; vertical-align: middle;" alt="GISAID Initiative" class="ml-2"></a>
         </div>
@@ -494,6 +494,7 @@ class GISAID_stats():
 <style type="text/css">
 H1, H2, H3 {
     margin-top: 1em;
+    font-weight: 400;
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
 }
 H1 {

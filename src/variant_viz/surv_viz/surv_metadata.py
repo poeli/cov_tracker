@@ -156,12 +156,15 @@ class CovidMetadata(object):
         # cleaning parentheses, unwanted strings in aa_sub
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('\(|\)', '')
         df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'NS[\w\d]+,?', '') # NSP\d+ and NS\d+ are removed for now until we can map them to the protein
+        df_mutation['mutation'] = df_mutation['mutation'].str.replace(r',[^,]+_ins[\w\d]+', '') # remove insertion
         df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'Spike', 'S')
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('del', '*')
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('_', ':')
 
         # split variants, explode into rows, and extract genes/positions
-        df_mutation = df_mutation.assign(variant=df_mutation['mutation'].str.split(',')).explode('mutation')
+        df_mutation = df_mutation.assign(variant=df_mutation['mutation'].str.split(',')).explode('variant')
+        df_mutation = df_mutation.drop(columns=['mutation'])
+        df_mutation = df_mutation.rename(columns={'variant': 'mutation'})
         df_mutation[['gene','pos']] = df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
 
         # dropping reference genomes

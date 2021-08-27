@@ -1,5 +1,5 @@
 ec19_varviz tsv2pkl \
-    --tsv    ../sars-cov-2_viz/stats/metadata_2021-08-19.tsv \
+    --tsv    test/metadata.tsv \
     --prefix test/metadata
 
 ec19_varviz gisaid_stats \
@@ -33,12 +33,13 @@ ec19_varviz gisaid_stats \
 ec19_varviz project \
     --meta-pkl test/metadata.pkl \
     --mut-pkl  test/metadata.mutation.pkl \
-    --sample   "2251_119" \
-    --snps     test/2251_119.snp.tsv \
-    --pango    test/2251_119.lineage_report.tsv \
-    --geo-type state \
+    --sample   2251_127 \
+    --snps     test/NC_045512.2_consensus.SNPs_report.txt \
+    --pango    test/NC_045512.2_consensus_lineage.txt \
+    --metadata test/metadata_gisaid_ncbi.txt \
+    --geo-type country \
     --country  USA \
-    --output   test/ec19_project_test.html
+    --output   test/ec19_project_2251_127.html
 
 ec19_varviz report \
     --snps     test/lanl_project_list.SNP.tsv \
