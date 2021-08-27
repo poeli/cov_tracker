@@ -1,4 +1,5 @@
 import os
+import io
 import logging
 import variant_viz.surv_viz.surv_datasource as cdata
 import variant_viz.surv_viz.surv_metadata as cm
@@ -9,18 +10,11 @@ import numpy as np
 from datetime import date
 from math import pi
 
-from bokeh.io import output_file, show, output_notebook
+from bokeh.io import output_file
 from bokeh.plotting import figure, save
 from bokeh.models import Div, Paragraph
 from bokeh.layouts import column, row, layout, gridplot
-from bokeh.models import (BoxZoomTool, Circle, HoverTool,
-                          MultiLine, Plot, Range1d, ResetTool,
-                          BasicTicker, ColorBar, LinearColorMapper, 
-                          PrintfTickFormatter, LogColorMapper, RangeTool,
-                          Panel, Tabs, Legend, ColumnDataSource,
-                          DataTable, DateFormatter, TableColumn, BoxAnnotation)
-from bokeh.models.annotations import Title
-from bokeh.palettes import Spectral11, Blues9, d3, Category20c
+from bokeh.models import HoverTool, ColumnDataSource
 
 logging.basicConfig(
     level=logging.INFO,
@@ -29,7 +23,7 @@ logging.basicConfig(
 )
 
 class GISAID_stats():
-    def __init__(self, gisaid_tsv=None, gisaid_pkl=None, gisaid_mutation_pkl=None, geo_type='global', country=None, state=None):
+    def __init__(self, gisaid_tsv=None, gisaid_pkl=None, gisaid_mutation_pkl=None, country=None, state=None):
         self.country = country
         self.state = state
 
@@ -56,7 +50,7 @@ class GISAID_stats():
         """
         Generate stats html file
         """
-        region_state_map = cdata.StatesRegionsLookup()
+        region_state_map = cplot.StatesRegionsLookup()
 
         # init datasource
         ds = cdata.PlotDataSource(self.data)
@@ -102,13 +96,397 @@ class GISAID_stats():
         # save html
         page.save_html(outfile=outfile)
 
+    def _regional_lineage_trending(self, df_meta, target_lineage):
+        """
+        Tracking trending of 10 regions for input lineage
+        """
 
-class EC19_Report():
+        from math import pi
+        from bokeh.layouts import column
+        from bokeh.plotting import figure
+        from bokeh.models import (Circle, HoverTool, Panel, Tabs)
+        from bokeh.models import ColumnDataSource
+        import pandas as pd
+
+        def update_df_lineage_week_us_states(df_meta, region, **kwargs):
+            # get entries for target states
+            df = df_meta[df_meta.us_region==region]
+            # total target_lineage count for week/state
+            df_lineage_trend_w_s_total = pd.crosstab(df.week, df.division)
+            # get column=value pair and limit the lineage;
+            # like lineage='AY.2' or variant=''
+            for col, value in kwargs.items():
+                df_lineage_trend = df[df[col]==value]
+
+            df_lineage_trend_w_s = pd.crosstab(df_lineage_trend.week, df_lineage_trend.division)
+            
+            df_lineage_trend_w_s_prop = df_lineage_trend_w_s.div(df_lineage_trend_w_s_total)
+            df_lineage_trend_w_s_prop = df_lineage_trend_w_s_prop.dropna(how='all', axis=1)
+            df_lineage_trend_w_s_prop = df_lineage_trend_w_s_prop.dropna(how='all', axis=0)
+            df_lineage_trend_w_s_prop = df_lineage_trend_w_s_prop.fillna(0)
+            df_lineage_trend_w_s_prop = df_lineage_trend_w_s_prop.add_suffix('_prop')
+
+            # join proportional df with the raw count df
+            df_lineage_trend_w_s = df_lineage_trend_w_s.join(df_lineage_trend_w_s_prop, how='outer')
+            
+            return ColumnDataSource(df_lineage_trend_w_s)
+
+        def update_df_lineage_week_us_regions(df_meta, **kwargs):
+            df_lineage_trend = pd.DataFrame()
+            for col, value in kwargs.items():
+                df_lineage_trend = df_meta[df_meta[col]==value]
+            # total target_lineage count for week/region
+            df_lineage_trend_w_s_total = pd.crosstab(df_meta.week, df_meta.us_region)
+            df_lineage_trend_w_s = pd.crosstab(df_lineage_trend.week, df_lineage_trend.us_region)
+            df_lineage_trend_w_s_prop = df_lineage_trend_w_s.div(df_lineage_trend_w_s_total)
+            df_lineage_trend_w_s_prop = df_lineage_trend_w_s_prop.dropna(how='all', axis=1)
+            df_lineage_trend_w_s_prop = df_lineage_trend_w_s_prop.dropna(how='all', axis=0)
+            df_lineage_trend_w_s_prop = df_lineage_trend_w_s_prop.fillna(0)
+            df_lineage_trend_w_s_prop = df_lineage_trend_w_s_prop.add_suffix('_prop')
+
+            # join proportional df with the raw count df
+            df_lineage_trend_w_s = df_lineage_trend_w_s.join(df_lineage_trend_w_s_prop, how='outer')
+
+            return ColumnDataSource(df_lineage_trend_w_s)
+
+        def value(r):
+            r = r.replace('_prop','')
+            if r == 'I': return 1
+            if r == 'V': return 5
+            if r == 'X': return 10   
+            if r == 'L': return 50   
+            if r == 'C': return 100  
+            if r == 'D': return 500  
+            if r == 'M': return 1000 
+            return -1
+
+        # Function to return the decimal value
+        # of a roman numaral
+        def romanToDecimal(st):
+            # Initialize result
+            res = 0
+            # Traverse given input
+            i = 0
+            while i < len(st):
+                # Getting value of symbol s[i]
+                s1 = value(st[i])
+                if (i + 1 < len(st)):
+                    # Getting value of symbol s[i+1]
+                    s2 = value(st[i + 1])
+                    # Comparing both values
+                    if (s1 >= s2):
+                        # Value of current symbol
+                        # is >= the next symbol
+                        res = res + s1
+                    else :
+                        # Value of current symbol
+                        # is < the next symbol
+                        res = res + s2 - s1
+                        i += 1
+                else :
+                    res = res + s1
+                i += 1
+
+            return res
+
+        # Function to sort the array according to
+        # the increasing order
+        def sortArr(arr):
+
+            n = len(arr)
+
+            # Vector to store the roman to integer
+            # with respective elements
+            vp = {}
+
+            # Inserting roman to integer
+            # with respective elements in vector pair
+            for i in range(n):
+                p = romanToDecimal(arr[i])
+                vp[p] = arr[i]
+
+            # Sort the vector, this will sort the pair
+            # according to the increasing order.
+            return [vp[i] for i in sorted(vp)]
+
+        def plot_trend(ds, title):
+            from bokeh.palettes import viridis, magma
+
+            location_prop_list=[]
+            location_count_list=[]
+            for location in list(ds.data.keys())[1::]:
+                if '_prop' in location:
+                    location_prop_list.append(location)
+                else:
+                    location_count_list.append(location)
+
+            # sort 
+            location_prop_list = sortArr(location_prop_list)
+            location_count_list = sortArr(location_count_list)
+
+            # figure of trends
+            TOOLS = "tap,save,pan,ypan,box_zoom,reset,wheel_zoom,ywheel_zoom"
+
+            # Colors of locations
+            colors = viridis(len(location_count_list))
+            #colors = brewer['Paired'][len(location_list)]
+
+
+            # raw counting plot on the top    
+            p_trending_vbar = figure(
+                title=title,
+                plot_width=1000,
+                plot_height=200,
+                x_range=ds.data['week'],
+                toolbar_location=None, 
+                tools=TOOLS,
+                output_backend="svg",
+            )
+
+            p_trending_vbar.vbar_stack(location_count_list, x='week', width=0.8, color=colors, source=ds)
+
+            p_trending_vbar.ygrid.grid_line_color = None
+            p_trending_vbar.xgrid.grid_line_color = None
+            p_trending_vbar.xaxis.major_tick_line_color = None
+            p_trending_vbar.xaxis.major_label_text_font_size = '0pt'
+            p_trending_vbar.axis.minor_tick_line_color = None
+
+            hover = HoverTool(
+                tooltips = [
+                    ('Location', '$name'),
+                    ('Week', '@week'),
+                    ('Count', '@$name{0,0}')
+                ], names = location_count_list)
+            p_trending_vbar.add_tools(hover)
+
+
+            # Prop plot
+            p_trending = figure(
+                plot_width=1000,
+                plot_height=390,
+                x_range=p_trending_vbar.x_range,
+                toolbar_location='below', 
+                tools=TOOLS,
+                output_backend="svg",
+            )
+
+            # grey_box = BoxAnnotation(
+            #     left=len(ds.data['week'])-1, 
+            #     fill_alpha=0.05, line_color=None, fill_color='grey', 
+            #     hatch_pattern='/',
+            #     hatch_color='white',
+            #     hatch_alpha=0.5,
+            # )
+            #
+            # p_trending.add_layout(grey_box)
+
+            for location, color in zip(location_prop_list, colors):
+                p_trending.line(
+                    'week',
+                    location,
+                    line_color=color,
+                    line_width=2,
+                    line_alpha=0.8,
+                    legend_label=location,
+                    source=ds
+                )
+
+                cr = p_trending.circle(
+                    'week',
+                    location,
+                    size=7,
+                    line_width=2,
+                    fill_color='white',
+                    line_alpha=0.8,
+                    line_color=color,
+                    name=location,
+                    legend_label=location,
+                    source=ds
+                )
+
+                selected_circle = Circle(fill_color=color, line_color=color, line_alpha=0.8)
+                cr.selection_glyph = selected_circle
+
+            hover = HoverTool(
+                tooltips = [
+                    ('Location', '$name'),
+                    ('Week', '@week'),
+                    ('Proportion', '@$name{0.00%}')
+                ], names = location_prop_list)
+            # hover.point_policy = "follow_mouse"    
+            p_trending.add_tools(hover)
+
+            p_trending.legend.location = "top_left"
+            p_trending.legend.click_policy="hide"
+
+            p_trending.toolbar.logo = None
+            p_trending.toolbar.autohide = True
+            # p_trending.xaxis.major_tick_line_color = None
+            p_trending.xaxis.major_label_orientation = pi/3
+            p_trending.xgrid.grid_line_color = None
+            p_trending.ygrid.grid_line_color = None
+
+            return column([p_trending_vbar, p_trending])
+
+        # Tracking trending of 10 regions for input lineage
+        # For each region, tracking belonging states
+        tabs = []
+
+        # add region to metadata dataframe
+        region_state_map = cplot.StatesRegionsLookup()
+        df_meta['us_region'] = df_meta['division'].apply(region_state_map.state_to_region)
+
+        # ds_variant_trend_w_r = update_df_lineage_week_us_regions(df_meta, lineage=target)
+        ds_variant_trend_w_r = update_df_lineage_week_us_regions(df_meta, pango_lineage=target_lineage)
+
+        p_variant_trend_w_r_col = plot_trend(ds_variant_trend_w_r, target_lineage)
+
+        for l in p_variant_trend_w_r_col.children[1].legend.items:
+            l.label['value'] = f"Region {l.label['value'].replace('_prop', '')}"
+            #l.label['value'] = f'{region} ({", ".join(region_state_map.region_abbv_lookup[region])})'
+
+        # add tab for each region
+        for region in region_state_map.get_all_regions():
+            # ds_variant_trend_w_s = update_df_lineage_week_us_states(df_meta, region, lineage=target)
+            ds_variant_trend_w_s = update_df_lineage_week_us_states(df_meta, region, pango_lineage=target_lineage)
+            p_variant_trend_w_s_col = plot_trend(ds_variant_trend_w_s, f'{target_lineage} (regions {region})')
+
+            for l in p_variant_trend_w_s_col.children[1].legend.items:
+                l.label['value'] = l.label['value'].replace('_prop', '')
+
+            panel = Panel(child=p_variant_trend_w_s_col, title=f'Region {region}')
+            tabs.append(panel)
+
+        region_tabs = Tabs(tabs=tabs)
+
+        return column(p_variant_trend_w_r_col, region_tabs)
+
+    def generate_ec19_sample_html(self, ec19_sample_name, ec19_snp_file, ec19_pango_file, outfile, geo_type):
+        """
+        Generate stats html file for input EC19
+        """
+
+        region_state_map = cplot.StatesRegionsLookup()
+
+        # Need to load EC19 project's SNP file and parse them. After we extract the fields,
+        # add the mutations as a variant to ds.data.df_v_muta
+        ec19_obj = EC19_data(snps=ec19_snp_file, pango=ec19_pango_file)
+        df_ec19 = ec19_obj.df_ec19
+
+        df_ec19_s_mut = df_ec19[df_ec19.Product=='S'].copy()
+        df_ec19_s_mut['Chromosome'] = ec19_sample_name
+        df_ec19_s_mut = df_ec19_s_mut[['Chromosome','Mutation','Product','AA_pos']].rename(columns={'Chromosome':'lineage', 'Mutation':'mutation', 'Product':'gene', 'AA_pos':'pos'})
+        df_ec19_s_mut['not_all'] = 'N'
+
+        self.data.df_v_muta = pd.concat([self.data.df_v_muta, df_ec19_s_mut])
+
+        # 1) Retrieving pango-lineage and related information
+        # 2) Finding the first date and country of the lineage
+        # 3) Add this sample as a variant to ds.data.df_v_info
+        [target_lineage, variant, version, pangolin_ver, pangolearn_ver, pango_ver] = ec19_obj.df_ec19_pango.loc[0, ['lineage', 'variant', 'version', 'pangolin_version', 'pangoLEARN_version', 'pango_version']].to_list()
+        temp = self.data.df_meta_orig[self.data.df_meta_orig.pango_lineage==target_lineage].sort_values(by='date').head(1)[['date', 'country']].values.tolist()[0]
+        first_date = str(temp[0].date())
+        first_country = temp[1]
+        self.data.df_v_info.loc[len(self.data.df_v_info.index)] = [ec19_sample_name, target_lineage, variant, 'EDGE', first_date, f'{first_country} {first_date}', '']
+
+        # init datasource
+        ds = cdata.PlotDataSource(self.data, target_lineage=target_lineage)
+        # init plots
+        sars_cov_2_plots = cplot.CovidPlots()
+        page = cplot.CovidViz(sars_cov_2_plots)
+
+        # plot geo visualization
+        ds.prepare_geo_country()
+
+        if geo_type=='global':
+            sars_cov_2_plots.plot_geo_country(ds)
+        elif geo_type=='country':
+            ds.prepare_geo_state()
+            sars_cov_2_plots.plot_geo_state(ds)
+        elif geo_type=='state':
+            abbr = region_state_map.state_abbv_lookup[self.state]
+            ds.prepare_geo_county(state=abbr)
+            sars_cov_2_plots.plot_geo_county(ds)
+                
+        # week_lineage_bar_plot
+        ds.prepare_week_lineage_bar_ds()
+        sars_cov_2_plots.plot_week_lineage_bar(ds)
+
+        # protein_hotspot_plot
+        ds.prepare_protein_hotspot()
+        sars_cov_2_plots.plot_protein_hotspot(ds)
+
+        # Spike_substitution_tracking
+        ds.prepare_spike_substitution_tracking()
+        sars_cov_2_plots.plot_spike_substitution_tracking(ds)
+
+        # lineage regional trending
+        lineage_regional_plot = self._regional_lineage_trending(ds.data.df_meta, target_lineage)
+        
+        # trending plot
+        ds.prepare_trends()
+        sars_cov_2_plots.plot_trends(ds)
+
+        # lineage mutation plot
+        sars_cov_2_plots.plot_lineage_mutation_tracking(ds, target_variant=ec19_sample_name, target_lineage=target_lineage)
+
+        # layouting plots
+        logging.info(f'Layouting plots...')
+        from bokeh.layouts import column, layout, gridplot
+        from datetime import date
+
+        update_date = date.today().strftime("%Y-%m-%d")
+
+        page.header.text = f"""
+        <H2>{ec19_sample_name}</H2>
+        <div>
+        Pango-lineage: {target_lineage} | 
+        Pango ver: {pango_ver} | 
+        Pangolin ver: {pangolin_ver} | 
+        PangoLEARN ver: {pangolearn_ver} |
+        Last update: {update_date} |
+        Enabled by data from 
+            <a href="https://www.gisaid.org/" target="_blank"><img src="http://gisaid.org/fileadmin/gisaid/img/schild.png" style="width: 71px; height: 25px; vertical-align: middle;" alt="GISAID Initiative" class="ml-2"></a>
+        </div>
+        """
+
+        page.trending_t.text = f"<H2>{target_lineage} Trending</H2>"
+        page.trending_p.text = f"Tracking {target_lineage} lineage circulating in the United States and calculates the proportion of lineage over weeks by HHS region (I-X). States of each region break down in tabs."
+
+        layout = gridplot([
+            [None, page.header, None],
+            [None, page.geo_p, None],
+            [None, page.plots.geo_plot, None],
+            [None, column(page.week_lineage_bar_t, page.week_lineage_bar_p), None],
+            [None, page.plots.week_lineage_bar_plot, None],
+            [None, column(page.trending_t, page.trending_p), None],
+            [None, lineage_regional_plot, None],
+            [None, column(page.spike_substitution_tracking_t, page.spike_substitution_tracking_p), None],
+            [None, page.plots.protein_hotspot_plot, None],
+            [None, page.plots.spike_substitution_tracking_plot_top, None],
+            [page.plots.spike_substitution_tracking_plot_left, page.plots.spike_substitution_tracking_plot_main, page.plots.spike_substitution_tracking_plot_right],
+        ], merge_tools=False)
+
+        layout_lin = gridplot([
+            [page.padding_div, column(page.lineage_mutation_tracking_t, page.lineage_mutation_tracking_p)],
+            [None, page.plots.lineage_mutation_tracking_plot]
+        ], merge_tools=False)
+        
+        page.output_layout = column(
+            layout,
+            layout_lin, 
+            page.footer)
+
+        # save html
+        page.save_html(outfile=outfile)
+
+
+class EC19_data():
     """
     Generate a visualization report for EDGE-Covid19 workflow
     """
 
-    def __init__(self, snps, gaps, alnstats, pango, metadata, output):
+    def __init__(self, snps=None, gaps=None, alnstats=None, pango=None, metadata=None, output=None):
         surv_viz_data_path = os.path.dirname(cm.__file__)
         self.data = cm.CovidMetadata(
             filename_cnty_tsv     = f"{surv_viz_data_path}/data/country_coordinate.tsv",
@@ -117,13 +495,111 @@ class EC19_Report():
             filename_anno_tsv     = f"{surv_viz_data_path}/data/S_protein_anno.tsv",
         )
 
-        self.filename_ec19 = snps
-        self.filename_alnstats = alnstats
-        self.filename_pango = pango
-        self.filename_metadata = metadata
-        self.filename_gaps = gaps
-        self.filename_output = output
+        # input files
+        self.filename_ec19     = snps.name     if isinstance(snps, io.IOBase) else snps
+        self.filename_alnstats = alnstats.name if isinstance(alnstats, io.IOBase) else alnstats
+        self.filename_pango    = pango.name    if isinstance(pango, io.IOBase) else pango
+        self.filename_metadata = metadata.name if isinstance(metadata, io.IOBase) else metadata
+        self.filename_gaps     = gaps.name     if isinstance(gaps, io.IOBase) else gaps
+        self.filename_output   = output.name   if isinstance(output, io.IOBase) else output
 
+        # processed files
+        self.df_ec19 = pd.DataFrame()
+        self.df_ec19_alnstats = pd.DataFrame()
+        self.df_ec19_pango = pd.DataFrame()
+        self.df_ec19_meta = pd.DataFrame()
+        self.df_ec19_gaps = pd.DataFrame()
+        self._process()
+
+    def _process(self):
+        #
+        # loading EC19 SNP report
+        #
+        try:
+            df_ec19 = pd.read_csv(self.filename_ec19, sep="\t")
+            df_ec19 = df_ec19.drop(df_ec19[df_ec19.Chromosome=="Chromosome"].index)
+
+            # loading dropping mutations in intergenic regions
+            df_ec19 = df_ec19.dropna(subset=['CDS_start'])
+
+            # remove Synonymous changes
+            df_ec19 = df_ec19.drop(df_ec19[df_ec19.Synonymous=="Yes"].index)
+
+            # converting product names to abbreviations
+            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].str.lower()
+            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace(regex=[r'^\S+\d+:', ' \S*protein'], value='')
+            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('nucleocapsid', 'N')
+            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('surface', 'S')
+            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('membrane', 'M')
+            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('envelope', 'E')   
+            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].str.capitalize()
+            df_ec19['CDS_start']    = df_ec19['CDS_start'].astype(int)
+            df_ec19['CDS_end']      = df_ec19['CDS_end'].astype(int)
+            df_ec19['SNP_position'] = df_ec19['SNP_position'].astype(int)
+            df_ec19['AA_pos']       = np.int16((df_ec19['SNP_position']-df_ec19['CDS_start'])/3)+1
+            df_ec19['AA_pos']       = df_ec19['AA_pos'].astype(str)
+            df_ec19["Mutation"]     = df_ec19.Product + ":" + df_ec19.aa_Ref + df_ec19.AA_pos.astype(str).str.replace(r'\.0$', '') + df_ec19.aa_Sub
+            self.df_ec19 = df_ec19
+            logging.info(f'EC19 SNPs file ({self.filename_ec19}) loaded.')
+        except:
+            logging.info(f'EC19 SNPs file ({self.filename_ec19}) not loaded.')
+
+        #
+        # loading EC19 alnstats report 
+        # 
+        try:
+            df_ec19_alnstats = pd.read_csv(self.filename_alnstats, sep="\t", 
+                                        names=["Sample", "Ref_len", "Ref_GC_pct", "Mapped_reads", "Ref_recovery_pct", "Avg_fold_x", "Fold_std", "Num_of_Gap", "Total_Gap_bases", "Num_of_SNPs", "Num_of_INDELs"],
+                                        comment='R')
+            self.df_ec19_alnstats = df_ec19_alnstats
+            logging.info(f'EC19 alnstats file ({self.filename_alnstats}) loaded.')
+        except:
+            logging.info(f'EC19 alnstats file ({self.filename_alnstats}) not loaded.')
+
+        #
+        # loading EC19 pango lineage
+        #
+        try:
+            df_ec19_pango = pd.read_csv(self.filename_pango)
+            df_ec19_pango.loc[:,'scorpio_call'] = df_ec19_pango.loc[:,'scorpio_call'].replace(regex=r' .*$', value='')
+            df_ec19_pango['variant'] = df_ec19_pango['lineage']
+            idx = df_ec19_pango['scorpio_call'].notnull()
+            df_ec19_pango.loc[idx, 'variant'] = df_ec19_pango.loc[idx, 'scorpio_call']  
+            self.df_ec19_pango = df_ec19_pango 
+            logging.info(f'EC19 pango file ({self.filename_pango}) loaded.')
+        except:
+            logging.info(f'EC19 pango file ({self.filename_pango}) not loaded.')
+        
+        #
+        # loading EC19 metadata
+        #
+        try:
+            df_ec19_meta = pd.read_csv(self.filename_metadata, sep='\t')
+            df_ec19_meta.columns = [*df_ec19_meta.columns[:-1], 'sample']
+            df_ec19_meta = df_ec19_meta.drop(df_ec19_meta[df_ec19_meta.virus_name=="virus_name"].index) # removing additional header lines
+            df_ec19_meta = df_ec19_meta.dropna(subset=['virus_name']) # removing 'empty' lines
+            self.df_ec19_meta = df_ec19_meta
+            logging.info(f'EC19 metadata file ({self.filename_metadata}) loaded.')
+        except:
+            logging.info(f'EC19 metadata file ({self.filename_metadata}) not loaded.')
+
+        #
+        # EC19 gaps report 
+        #
+        try:
+            df_ec19_gaps = pd.read_csv(self.filename_gaps, sep="\t", 
+                                    names=["sample","gap_start","gap_end","gap_len","Missing","cds_start","cds_end","cds_product"])
+
+            df_ec19_gaps['gap_aa_start'] = np.int64((df_ec19_gaps['gap_start']-df_ec19_gaps['cds_start'])/3)+1
+            df_ec19_gaps['gap_aa_end'] = np.int64((df_ec19_gaps['gap_end']-df_ec19_gaps['cds_start'])/3)+1
+            df_ec19_gaps = df_ec19_gaps.drop(columns=['cds_start', 'cds_end', 'cds_product'])
+            idx = df_ec19_gaps['gap_aa_start']<=0
+            df_ec19_gaps.loc[idx, 'gap_aa_start'] = 1
+            self.df_ec19_gaps = df_ec19_gaps
+            logging.info(f'EC19 gaps file ({self.filename_gaps}) loaded.')
+        except:
+            logging.info(f'EC19 gaps file ({self.filename_gaps}) not loaded.')
+        
     def generate_EC_repot(self):
         """
         The mehtod is used to generate following plots and save to a html file:
@@ -131,50 +607,12 @@ class EC19_Report():
             row(column([p_var_count]+p_feature_list), column(p_pie_list))
             column([p_mut_ref, p_mut_v, p_mut_count, p_mut])
         """
-        # loading EC19 SNP report
-        df_ec19 = pd.read_csv(self.filename_ec19, sep="\t")
-        df_ec19 = df_ec19.drop(df_ec19[df_ec19.Chromosome=="Chromosome"].index)
 
-        # loading EC19 alnstats report 
-        df_ec19_alnstats = pd.read_csv(self.filename_alnstats, sep="\t", 
-                                    names=["Sample", "Ref_len", "Ref_GC_pct", "Mapped_reads", "Ref_recovery_pct", "Avg_fold_x", "Fold_std", "Num_of_Gap", "Total_Gap_bases", "Num_of_SNPs", "Num_of_INDELs"],
-                                    comment='R')
-        # loading EC19 pango lineage
-        df_ec19_pango = pd.read_csv(self.filename_pango)
-        df_ec19_pango.loc[:,'scorpio_call'] = df_ec19_pango.loc[:,'scorpio_call'].replace(regex=r' .*$', value='')
-        df_ec19_pango['variant'] = df_ec19_pango['lineage']
-        idx = df_ec19_pango['scorpio_call'].notnull()
-        df_ec19_pango.loc[idx, 'variant'] = df_ec19_pango.loc[idx, 'scorpio_call']   
-
-        # loading EC19 metadata
-        df_ec19_meta = pd.read_csv(self.filename_metadata, sep='\t')
-        df_ec19_meta.columns = [*df_ec19_meta.columns[:-1], 'sample']
-        df_ec19_meta = df_ec19_meta.drop(df_ec19_meta[df_ec19_meta.virus_name=="virus_name"].index) # removing additional header lines
-        df_ec19_meta = df_ec19_meta.dropna(subset=['virus_name']) # removing 'empty' lines
-
-        # loading dropping mutations in intergenic regions
-        df_ec19 = df_ec19.dropna(subset=['CDS_start'])
-
-        # remove Synonymous changes
-        df_ec19 = df_ec19.drop(df_ec19[df_ec19.Synonymous=="Yes"].index)
-
-        # converting product names to abbreviations
-        df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].str.lower()
-        df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace(regex=[r'^\S+\d+:', ' \S*protein'], value='')
-        df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('nucleocapsid', 'N')
-        df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('surface', 'S')
-        df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('membrane', 'M')
-        df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('envelope', 'E')   
-        df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].str.capitalize()
-        df_ec19['CDS_start']    = df_ec19['CDS_start'].astype(int)
-        df_ec19['CDS_end']      = df_ec19['CDS_end'].astype(int)
-        df_ec19['SNP_position'] = df_ec19['SNP_position'].astype(int)
-
-        df_ec19['AA_pos'] = np.int16((df_ec19['SNP_position']-df_ec19['CDS_start'])/3)+1
-        df_ec19['AA_pos'] = df_ec19['AA_pos'].astype(str)
-
-        df_ec19["Mutation"] = df_ec19.Product + ":" + df_ec19.aa_Ref + df_ec19.AA_pos.astype(str).str.replace(r'\.0$', '') + df_ec19.aa_Sub
-
+        df_ec19 = self.df_ec19
+        df_ec19_alnstats = self.df_ec19_alnstats
+        df_ec19_pango = self.df_ec19_pango
+        df_ec19_meta = self.df_ec19_meta
+        df_ec19_gaps = self.df_ec19_gaps
 
         # init datasource
         ds = cdata.PlotDataSource(self.data)
@@ -186,16 +624,6 @@ class EC19_Report():
         df_variant['pos'] = df_variant['pos'].astype(str)
         df_variant[['aa_Ref','aa_Sub']] = df_variant['mutation'].str.extract(r'\S+:(\w)\d+(\S+)')
         df_variant[df_variant.lineage=='Alpha']
-
-        # EC19 gaps report 
-        df_ec19_gaps = pd.read_csv(self.filename_gaps, sep="\t", 
-                                names=["sample","gap_start","gap_end","gap_len","Missing","cds_start","cds_end","cds_product"])
-
-        df_ec19_gaps['gap_aa_start'] = np.int64((df_ec19_gaps['gap_start']-df_ec19_gaps['cds_start'])/3)+1
-        df_ec19_gaps['gap_aa_end'] = np.int64((df_ec19_gaps['gap_end']-df_ec19_gaps['cds_start'])/3)+1
-        df_ec19_gaps = df_ec19_gaps.drop(columns=['cds_start', 'cds_end', 'cds_product'])
-        idx = df_ec19_gaps['gap_aa_start']<=0
-        df_ec19_gaps.loc[idx, 'gap_aa_start'] = 1
 
         pos = list(set(df_ec19_g['AA_pos']))+list(set(df_variant['pos']))
         pos = list(set(pos))
@@ -222,7 +650,6 @@ class EC19_Report():
 
         #
         # Comparison plot for reference / named variants and EC19 samples
-        #
         #
         from bokeh.transform import dodge, factor_cmap, factor_hatch, transform
         from bokeh.palettes import OrRd9, GnBu9, Category20, viridis
@@ -358,13 +785,10 @@ class EC19_Report():
         p_mut_v.hover.renderers = [rv]
         p_mut_v.margin = [5, 20, 5, 0]
 
-
         ### This block of figure is for EC19 samples. 
         ### A summary plot will be put above the mutation plot.
-
         sample = list(set(df_ec19_g['Chromosome']))
         sample.sort(reverse=True)
-
 
         # raw counting plot on the top  
         pos_std = np.std(ds_pos_aasub.data['All'][:-1])
@@ -779,10 +1203,10 @@ class EC19_Report():
                                 tools="hover", tooltips=f"@{column}: @All", x_range=(-0.5, 1.0))
 
             p_pie_meta.wedge(x=0, y=1, 
-                            radius=0.4,
-                            alpha=0.6,
-                            start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
-                            line_color="white", fill_color='color', legend_field=column, source=df)
+                             radius=0.4,
+                             alpha=0.6,
+                             start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
+                             line_color="white", fill_color='color', legend_field=column, source=df)
 
             p_pie_meta.axis.axis_label=None
             p_pie_meta.axis.visible=False
@@ -867,13 +1291,10 @@ class EC19_Report():
 
         template = """
         {% block postamble %}
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style type="text/css">
-        @import url('https://fonts.googleapis.com/css?family=Quicksand');
         H1, H2, H3 {
-            margin-top: 1em;
-            font-weight: 600;
-            font-family: Quicksand;
+            margin-top: 0.5em;
+            font-family: 'Trebuchet MS';
         }
         H1 {
             font-size: 2rem;

@@ -2,12 +2,13 @@
 
 ## Installation
 ```
+pip install -r requirements.txt
 python setup.py install
 ```
 
 ## Test
 ```
-# convert GISAID metadata.tsv to pkl files
+# convert GISAID metadata.tsv file to .pkl files (metadata.pkl and metadata.mutation.pkl)
 ec19_varviz tsv2pkl \
     --tsv    /path/to/gisaid/metadata.tsv \
     --prefix test/metadata
@@ -18,7 +19,7 @@ ec19_varviz gisaid_stats \
     --mut-pkl  test/metadata.mutation.pkl \
     --output   test/metadata_global.html
 
-# generate US stats and display states in the country
+# generate US stats and display lineage distributions for each state
 ec19_varviz gisaid_stats \
     --meta-pkl test/metadata.pkl \
     --mut-pkl  test/metadata.mutation.pkl \
@@ -26,7 +27,7 @@ ec19_varviz gisaid_stats \
     --country  USA \
     --output   test/metadata_USA.html
 
-# generate California stats and display counties in the state
+# generate California stats and display lineage distributions for each county
 ec19_varviz gisaid_stats \
     --meta-pkl test/metadata.pkl \
     --mut-pkl  test/metadata.mutation.pkl \
@@ -34,6 +35,17 @@ ec19_varviz gisaid_stats \
     --country  USA \
     --state    California \
     --output   test/metadata_CA.html
+
+# generate lineage tracking info for an EC19 project
+ec19_varviz project \
+    --meta-pkl test/metadata.pkl \
+    --mut-pkl  test/metadata.mutation.pkl \
+    --sample   "2251_119" \
+    --snps     test/2251_119.snp.tsv \
+    --pango    test/2251_119.lineage_report.tsv \
+    --geo-type country \
+    --country  USA \
+    --output   test/ec19_project_test.html
 
 # generate report for EC19 projects
 ec19_varviz report \

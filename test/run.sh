@@ -30,10 +30,20 @@ ec19_varviz gisaid_stats \
     --state    "New Mexico" \
     --output   test/metadata_NM.html
 
+ec19_varviz project \
+    --meta-pkl test/metadata.pkl \
+    --mut-pkl  test/metadata.mutation.pkl \
+    --sample   "2251_119" \
+    --snps     test/2251_119.snp.tsv \
+    --pango    test/2251_119.lineage_report.tsv \
+    --geo-type state \
+    --country  USA \
+    --output   test/ec19_project_test.html
+
 ec19_varviz report \
-    --snps     lanl_project_list.SNP.tsv \
-    --gaps     lanl_project_list.gaps.tsv \
-    --alnstats lanl_project_list.alnstats.tsv \
-    --pango    lanl_project_list.lineage_report.csv \
-    --metadata lanl_project_list.metadata.tsv \
-    --output   lanl_project_list_ec19.html
+    --snps     test/lanl_project_list.SNP.tsv \
+    --gaps     test/lanl_project_list.gaps.tsv \
+    --alnstats test/lanl_project_list.alnstats.tsv \
+    --pango    test/lanl_project_list.lineage_report.csv \
+    --metadata test/lanl_project_list.metadata.tsv \
+    --output   test/lanl_project_list_ec19.html
