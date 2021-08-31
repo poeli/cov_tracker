@@ -600,7 +600,8 @@ class EC19_data():
             df_ec19_alnstats = df_ec19_alnstats.astype({'Ref_GC_pct': 'float', 
                                                         'Mapped_reads': 'int64', 
                                                         'Ref_recovery_pct': 'float', 
-                                                        'Avg_fold_x': 'float', 
+                                                        'Avg_fold_x': 'float',
+                                                        'Fold_std': 'float', 
                                                         'Num_of_Gap': 'int64',
                                                         'Total_Gap_bases': 'int64',
                                                         'Num_of_SNPs': 'int64',
@@ -1074,7 +1075,7 @@ class EC19_data():
 
         # add a circle renderer with a size, color, and alpha
         p_sample.circle(
-            'Ref_recovery_pct', 'Fold_std', 
+            'Ref_recovery_pct', 'Avg_fold_x', 
             size='size',
             line_width=1,
             line_color='grey',
