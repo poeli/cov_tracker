@@ -440,19 +440,24 @@ class GISAID_stats():
         update_date = date.today().strftime("%Y-%m-%d")
 
         title = ec19_sample_name
+        collection = None
         if virus_name:
             title += f" ({virus_name})"
-        #if collection_date:
-        #    title += f" | {collection_date}"
-        #if location:
-        #    title += f" | {location}"
+        if collection_date:
+           collection += f" {collection_date}"
+        if location:
+           collection += f" ({location})"
+        
+        if collection:
+            collection = f"| Collection: {collection}"
+
+        # Pango ver: {pango_ver} | 
+        # Pangolin ver: {pangolin_ver} | 
 
         page.header.text = f"""
         <H1>{title}</H1>
         <div>
-        {target_lineage} | 
-        Pango ver: {pango_ver} | 
-        Pangolin ver: {pangolin_ver} | 
+        {target_lineage} {collection} |
         PangoLEARN ver: {pangolearn_ver} |
         Report generated: {update_date} |
         Enabled by data from 
@@ -588,9 +593,19 @@ class EC19_data():
         # loading EC19 alnstats report 
         # 
         try:
-            df_ec19_alnstats = pd.read_csv(self.filename_alnstats, sep="\t", 
-                                        names=["Sample", "Ref_len", "Ref_GC_pct", "Mapped_reads", "Ref_recovery_pct", "Avg_fold_x", "Fold_std", "Num_of_Gap", "Total_Gap_bases", "Num_of_SNPs", "Num_of_INDELs"],
-                                        comment='R')
+            df_ec19_alnstats = pd.read_csv(self.filename_alnstats, sep="\t")
+            df_ec19_alnstats = df_ec19_alnstats.rename(columns={"Ref":"Sample", "Ref_GC%":"Ref_GC_pct",  "Ref_recovery%": "Ref_recovery_pct",  "Avg_fold(x)": "Avg_fold_x"})
+            df_ec19_alnstats = df_ec19_alnstats.drop(df_ec19_alnstats[df_ec19_alnstats.Sample=="Ref"].index) # removing additional header lines
+
+            df_ec19_alnstats = df_ec19_alnstats.astype({'Ref_GC_pct': 'float', 
+                                                        'Mapped_reads': 'int64', 
+                                                        'Ref_recovery_pct': 'float', 
+                                                        'Avg_fold_x': 'float', 
+                                                        'Num_of_Gap': 'int64',
+                                                        'Total_Gap_bases': 'int64',
+                                                        'Num_of_SNPs': 'int64',
+                                                        'Num_of_INDELs': 'int64'})
+
             self.df_ec19_alnstats = df_ec19_alnstats
             logging.info(f'EC19 alnstats file ({self.filename_alnstats}) loaded.')
         except:
