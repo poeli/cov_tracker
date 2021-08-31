@@ -20,13 +20,30 @@ def vizcli():
               help='output filename for python .pkl file',
               required=True,
               type=str)
+@click.option('-c', '--country',
+              help='specify a country if available',
+              required=False,
+              type=str)
+@click.option('-d', '--state',
+              help='specify a state if available',
+              required=False,
+              type=str)
+@click.option('-cp', '--complete',
+              help='complete genomes only (>29Kbp))',
+              default=True,
+              type=bool)
+@click.option('-hc', '--high-coverage',
+              help='high coverage genomes only (<1% Ns)',
+              default=True,
+              type=bool)
 
-def tsv2pkl(tsv, prefix):
+
+def tsv2pkl(tsv, prefix, country, state, complete, high_coverage):
     """
     Convert GISAID metadata.tsv file to .pkl files
     """
-    print(f"Running tsv2pkl command on...")
-    gisaid = GISAID_stats(gisaid_tsv=tsv)
+    print(f"Running tsv2pkl command...")
+    gisaid = GISAID_stats(gisaid_tsv=tsv, country=country, state=state, complete_only=complete, high_coverage_only=high_coverage)
     gisaid.tsv2pkl(prefix)
 
 

@@ -23,7 +23,7 @@ logging.basicConfig(
 )
 
 class GISAID_stats():
-    def __init__(self, gisaid_tsv=None, gisaid_pkl=None, gisaid_mutation_pkl=None, country=None, state=None):
+    def __init__(self, gisaid_tsv=None, gisaid_pkl=None, gisaid_mutation_pkl=None, country=None, state=None, complete_only=True, high_coverage_only=True):
         self.country = country
         self.state = state
 
@@ -37,7 +37,9 @@ class GISAID_stats():
             filename_meta_pkl     = gisaid_pkl.name if gisaid_pkl else None,
             filename_mutation_pkl = gisaid_mutation_pkl.name if gisaid_mutation_pkl else None,
             country               = country,
-            division              = state
+            division              = state,
+            complete_only         = complete_only,
+            high_coverage_only    = high_coverage_only
         )
 
     def tsv2pkl(self, prefix):

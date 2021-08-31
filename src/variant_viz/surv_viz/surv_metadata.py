@@ -1,8 +1,5 @@
 import pandas as pd
-import numpy as np
-import os
 import logging
-import variant_viz.surv_viz.us_state_abbrev as us
 
 class CovidMetadata(object):
     """
@@ -34,7 +31,9 @@ class CovidMetadata(object):
                        filename_mutation_pkl=None,
                        filename_meta_tsv=None,
                        country=None,
-                       division=None):
+                       division=None, 
+                       complete_only=True, 
+                       high_coverage_only=True):
         
         self.df_meta_orig     = pd.DataFrame()
         self.df_meta          = pd.DataFrame()
@@ -64,7 +63,7 @@ class CovidMetadata(object):
             self.df_mutation_orig = pd.read_pickle(filename_mutation_pkl)
         elif filename_meta_tsv:
             logging.info(f'Parsing {filename_meta_tsv} file...')
-            (self.df_meta_orig, self.df_mutation_orig) = self._prepare_metadata(filename_meta_tsv)
+            (self.df_meta_orig, self.df_mutation_orig) = self._prepare_metadata(filename_meta_tsv, complete_only, high_coverage_only)
         
         if country==None and division==None:
             self.df_meta     = self.df_meta_orig
@@ -76,12 +75,16 @@ class CovidMetadata(object):
             self.set_division(division)
 
         
-    def _prepare_metadata(self, filename_meta):
+    def _prepare_metadata(self, filename_meta, complete_only=True, high_coverage_only=True):
         """
         Loading and prepare metadata tsv file
         
-        :param filename_meta:
+        :param filename_meta: GISAID metadata.tsv
         :type  filename_meta: str
+        :param complete_only: filter in the complete_only filed
+        :type  complete_only: bool
+        :param high_coverage_only: filter in the high_coverage_only filed
+        :type  high_coverage_only: bool
         """
         import pandas as pd
         import numpy as np
@@ -120,6 +123,12 @@ class CovidMetadata(object):
         df_meta = df_meta[df_meta.host=='Human']
         # Remove mislabeled collection date
         df_meta = df_meta.drop(df_meta[df_meta.date<'2019-12'].index)
+        # remove NOT high_coverage genomes
+        if high_coverage_only:
+            df_meta = df_meta[df_meta.is_high_cov==True]
+        # remove NOT complete genomes
+        if complete_only:
+            df_meta = df_meta[df_meta.is_complete==True]
         
         # for GISAID
         # df_meta['date'] = df_meta['date'].astype('datetime64[ns]')
@@ -127,7 +136,7 @@ class CovidMetadata(object):
         df_meta['week'] = df_meta['date'].dt.strftime('%Y-%Uw')
         df_meta[['region', 'country', 'division', 'location']] = df_meta['Location'].str.split(' / ', expand=True, n=3)
         df_meta['name'] = df_meta['name'].str.replace('hCoV-19/', '')
-        df_meta = df_meta.drop(columns=['type', 'Location', 'Location_add'])
+        df_meta = df_meta.drop(columns=['type', 'Location', 'Location_add', 'gc_content'])
 
         # deleete "-00w" rows
         df_meta = df_meta.drop(df_meta[df_meta.week.str.contains('-00w')].index)
@@ -147,15 +156,15 @@ class CovidMetadata(object):
         idx = df_meta['lineage_greek'].notnull()
         df_meta.loc[idx, 'lineage'] = df_meta.loc[idx, 'lineage_greek']        
         
-        # fine touching data
-        df_meta.loc[df_meta.lineage=='B.1.427/429', 'lineage'] = 'Epsilon'
+        ## fine touching data
+        #df_meta.loc[df_meta.lineage=='B.1.427/429', 'lineage'] = 'Epsilon'
         
         # preparing aa_sub in gisaid
         df_mutation = df_meta[['acc', 'mutation']].copy()
         
         # cleaning parentheses, unwanted strings in aa_sub
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('\(|\)', '')
-        df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'NS[\w\d]+,?', '') # NSP\d+ and NS\d+ are removed for now until we can map them to the protein
+        #df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'NS[\w\d]+,?', '') # NSP\d+ and NS\d+ are removed for now until we can map them to the protein
         df_mutation['mutation'] = df_mutation['mutation'].str.replace(r',[^,]+_ins[\w\d]+', '') # remove insertion
         df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'Spike', 'S')
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('del', '*')
