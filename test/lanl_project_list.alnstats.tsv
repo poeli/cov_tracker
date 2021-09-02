@@ -1,762 +1,222 @@
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_134	29870	38.01	2039	78.2089	8.26	11.48	44	6509	12	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2153_055	29870	38.01	16	19.5012	0.22	0.47	13	24045	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_080	29870	38.01	389557	99.9163	1643.93	1129.79	1	25	21	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_092	29870	38.01	6	0.7934	0.01	0.09	3	29633	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_098	29870	38.01	20796	91.0947	86.41	106.68	17	2660	13	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_089	29870	38.01	44197	99.9833	187.35	172.30	1	5	18	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_107	29870	38.01	35679	97.2648	147.28	214.01	11	817	26	3
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_020	29870	38.01	538	73.5855	2.64	2.83	68	7890	2	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_083	29870	38.01	257446	99.9163	1013.23	1309.90	1	25	21	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2153_044	29870	38.01	18230	84.1781	210.02	255.85	17	4726	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_074	29870	38.01	490910	99.9866	2039.91	1462.69	1	4	18	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_008	29870	38.01	131	24.3723	0.66	1.50	36	22590	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_066	29870	38.01	231769	99.8728	908.92	1184.18	2	38	23	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_064	29870	38.01	105485	99.5447	388.89	713.73	2	136	12	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_019	29870	38.01	1262	91.2320	6.09	5.62	40	2619	10	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_127	29870	38.01	286180	99.8862	1223.99	1060.97	2	34	22	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_130	29870	38.01	4767	98.4935	19.78	17.37	7	450	13	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_027	29870	38.01	3	0.4888	0.00	0.07	3	29724	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_069	29870	38.01	90	19.8661	0.38	0.95	28	23936	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_132	29870	38.01	309166	99.9163	1283.36	954.47	1	25	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_138	29870	38.01	3091	80.2511	12.62	17.45	31	5899	13	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2153_054	29870	38.01	15769	70.1406	175.84	274.46	33	8919	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_077	29870	38.01	361805	99.9163	1405.31	1708.96	1	25	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_122	29870	38.01	6864	78.4600	28.27	54.77	37	6434	19	6
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_096	29870	38.01	15358	99.8594	64.86	52.55	2	42	14	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_110	29870	38.01	33295	93.5554	137.73	175.04	14	1925	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_139	29870	38.01	6168	98.3930	24.86	22.17	10	480	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_061	29870	38.01	664	77.9511	2.70	2.54	44	6586	1	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_101	29870	38.01	384526	99.9163	1645.43	1630.10	1	25	14	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_059	29870	38.01	433307	99.9933	1752.37	1400.15	1	2	14	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2153_050	29870	38.01	13	13.6324	0.15	0.39	12	25798	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_017	29870	38.01	1821	93.9705	8.89	8.01	25	1801	12	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_091	29870	38.01	73133	99.8594	310.23	217.57	2	42	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_112	29870	38.01	181540	99.8594	774.60	467.53	2	42	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_060	29870	38.01	25862	96.7861	97.27	256.10	15	960	14	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_124	29870	38.01	5	1.1349	0.01	0.11	5	29531	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_137	29870	38.01	10696	99.7790	43.69	38.86	3	66	15	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_005	29870	38.01	0	0.0000	0.00	0.00	1	29870	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_070	29870	38.01	445184	99.9866	1809.65	1426.50	1	4	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_079	29870	38.01	483807	99.9866	2033.61	1433.38	1	4	23	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_102	29870	38.01	301572	99.8594	1287.63	853.07	2	42	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2153_048	29870	38.01	14930	87.1108	165.92	263.86	16	3850	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_010	29870	38.01	0	0.0000	0.00	0.00	1	29870	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_065	29870	38.01	2586	47.3987	10.59	23.95	41	15712	10	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_099	29870	38.01	72182	95.0385	297.76	438.89	10	1482	18	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_084	29870	38.01	423991	99.8594	1805.24	1274.21	2	42	15	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_085	29870	38.01	69241	99.7857	263.89	548.58	3	64	17	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_016	29870	38.01	1381	92.7620	6.62	6.71	37	2162	7	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_028	29870	38.01	2	0.5524	0.01	0.07	3	29705	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_072	29870	38.01	317905	99.8862	1311.25	896.36	2	34	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_081	29870	38.01	57935	99.8594	218.72	437.25	2	42	13	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_094	29870	38.01	20747	99.8594	88.27	69.14	2	42	16	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_058	29870	38.01	208311	99.8594	861.81	604.50	2	42	21	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_131	29870	38.01	1	0.2946	0.00	0.05	2	29782	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_003	29870	38.01	201478	99.9900	931.79	891.16	1	3	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_057	29870	38.01	10	2.2765	0.02	0.15	7	29190	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_117	29870	38.01	12	2.4406	0.03	0.21	8	29141	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_078	29870	38.01	237262	99.9163	1004.51	763.10	1	25	17	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_129	29870	38.01	4382	77.2012	17.65	32.10	36	6810	14	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_086	29870	38.01	180216	99.9364	711.95	920.00	2	19	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_133	29870	38.01	26	6.9099	0.08	0.33	16	27806	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_136	29870	38.01	296594	99.9397	1256.65	885.04	2	18	12	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2153_046	29870	38.01	8916	92.7787	100.11	133.99	9	2157	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2153_056	29870	38.01	29640	95.2260	343.48	312.71	5	1426	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_123	29870	38.01	2032	56.4948	8.50	15.18	47	12995	19	8
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_120	29870	38.01	16884	99.6351	71.97	101.81	3	109	23	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_128	29870	38.01	35467	98.8651	135.34	297.22	6	339	18	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2153_045	29870	38.01	18486	92.7385	209.16	257.18	9	2169	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_026	29870	38.01	104	23.8165	0.49	1.07	39	22756	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_025	29870	38.01	0	0.0000	0.00	0.00	1	29870	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_114	29870	38.01	240807	100.0000	944.76	1847.37	0	0	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_063	29870	38.01	367737	99.9163	1516.01	1075.41	1	25	12	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_014	29870	38.01	0	0.0000	0.00	0.00	1	29870	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_105	29870	38.01	76832	99.9163	326.68	262.97	1	25	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_106	29870	38.01	39728	97.8339	165.67	193.67	7	647	17	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_125	29870	38.01	41938	99.8594	178.60	142.59	2	42	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_071	29870	38.01	362014	99.9163	1527.23	1072.02	1	25	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_068	29870	38.01	396478	99.9163	1659.86	1274.60	1	25	21	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_004	29870	38.01	1	0.2277	0.00	0.05	2	29802	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_002	29870	38.01	858	79.5648	4.16	4.78	52	6104	1	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_093	29870	38.01	1362	73.1604	5.71	7.63	47	8017	25	4
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_009	29870	38.01	234231	99.9565	1158.77	801.37	1	13	12	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_087	29870	38.01	238741	99.9565	1011.19	721.89	1	13	21	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_075	29870	38.01	67491	99.9297	284.05	193.52	2	21	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_062	29870	38.01	257246	99.9766	1086.47	759.85	1	7	18	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_007	29870	38.01	1080	23.4717	5.32	12.25	37	22859	5	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_103	29870	38.01	216735	99.9297	856.39	1850.00	2	21	15	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_119	29870	38.01	5627	59.5413	22.92	42.10	44	12085	31	7
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_095	29870	38.01	4893	64.7975	18.57	48.00	52	10515	18	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_012	29870	38.01	0	0.0000	0.00	0.00	1	29870	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_088	29870	38.01	239799	99.9799	1023.69	674.60	2	6	22	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_006	29870	38.01	24038	99.9096	118.38	87.88	4	27	14	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_015	29870	38.01	7919	98.9655	37.67	72.99	8	309	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_073	29870	38.01	374952	99.9096	1513.35	1502.38	2	27	22	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_024	29870	38.01	0	0.0000	0.00	0.00	1	29870	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_067	29870	38.01	350221	99.9933	1430.92	1305.95	1	2	16	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_023	29870	38.01	0	0.0000	0.00	0.00	1	29870	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_108	29870	38.01	322178	99.9598	1378.89	931.18	1	12	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_126	29870	38.01	362135	99.9364	1538.99	1294.66	2	19	12	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_100	29870	38.01	208119	99.4844	859.09	772.15	2	154	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_115	29870	38.01	417279	99.9163	1767.25	1220.81	1	25	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_022	29870	38.01	1	0.3716	0.00	0.06	2	29759	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_118	29870	38.01	375730	99.9866	1589.14	1283.98	1	4	21	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_013	29870	38.01	0	0.0000	0.00	0.00	1	29870	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_021	29870	38.01	0	0.0000	0.00	0.00	1	29870	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2153_047	29870	38.01	1990	93.2005	22.72	47.60	12	2031	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_116	29870	38.01	124584	99.9063	517.35	374.94	2	28	21	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_011	29870	38.01	0	0.0000	0.00	0.00	1	29870	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_090	29870	38.01	287383	99.9163	1215.10	823.64	1	25	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_076	29870	38.01	374111	99.9833	1589.04	1086.08	2	5	18	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_082	29870	38.01	12386	99.8594	52.55	45.22	2	42	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_104	29870	38.01	98985	99.8594	419.16	298.44	2	42	18	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_113	29870	38.01	1489	46.6589	6.08	11.75	38	15933	10	2
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_121	29870	38.01	213	13.1168	0.79	2.94	22	25952	2	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_135	29870	38.01	2163	82.2464	8.81	11.13	38	5303	14	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_109	29870	38.01	195273	99.9866	774.33	1209.47	1	4	23	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_111	29870	38.01	469	19.9900	1.91	6.20	21	23899	6	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2153_052	29870	38.01	29	12.0623	0.33	1.45	9	26267	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_018	29870	38.01	24	8.0348	0.12	0.46	16	27470	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_001	29870	38.01	66	15.2293	0.32	0.90	25	25321	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2153_043	29870	38.01	29739	85.9290	334.44	512.46	20	4203	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2153_097	29870	38.01	40451	99.8594	170.05	115.08	2	42	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_113	29870	38.01	273	35.6947	0.69	1.30	69	19208	1	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_069	29870	38.01	1452	31.3827	6.68	16.41	22	20496	7	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_056	29870	38.01	588	25.5809	1.75	5.66	35	22229	2	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_047	29870	38.01	325715	99.7087	3781.49	2542.31	2	87	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_023	29870	38.01	390659	99.7154	6317.38	3250.90	2	85	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_035	29870	38.01	175732	98.7379	1933.13	1485.22	3	377	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_031	29870	38.01	176071	97.7436	1908.08	2072.76	4	674	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_008	29870	38.01	553411	99.7087	8273.73	5983.62	2	87	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_047	29870	38.01	325715	99.7087	3781.49	2542.31	2	87	47	4
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_023	29870	38.01	390659	99.7154	6317.38	3250.90	2	85	54	2
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_035	29870	38.01	175732	98.7379	1933.13	1485.22	3	377	57	10
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_031	29870	38.01	176071	97.7436	1908.08	2072.76	4	674	39	5
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_008	29870	38.01	553411	99.7087	8273.73	5983.62	2	87	62	4
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_072	29870	38.01	581	24.1547	2.66	9.39	29	22655	4	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_070_rerun_swift	29870	38.01	6792	92.5176	28.10	33.68	20	2235	17	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_053	29870	38.01	9265	84.9213	44.25	98.18	28	4504	15	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_034	29870	38.01	108523	98.7245	1187.52	881.48	3	381	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_034	29870	38.01	108523	98.7245	1187.52	881.48	3	381	38	4
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_058	29870	38.01	236	7.4858	0.59	3.13	10	27634	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_040	29870	38.01	135435	98.7245	1476.12	1278.22	3	381	
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_104	29870	38.01	2653	37.2749	9.51	70.00	68	18736	5	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_005	29870	38.01	702568	99.7121	9513.11	5485.97	2	86	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_001	29870	38.01	1625	98.6977	21.15	12.42	3	389	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_005	29870	38.01	702568	99.7121	9513.11	5485.97	2	86	72	4
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_040	29870	38.01	135435	98.7245	1476.12	1278.22	3	381	40	4
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_001	29870	38.01	1625	98.6977	21.15	12.42	3	389	49	27
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_050	29870	38.01	146078	99.9364	698.06	479.70	2	19	20	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_114	29870	38.01	73	13.1804	0.15	0.40	35	25933	0	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2251_050	29870	38.01	146078	99.9364	698.06	479.70	2	19	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_039	29870	38.01	299985	99.7087	3562.33	2457.63	2	87	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_003	29870	38.01	489983	99.7087	7206.71	4028.68	2	87	
+2251_039	29870	38.01	299985	99.7087	3562.33	2457.63	2	87	47	8
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_076	29870	38.01	6	1.6505	0.02	0.13	5	29377	0	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_068	29870	38.01	74778	99.9933	345.13	395.42	1	2	23	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2251_076	29870	38.01	6	1.6505	0.02	0.13	5	29377	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_033	29870	38.01	206617	98.7278	2259.21	1656.25	3	380	
+2251_003	29870	38.01	489983	99.7087	7206.71	4028.68	2	87	62	3
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_075	29870	38.01	19	4.6468	0.08	0.41	9	28482	0	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_033	29870	38.01	206617	98.7278	2259.21	1656.25	3	380	38	3
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_099	29870	38.01	1861323	99.9330	7388.01	13156.46	1	20	13	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_127	29870	38.01	87255	98.7211	1031.72	3190.87	3	382	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_127	29870	38.01	87255	98.7211	1031.72	3190.87	3	382	141	4
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_117	29870	38.01	1421314	99.9900	5659.71	12599.77	2	3	33	3
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_013	29870	38.01	1743	98.7178	22.90	13.95	3	383	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_022	29870	38.01	507340	99.7121	6816.46	3790.69	2	86	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_030	29870	38.01	152678	99.7087	1824.76	1217.62	2	87	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_022	29870	38.01	507340	99.7121	6816.46	3790.69	2	86	62	5
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_013	29870	38.01	1743	98.7178	22.90	13.95	3	383	48	26
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_030	29870	38.01	152678	99.7087	1824.76	1217.62	2	87	42	7
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_009	29870	38.01	727489	99.7121	9213.55	5209.79	2	86	86	5
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_125	29870	38.01	1534774	99.9565	5553.20	10762.87	2	13	48	2
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_009	29870	38.01	727489	99.7121	9213.55	5209.79	2	86	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_010	29870	38.01	810431	99.7154	10083.87	5933.57	2	85	88	7
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_066	29870	38.01	123647	99.9163	568.22	806.71	1	25	23	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_010	29870	38.01	810431	99.7154	10083.87	5933.57	2	85	
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_100	29870	38.01	213	27.7569	0.48	1.08	51	21579	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_020	29870	38.01	659958	99.7087	7752.13	4949.88	2	87	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_036	29870	38.01	460752	98.7345	4988.27	4961.67	3	378	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_017	29870	38.01	632826	98.7379	7187.17	5158.81	3	377	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_038	29870	38.01	379012	98.7345	4276.46	3007.16	3	378	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_020	29870	38.01	659958	99.7087	7752.13	4949.88	2	87	75	3
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_133	29870	38.01	974048	99.9163	2907.41	9982.89	1	25	40	4
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_036	29870	38.01	460752	98.7345	4988.27	4961.67	3	378	49	278
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_017	29870	38.01	632826	98.7379	7187.17	5158.81	3	377	68	6
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_061	29870	38.01	4	1.2990	0.02	0.16	4	29482	0	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_038	29870	38.01	379012	98.7345	4276.46	3007.16	3	378	41	4
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_123	29870	38.01	404	51.8145	0.98	1.36	81	14393	2	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_045	29870	38.01	172640	98.7278	1874.90	1752.39	3	380	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_016	29870	38.01	522579	99.7087	6476.52	4007.44	2	87	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_021	29870	38.01	510430	99.7121	6443.49	3816.67	2	86	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_045	29870	38.01	172640	98.7278	1874.90	1752.39	3	380	39	2
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_016	29870	38.01	522579	99.7087	6476.52	4007.44	2	87	62	3
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_021	29870	38.01	510430	99.7121	6443.49	3816.67	2	86	61	4
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_126	29870	38.01	91	16.0663	0.20	0.52	37	25071	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_046	29870	38.01	454058	99.7087	4985.85	3713.36	2	87	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_046	29870	38.01	454058	99.7087	4985.85	3713.36	2	87	47	6
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_063	29870	38.01	159392	99.9163	733.53	908.70	1	25	23	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_128	29870	38.01	37554	97.0506	436.04	1566.43	5	881	
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_105	29870	38.01	2739502	99.9933	11207.69	14612.10	1	2	17	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_041	29870	38.01	134765	99.7121	1792.78	1041.67	2	86	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_128	29870	38.01	37554	97.0506	436.04	1566.43	5	881	148	6
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_041	29870	38.01	134765	99.7121	1792.78	1041.67	2	86	45	3
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_014	29870	38.01	388725	99.7121	5235.58	2923.35	2	86	60	3
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_064	29870	38.01	121193	99.8493	553.68	995.42	4	45	22	2
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_014	29870	38.01	388725	99.7121	5235.58	2923.35	2	86	
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_070	29870	38.01	6795	94.2183	31.33	35.93	18	1727	17	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2251_049	29870	38.01	32156	98.5303	142.05	109.68	5	439	21	0
+2251_132	29870	38.01	244	14.3790	0.73	3.41	35	25575	5	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_115	29870	38.01	191	27.8875	0.45	0.88	60	21540	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_129	29870	38.01	221069	99.7054	2892.55	4947.73	2	88	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_049	29870	38.01	32156	98.5303	142.05	109.68	5	439	21	0
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_129	29870	38.01	221069	99.7054	2892.55	4947.73	2	88	153	3
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_062	29870	38.01	4	0.1004	0.00	0.13	2	29840	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_037	29870	38.01	134154	98.7245	1459.58	1126.40	3	381	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_004	29870	38.01	2232	98.7178	29.77	16.58	3	383	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_026	29870	38.01	199618	98.7278	2158.00	1823.26	3	380	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_004	29870	38.01	2232	98.7178	29.77	16.58	3	383	65	13
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_037	29870	38.01	134154	98.7245	1459.58	1126.40	3	381	40	3
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_026	29870	38.01	199618	98.7278	2158.00	1823.26	3	380	39	5
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_060	29870	38.01	3	0.8704	0.01	0.09	3	29610	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_130	29870	38.01	11334	95.3833	134.27	444.73	5	1379	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_024	29870	38.01	669805	99.7121	8287.17	4928.88	2	86	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_130	29870	38.01	11334	95.3833	134.27	444.73	5	1379	126	3
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_024	29870	38.01	669805	99.7121	8287.17	4928.88	2	86	73	6
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_065	29870	38.01	4	1.3659	0.01	0.12	4	29462	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_032	29870	38.01	151715	98.7245	1637.20	1842.97	3	381	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_007	29870	38.01	565864	99.7121	7382.40	4259.35	2	86	
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_124	29870	38.01	1305382	100.0000	5567.88	5249.45	0	0	53	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_119	29870	38.01	737018	98.7379	8356.53	6284.15	3	377	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_120	29870	38.01	754076	99.7121	8581.71	5332.76	2	86	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_032	29870	38.01	151715	98.7245	1637.20	1842.97	3	381	47	2
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_007	29870	38.01	565864	99.7121	7382.40	4259.35	2	86	73	5
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_119	29870	38.01	737018	98.7379	8356.53	6284.15	3	377	120	4
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_120	29870	38.01	754076	99.7121	8581.71	5332.76	2	86	139	5
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_074	29870	38.01	4	1.7710	0.02	0.13	5	29341	0	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_116	29870	38.01	3055	46.8865	12.47	29.36	54	15865	6	3
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_121	29870	38.01	2149	97.2112	24.36	17.01	5	833	
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_118	29870	38.01	331	39.4376	0.76	1.25	69	18090	0	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_121	29870	38.01	2149	97.2112	24.36	17.01	5	833	100	4
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_106	29870	38.01	2068552	99.9933	8560.96	8967.82	1	2	21	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_027	29870	38.01	202242	98.7278	2208.18	1893.37	3	380	36	3
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_073	29870	38.01	2	0.4787	0.00	0.07	2	29727	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_027	29870	38.01	202242	98.7278	2208.18	1893.37	3	380	
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_067	29870	38.01	31230	99.2233	142.75	194.44	3	232	21	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_002	29870	38.01	752175	99.7087	8457.70	7628.46	2	87	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_002	29870	38.01	752175	99.7087	8457.70	7628.46	2	87	72	3
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_071_rerun_swift	29870	38.01	8330	81.5802	34.16	71.54	38	5502	14	1
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_098	29870	38.01	344	43.9170	0.84	1.40	69	16752	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_043	29870	38.01	207539	98.7278	2521.68	1636.46	3	380	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_044	29870	38.01	265978	99.7087	3244.62	2008.97	2	87	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_015	29870	38.01	525078	99.7121	6802.48	3950.43	2	86	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_044	29870	38.01	265978	99.7087	3244.62	2008.97	2	87	40	1
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_043	29870	38.01	207539	98.7278	2521.68	1636.46	3	380	48	1
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_015	29870	38.01	525078	99.7121	6802.48	3950.43	2	86	56	3
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_103	29870	38.01	2170238	99.9933	8751.10	12036.77	1	2	21	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_108	29870	38.01	1050333	99.9632	4195.31	5042.90	2	11	17	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_052	29870	38.01	18974	96.9535	90.07	101.03	12	910	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_012	29870	38.01	856349	99.7121	9826.77	6707.99	2	86	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_025	29870	38.01	9605	96.9334	105.18	80.34	5	916	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_012	29870	38.01	856349	99.7121	9826.77	6707.99	2	86	84	7
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_122	29870	38.01	1837019	99.9933	7621.50	6801.61	1	2	50	1
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_025	29870	38.01	9605	96.9334	105.18	80.34	5	916	53	10
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_111	29870	38.01	2282	36.3776	9.26	30.67	50	19004	15	1
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2251_122	29870	38.01	1837019	99.9933	7621.50	6801.61	1	2	50	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_131	29870	38.01	6426	94.0007	80.05	151.62	6	1792	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_011	29870	38.01	226827	99.7121	2900.16	1794.87	2	86	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_029	29870	38.01	145042	98.7278	1575.97	1365.82	3	380	
+2251_131	29870	38.01	6426	94.0007	80.05	151.62	6	1792	112	5
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_011	29870	38.01	226827	99.7121	2900.16	1794.87	2	86	58	4
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_029	29870	38.01	145042	98.7278	1575.97	1365.82	3	380	49	4
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_110	29870	38.01	188	28.9454	0.46	0.91	59	21224	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_006	29870	38.01	562127	99.7188	8174.92	4607.16	2	84	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_019	29870	38.01	575581	99.7121	6646.77	4271.01	2	86	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_018	29870	38.01	573014	99.7121	7014.98	4286.73	2	86	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_006	29870	38.01	562127	99.7188	8174.92	4607.16	2	84	73	5
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_018	29870	38.01	573014	99.7121	7014.98	4286.73	2	86	65	4
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_071	29870	38.01	8334	84.9749	38.41	77.64	37	4488	16	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_028	29870	38.01	336369	98.7278	3679.41	3066.72	3	380	
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_019	29870	38.01	575581	99.7121	6646.77	4271.01	2	86	72	9
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_028	29870	38.01	336369	98.7278	3679.41	3066.72	3	380	43	3
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_101	29870	38.01	2205186	99.9933	8928.93	11878.14	1	2	21	1
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_048	29870	38.01	341098	99.7087	4519.55	2726.70	2	87	41	3
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_054	29870	38.01	67645	97.8909	323.48	434.52	8	630	20	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2251_101	29870	38.01	2205186	99.9933	8928.93	11878.14	1	2	21	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_042	29870	38.01	219570	99.7087	2442.59	1876.54	2	87	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2251_048	29870	38.01	341098	99.7087	4519.55	2726.70	2	87	
+2251_042	29870	38.01	219570	99.7087	2442.59	1876.54	2	87	44	14
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_109	29870	38.01	50	12.8691	0.15	0.41	33	26026	0	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_107	29870	38.01	1237934	99.9866	5131.44	6036.55	2	4	21	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
+2251_134	29870	38.01	7	1.8447	0.02	0.13	8	29319	0	0
+Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_112	29870	38.01	296	37.1912	0.67	1.14	74	18761	0	0
 Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
 2251_102	29870	38.01	2335776	99.9933	9260.25	14232.27	1	2	21	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_015	29870	38.01	1996	87.9846	7.60	8.36	36	3589	0	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_020	29870	38.01	41052	99.7422	157.06	129.20	2	77	15	2
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_014	29870	38.01	1877	88.8383	7.18	7.10	40	3334	1	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_018	29870	38.01	14569	7.2949	56.34	273.48	5	27691	1	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_022	29870	38.01	16	1.3994	0.06	0.67	4	29452	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_028	29870	38.01	114266	99.9933	439.02	323.02	1	2	3	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_001	29870	38.01	53125	99.3438	206.65	246.58	4	196	10	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_024	29870	38.01	42	2.8691	0.16	1.29	5	29013	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_003	29870	38.01	49441	99.1865	191.94	251.99	6	243	10	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_019	29870	38.01	40322	99.7422	153.93	135.72	2	77	15	2
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_002	29870	38.01	25762	98.1620	99.75	122.39	10	549	11	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_039-MW059036	29870	38.01	11098723	100.0000	54463.72	10653.04	0	0	5	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_023	29870	38.01	3	1.0847	0.01	0.13	3	29546	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_010	29870	38.01	1956	86.0998	7.53	7.63	44	4152	4	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_026	29870	38.01	61853	99.9163	238.80	201.87	1	25	3	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_017	29870	38.01	21032	7.3150	81.12	398.69	5	27685	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_011	29870	38.01	1394	79.9766	5.33	6.21	61	5981	2	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_021	29870	38.01	48244	99.5815	185.44	150.28	3	125	15	2
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_005	29870	38.01	15798	99.5547	60.86	58.03	5	133	3	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_045	29870	38.01	141332	100.0000	691.68	240.76	0	0	16	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_039	29870	38.01	11098723	100.0000	54463.72	10653.04	0	0	5	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_032	29870	38.01	127	37.4255	0.62	1.14	58	18691	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_041	29870	38.01	676	84.1446	3.24	2.93	52	4736	2	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_012	29870	38.01	2241	88.3428	8.65	9.08	40	3482	5	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_016	29870	38.01	29454	7.6264	114.51	553.95	5	27592	2	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_040	29870	38.01	13315	99.9464	64.53	24.45	1	16	3	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_027	29870	38.01	163654	99.9933	631.47	445.15	1	2	3	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_006	29870	38.01	8029	97.5929	30.78	28.86	12	719	3	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_004	29870	38.01	10140	98.2959	38.91	37.08	11	509	4	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_007	29870	38.01	4791	94.9314	18.49	20.13	22	1514	5	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_013	29870	38.01	1650	87.0137	6.35	6.13	38	3879	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_029	29870	38.01	5	0.8403	0.01	0.09	4	29619	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_008	29870	38.01	4292	95.7148	16.46	17.54	22	1280	5	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2302_009	29870	38.01	4202	96.9635	16.18	15.46	18	907	4	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_017	29870	38.01	75761	77.1342	277.35	1664.61	51	6830	12	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_076	29870	38.01	32640	99.3773	128.30	164.25	2	186	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_055	29870	38.01	68272	99.4710	257.44	738.94	4	158	24	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_037	29870	38.01	56779	98.5236	222.84	343.78	6	441	23	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_002	29870	38.01	25624	96.7258	94.95	113.08	12	978	17	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_042	29870	38.01	187612	98.7111	682.95	1638.27	5	385	17	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_072	29870	38.01	178318	98.0683	639.80	1361.10	9	577	27	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_041	29870	38.01	509	33.5085	1.98	5.31	46	19861	5	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_058	29870	38.01	178711	99.3204	683.03	745.03	3	203	32	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_023	29870	38.01	186049	99.4309	679.84	1350.96	3	170	21	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_071	29870	38.01	1648	82.8390	6.73	7.88	34	5126	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_061	29870	38.01	167530	99.7322	602.44	948.99	3	80	33	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_049	29870	38.01	165829	96.2303	590.48	1678.88	12	1126	23	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_059	29870	38.01	180970	99.9364	725.04	661.98	2	19	26	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_016	29870	38.01	134795	99.7991	503.28	962.68	3	60	16	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_053	29870	38.01	45164	99.8594	183.75	198.59	2	42	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_036	29870	38.01	48977	98.9990	198.89	211.69	4	299	25	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_019	29870	38.01	167950	99.7824	628.87	786.25	2	65	24	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_007	29870	38.01	4903	84.3924	18.06	27.43	46	4662	14	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_047	29870	38.01	87320	98.5571	338.06	977.07	8	431	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_043	29870	38.01	182705	99.5447	677.11	1171.38	4	136	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_068	29870	38.01	23	4.1614	0.08	0.43	10	28627	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_010	29870	38.01	126728	98.8383	473.54	677.20	5	347	25	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_046	29870	38.01	124560	99.2802	487.55	576.95	3	215	28	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_062	29870	38.01	194808	99.9063	736.45	931.94	2	28	33	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_075	29870	38.01	1401	73.2072	5.45	8.70	52	8003	7	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_051	29870	38.01	158461	98.6743	596.54	933.05	2	396	22	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_011	29870	38.01	157322	99.6686	589.93	1160.25	4	99	22	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_026	29870	38.01	99061	99.9163	375.96	975.92	1	25	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_022	29870	38.01	165756	99.7456	615.90	1172.53	4	76	24	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_008	29870	38.01	125658	99.4643	458.26	604.81	2	160	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_018	29870	38.01	68711	99.2802	265.93	305.01	3	215	17	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_038	29870	38.01	1186	71.4362	4.76	6.95	49	8532	8	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_052	29870	38.01	17759	99.5782	70.58	86.91	3	126	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_004	29870	38.01	3514	86.9401	13.17	16.05	40	3901	16	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_005	29870	38.01	18	3.3177	0.06	0.35	9	28879	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_012	29870	38.01	167959	99.5012	673.25	2019.40	4	149	27	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_040	29870	38.01	183014	99.4576	690.72	872.09	3	162	24	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_032	29870	38.01	358	36.7191	1.41	2.82	49	18902	2	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_048	29870	38.01	109394	99.7891	418.31	921.77	3	63	24	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_063	29870	38.01	168583	99.1128	620.70	1271.64	4	265	27	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_024	29870	38.01	56907	99.3070	233.87	353.57	5	207	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_060	29870	38.01	152573	99.8594	590.06	601.89	2	42	26	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_066	29870	38.01	32831	97.4657	131.78	198.54	9	757	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_069	29870	38.01	181344	99.8594	693.91	963.20	2	42	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_014	29870	38.01	192574	99.9431	743.47	1030.24	1	17	29	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_050	29870	38.01	178433	99.2735	688.02	973.91	4	217	25	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_045	29870	38.01	119818	99.4811	448.52	984.73	4	155	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_081	29870	38.01	134476	97.9746	501.38	917.44	9	605	27	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_003	29870	38.01	6459	92.5142	24.40	29.62	28	2236	8	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_031	29870	38.01	208606	99.3371	819.12	959.68	2	198	23	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_077	29870	38.01	1229	73.4516	4.88	6.36	52	7930	10	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_001	29870	38.01	279	28.4499	1.01	2.27	45	21372	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_020	29870	38.01	132200	98.8249	496.72	1454.06	7	351	23	3
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_030	29870	38.01	189482	99.8594	723.57	1468.85	2	42	27	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_029	29870	38.01	1514	50.8437	5.87	20.04	53	14683	4	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_057	29870	38.01	6255	83.1637	23.01	39.16	42	5029	16	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_039	29870	38.01	57326	97.8473	214.06	481.31	10	643	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_064	29870	38.01	51743	99.4945	199.23	239.17	3	151	18	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_015	29870	38.01	140638	99.7857	521.74	938.85	3	64	23	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_056	29870	38.01	117590	99.6585	451.65	528.79	3	102	26	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_065	29870	38.01	138957	98.1922	505.71	890.96	7	540	27	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_044	29870	38.01	138023	99.6351	513.33	1175.65	3	109	19	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_079	29870	38.01	2671	80.5892	10.77	14.63	40	5798	16	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_034	29870	38.01	1105	62.5711	4.26	7.04	63	11180	8	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_082	29870	38.01	2127	71.4630	7.87	11.56	55	8524	9	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_006	29870	38.01	607	52.1594	2.28	4.01	58	14290	2	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_027	29870	38.01	167105	99.9163	624.93	1186.12	1	25	22	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_054	29870	38.01	971	34.5330	3.39	14.01	57	19555	3	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_073	29870	38.01	2	0.6930	0.01	0.08	3	29663	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_028	29870	38.01	251971	99.7891	971.31	1288.64	3	63	27	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_035	29870	38.01	182578	99.4275	678.31	1184.70	4	171	16	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_070	29870	38.01	124681	99.8594	510.00	569.51	2	42	21	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_067	29870	38.01	312	30.5524	1.20	3.03	43	20744	3	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_021	29870	38.01	147923	99.5347	552.78	1297.70	3	139	26	2
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_013	29870	38.01	100934	98.5035	380.88	1130.94	8	447	27	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_078	29870	38.01	119069	99.2333	445.01	1092.16	3	229	23	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_080	29870	38.01	160241	99.6652	621.93	792.14	2	100	25	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2301_074	29870	38.01	16	3.6759	0.06	0.33	11	28772	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_003	29870	38.01	246	56.1098	1.00	1.13	71	13110	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_004	29870	38.01	218878	99.8795	1045.30	672.03	2	36	22	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_014	29870	38.01	210	50.9675	0.78	0.94	75	14646	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_012	29870	38.01	388	71.1784	1.48	1.55	84	8609	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_002	29870	38.01	173298	99.8259	829.56	553.33	3	52	20	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_001	29870	38.01	205253	99.8895	983.77	586.64	2	33	22	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_009_trim_adapter	29870	38.01	13740	99.6050	64.96	56.38	5	118	21	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_013	29870	38.01	491	73.5822	1.93	2.65	75	7891	1	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_006	29870	38.01	82954	99.6183	391.24	291.53	3	114	22	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_008	29870	38.01	14594	99.8627	70.85	49.31	3	41	18	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_007	29870	38.01	4323	97.9143	20.22	15.73	12	623	16	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_008_trim_adapter	29870	38.01	15039	99.8627	71.63	49.62	3	41	18	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_011	29870	38.01	294	56.9032	1.07	1.26	73	12873	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_009	29870	38.01	13569	99.6050	64.69	56.15	5	118	21	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_010	29870	38.01	1678	86.2169	7.75	8.58	48	4117	7	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2452_005	29870	38.01	178952	99.8795	856.31	568.04	2	36	18	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2351_003	29870	38.01	1185	31.8078	3.21	8.47	42	20369	3	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2351_002	29870	38.01	310	21.6773	0.90	2.23	34	23395	1	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2351_001	29870	38.01	55	7.8105	0.14	0.55	22	27537	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2351_009	29870	38.01	6	0.8604	0.01	0.13	5	29613	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2351_007	29870	38.01	30	3.6491	0.09	0.59	9	28780	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2351_006	29870	38.01	375	17.1811	1.08	3.35	29	24738	3	1
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2351_005	29870	38.01	178	15.9290	0.52	1.65	29	25112	0	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2351_004	29870	38.01	265	17.2012	0.78	2.50	25	24732	3	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2351_010	29870	38.01	9	1.1081	0.02	0.23	5	29539	1	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2351_008	29870	38.01	1191	50.6930	3.47	6.33	63	14728	7	4
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2101_206	29870	38.01	9480	79.0191	115.77	270.26	23	6267	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2101_204	29870	38.01	13906	99.3505	186.65	206.98	3	194	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2101_202	29870	38.01	22634	97.5293	278.30	564.71	5	738	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2101_111	29870	38.01	2797492	99.9833	25010.26	21857.63	1	5	9	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2101_201	29870	38.01	22403	69.2668	275.82	358.77	42	9180	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2101_203	29870	38.01	32097	99.8862	430.61	399.15	2	34	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2101_207	29870	38.01	32630	99.8929	608.53	322.09	2	32	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2101_200	29870	38.01	26110	77.0405	328.44	460.37	33	6858	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2101_205	29870	38.01	42693	99.8895	596.25	508.76	2	33	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2101_112	29870	38.01	3828885	99.9933	35374.73	43265.50	1	2	3	0
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases
-2101_200_update	29870	38.01	26573	78.2725	326.52	462.25	31	6490	
-Ref	Ref_len	Ref_GC%	Mapped_reads	Ref_recovery%	Avg_fold(x)	Fold_std	Num_of_Gap	Total_Gap_bases	Num_of_SNPs	Num_of_INDELs
-2101_129	29870	38.01	431003	79.5079	2.31	10.17	57	6121	0	0

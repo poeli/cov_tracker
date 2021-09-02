@@ -3,9 +3,16 @@ Commands for variant_viz
 """
 import click
 import sys
+import logging
 from variant_viz import __version__
 from variant_viz.scripts.utility import EC19_data
 from variant_viz.scripts.utility import GISAID_stats
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(module)s: %(message)s',
+    datefmt='%Y-%m-%d %H:%M',
+)
 
 @click.group(help=f"""EDGE Covid19 variant viz v{__version__}.""")
 def vizcli():
