@@ -16,12 +16,6 @@ from bokeh.models import Div, Paragraph
 from bokeh.layouts import column, row, layout, gridplot
 from bokeh.models import HoverTool, ColumnDataSource
 
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] %(module)s: %(message)s',
-    datefmt='%Y-%m-%d %H:%M',
-)
-
 class GISAID_stats():
     def __init__(self, gisaid_tsv=None, gisaid_pkl=None, gisaid_mutation_pkl=None, country=None, state=None, complete_only=True, high_coverage_only=True):
         self.country = country
@@ -440,7 +434,7 @@ class GISAID_stats():
         update_date = date.today().strftime("%Y-%m-%d")
 
         title = ec19_sample_name
-        collection = None
+        collection = ""
         if virus_name:
             title += f" ({virus_name})"
         if collection_date:
@@ -869,7 +863,7 @@ class EC19_data():
 
         aasub = list(ds_pos_aasub.data.keys())[1:-1]
 
-        p_mut_count.vbar_stack(
+        p_mut_count.vbar_stack( # bar charts for amino acid at positions of mutations
             aasub, x='AA_pos',
             width=0.8,
             color=viridis(len(aasub)),
@@ -898,8 +892,6 @@ class EC19_data():
         # Increasing the glyph height
         p_mut_count.legend.glyph_height = 10
         p_mut_count.legend.glyph_width = 10
-
-
 
         highlight_hover = HoverTool(
             names=['highlight'],
@@ -948,7 +940,7 @@ class EC19_data():
             y_axis_label='Sample'
         )
 
-        p_mut.rect(
+        p_mut.rect( # highlight VOC/VOI samples
             0,
             'Chromosome',  
             len(pos)*2, 
@@ -972,7 +964,7 @@ class EC19_data():
             source=df_ec19_mut_missing
         )
 
-        p_mut.rect(
+        p_mut.rect( # draw mutations
             'AA_pos', 'Chromosome',
             1, 1,
             color=factor_cmap('variant', palette=list(cmap.values()), factors=list(cmap.keys()), nan_color='#946D8C'),
@@ -1014,7 +1006,6 @@ class EC19_data():
             text_font_size="10px", **text_props)
 
         p_mut.add_glyph(source, glyph)
-
 
         p_mut.xaxis.major_label_text_font_size = '0px'
         p_mut.xaxis.major_label_orientation = pi/2
@@ -1083,11 +1074,14 @@ class EC19_data():
             color=factor_cmap('variant', palette=list(cmap.values()), factors=list(cmap.keys()), nan_color='#946D8C'),
             #color='grey',
             fill_alpha='alpha',
+            #legend_field='variant',
             source=df_ec19_alnstats_m)
 
         p_sample.toolbar.logo = None
         p_sample.toolbar.autohide = True
         p_sample.margin = [0, 20, 0, 0]
+        #p_sample.legend.location = "top_left"
+        #p_sample.legend.label_text_font_size = '7pt'
 
         # show(column(p_sample))
 
@@ -1187,8 +1181,11 @@ class EC19_data():
         p_feature_list = []
 
         # age
+        logging.debug("df_ec19.age: ")
+        logging.debug(df_ec19.age)
         bins = list(range(0, 100, 10))
         df_ec19['age_range'] = 'N/A'
+        df_ec19.loc[df_ec19.age=='unknown', 'age'] = np.nan
         idx = df_ec19.age.notnull()
         df_ec19.loc[idx, 'age_range'] = pd.cut(df_ec19.loc[idx, 'age'].astype(int), bins=bins)
         df_ec19_feature = pd.crosstab(df_ec19['age_range'], df_ec19['variant'], dropna=True, normalize='columns')
@@ -1203,6 +1200,7 @@ class EC19_data():
         # gender
         idx = df_ec19.gender.isnull()
         df_ec19.loc[idx, 'gender'] = 'N/A'
+        df_ec19.loc[df_ec19.gender=='unknown', 'gender'] = np.nan
         df_ec19_feature = pd.crosstab(df_ec19['gender'], df_ec19['variant'], dropna=True, normalize='columns')
         ds = ColumnDataSource(df_ec19_feature.T)
         p_feature_list.append(plot_meta(ds, p_var_count, 'GENDER')) 
@@ -1210,6 +1208,7 @@ class EC19_data():
         # sequencing_technology
         idx = df_ec19.sequencing_technology.isnull()
         df_ec19.loc[idx, 'sequencing_technology'] = 'N/A'
+        df_ec19.loc[df_ec19.sequencing_technology=='unknown', 'sequencing_technology'] = np.nan
         df_ec19_feature = pd.crosstab(df_ec19['sequencing_technology'], df_ec19['variant'], dropna=True, normalize='columns')
         ds = ColumnDataSource(df_ec19_feature.T)
         p_feature_list.append(plot_meta(ds, p_var_count, 'SEQUENCING TECH')) 
@@ -1228,6 +1227,7 @@ class EC19_data():
         # location
         idx = df_ec19.location.isnull()
         df_ec19.loc[idx, 'location'] = 'N/A'
+        df_ec19.loc[df_ec19.location=='unknown', 'location'] = np.nan
         df_ec19_feature = pd.crosstab(df_ec19['location'], df_ec19['variant'], dropna=True, normalize='columns')
         ds = ColumnDataSource(df_ec19_feature.T)
         p_sub_loc = plot_meta(ds, p_var_count, 'Location')
@@ -1330,7 +1330,7 @@ class EC19_data():
         div_header = Div(text=f"""
         <H2>EDGE COVID-19 Report</H2>
         <div style='margin-bottom: 1em'>
-        {sample_num} samples / {submitted_num} submitted / Pango ver: {pango_ver} / Pangolin ver: {pangolin_ver} / PangoLEARN ver: {pangolearn_ver} / Report date: {update_date}
+        {sample_num} samples | Pango ver: {pango_ver} | Pangolin ver: {pangolin_ver} | PangoLEARN ver: {pangolearn_ver} | Report date: {update_date}
         </div>
         """, style={'width':'100%', 'margin-left':'10px', 'margin-top': '20px'})
 

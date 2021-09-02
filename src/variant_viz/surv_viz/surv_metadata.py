@@ -51,6 +51,7 @@ class CovidMetadata(object):
             self.df_v_info   = pd.read_csv(filename_v_info_tsv, sep="\t")
         if filename_v_muta_tsv:
             self.df_v_muta   = pd.read_csv(filename_v_muta_tsv, sep="\t")
+            self.df_v_muta[['gene','pos']] = self.df_v_muta['mutation'].str.extract(r'(\w+):\w(\d+)')
         if filename_anno_tsv:
             self.df_v_anno   = pd.read_csv(filename_anno_tsv, sep="\t")
         
@@ -74,6 +75,13 @@ class CovidMetadata(object):
             logging.info(f'Specifying division to {division}...')
             self.set_division(division)
 
+        # add additional info to df_mutation
+        if len(self.df_mutation):
+            logging.info(f'Processing mutations...')
+            cols = ['acc', 'lineage', 'date', 'week', 'country', 'division']
+            self.df_mutation = self.df_mutation.merge(self.df_meta[cols], on='acc', how='left')
+            self.df_mutation[['gene','pos']] = self.df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
+            self.df_mutation['pos'] = self.df_mutation['pos'].astype(int)
         
     def _prepare_metadata(self, filename_meta, complete_only=True, high_coverage_only=True):
         """
@@ -126,6 +134,7 @@ class CovidMetadata(object):
         # remove NOT high_coverage genomes
         if high_coverage_only:
             df_meta = df_meta[df_meta.is_high_cov==True]
+            df_meta = df_meta[df_meta.n_content<=0.01]
         # remove NOT complete genomes
         if complete_only:
             df_meta = df_meta[df_meta.is_complete==True]
@@ -165,7 +174,7 @@ class CovidMetadata(object):
         # cleaning parentheses, unwanted strings in aa_sub
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('\(|\)', '')
         #df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'NS[\w\d]+,?', '') # NSP\d+ and NS\d+ are removed for now until we can map them to the protein
-        df_mutation['mutation'] = df_mutation['mutation'].str.replace(r',[^,]+_ins[\w\d]+', '') # remove insertion
+        df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'[^,]+_ins[^,]+', '') # remove insertion
         df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'Spike', 'S')
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('del', '*')
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('_', ':')
@@ -174,40 +183,34 @@ class CovidMetadata(object):
         df_mutation = df_mutation.assign(variant=df_mutation['mutation'].str.split(',')).explode('variant')
         df_mutation = df_mutation.drop(columns=['mutation'])
         df_mutation = df_mutation.rename(columns={'variant': 'mutation'})
-        df_mutation[['gene','pos']] = df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
 
         # dropping reference genomes
-        df_mutation = df_mutation.dropna()
-        df_mutation['pos'] = df_mutation['pos'].astype(int)
-
-        cols = ['acc', 'lineage', 'date', 'week', 'country', 'division']
-        df_mutation = df_mutation.merge(df_meta[cols], on='acc', how='left')
+        df_mutation = df_mutation[df_mutation.mutation!=""]
 
         return df_meta, df_mutation
 
     def save_pkl(self, outfile_prefix):
         """
-        Saving df_meta and df_mutation to .pkl files respectively
+        Saving original (before filtering country and ste) df_meta and df_mutation to .pkl files respectively
 
         :param outfile_prefix: output filename prefix
         :type  outfile_prefix: str
         """
         logging.info(f'Saving metadata to {outfile_prefix}.pkl...')
-        self.df_meta.to_pickle(f'{outfile_prefix}.pkl')
+        self.df_meta_orig.to_pickle(f'{outfile_prefix}.pkl')
         logging.info(f'Saving metadata to {outfile_prefix}.mutation.pkl...')
-        self.df_mutation.to_pickle(f'{outfile_prefix}.mutation.pkl')
+        self.df_mutation_orig.to_pickle(f'{outfile_prefix}.mutation.pkl')
         
     def set_country(self, country):
         """
-        Specific country
+        Specific country and return 
         
         :param country: country
         :type  country: str
         """
         if country:
             self.df_meta     = self.df_meta_orig[self.df_meta_orig['country']==country].copy()
-            self.df_mutation = self.df_mutation_orig[self.df_mutation_orig['country']==country].copy()
-    
+            self.df_mutation = self.df_mutation_orig[self.df_mutation_orig.acc.isin(self.df_meta.acc)].copy()
     
     def set_division(self, division):
         """
@@ -218,4 +221,4 @@ class CovidMetadata(object):
         """
         if division:
             self.df_meta     = self.df_meta_orig[self.df_meta_orig['division']==division].copy()
-            self.df_mutation = self.df_mutation_orig[self.df_mutation_orig['division']==division].copy()
+            self.df_mutation = self.df_mutation_orig[self.df_mutation_orig.acc.isin(self.df_meta.acc)].copy()

@@ -24,6 +24,8 @@ class PlotDataSource(object):
     def __init__(self, data, target_lineage=None):
 
         self.data = data
+
+        # init target_lineage, voc_list, voi_list
         self.target_lineage = target_lineage
         self.voc_list = self.data.df_v_info.loc[self.data.df_v_info['type']=='VOC', 'lineage'].to_list()
         self.voi_list = self.data.df_v_info.loc[self.data.df_v_info['type']=='VOI', 'lineage'].to_list()
@@ -32,6 +34,7 @@ class PlotDataSource(object):
         top10_list = []
         if len(self.data.df_meta):
             top10_list = self.data.df_meta.groupby('lineage').size().reset_index().sort_values(0, ascending=False).lineage[:10].to_list()
+        logging.debug(f"top10_list: {top10_list}")
 
         # display top 10 and VOC/VOI lineages, rest of them go to "others"
         self.dis_lineage = [x for x in top10_list if x not in self.voc_list+self.voi_list]
