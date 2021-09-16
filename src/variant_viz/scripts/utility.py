@@ -391,7 +391,7 @@ class GISAID_stats():
         sars_cov_2_plots = cplot.CovidPlots()
         page = cplot.CovidViz(sars_cov_2_plots)
 
-        # plot geo visualization
+        # plot geo visualization (page.plots.geo_plot)
         ds.prepare_geo_country()
 
         if geo_type=='global':
@@ -403,6 +403,43 @@ class GISAID_stats():
             abbr = region_state_map.state_abbv_lookup[self.state]
             ds.prepare_geo_county(state=abbr)
             sars_cov_2_plots.plot_geo_county(ds)
+
+        # drop a pin sample location when available
+        def get_location_xy(address, retry=0):
+            """
+            This function returns a location as raw from an address
+            will repeat until success
+            """
+            
+            from pyproj import Transformer, CRS
+            from geopy.geocoders import Nominatim
+            import time
+
+            if retry > 3: 
+                return {}
+            else:
+                retry += 1
+            
+            try:
+                # instantiate a new Nominatim client
+                app = Nominatim(user_agent="tutorial")
+                loc = app.geocode(address).raw
+                transformer = Transformer.from_crs("EPSG:4326", "EPSG:3857", always_xy=True)
+                x, y = transformer.transform(loc["lon"], loc["lat"])
+                return {'x': x, 'y': y}
+            except:
+                time.sleep(1)
+                return get_location_xy(address, retry)
+        
+        if location:
+            location_xy = get_location_xy(location)
+            if location_xy:
+                page.plots.geo_plot.scatter(x=[location_xy['x']],  y=[location_xy['y']], 
+                                            size=17, color='#AF0B06', alpha=0.8,
+                                            name='sample_drop_pin',
+                                            marker="inverted_triangle")
+                hover = HoverTool(tooltips=[("Sample location", location)], names = ['sample_drop_pin'])
+                page.plots.geo_plot.add_tools(hover)
                 
         # week_lineage_bar_plot
         ds.prepare_week_lineage_bar_ds()
@@ -964,7 +1001,7 @@ class EC19_data():
             source=df_ec19_mut_missing
         )
 
-        p_mut.rect( # draw mutations
+        p_mut.rect( # draw rects for mutations
             'AA_pos', 'Chromosome',
             1, 1,
             color=factor_cmap('variant', palette=list(cmap.values()), factors=list(cmap.keys()), nan_color='#946D8C'),
