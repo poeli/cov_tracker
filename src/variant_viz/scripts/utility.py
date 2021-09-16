@@ -125,6 +125,8 @@ class GISAID_stats():
             # join proportional df with the raw count df
             df_lineage_trend_w_s = df_lineage_trend_w_s.join(df_lineage_trend_w_s_prop, how='outer')
             
+            logging.debug(f'update_df_lineage_week_us_states df= {df_lineage_trend_w_s}')
+            
             return ColumnDataSource(df_lineage_trend_w_s)
 
         def update_df_lineage_week_us_regions(df_meta, **kwargs):
@@ -143,6 +145,8 @@ class GISAID_stats():
             # join proportional df with the raw count df
             df_lineage_trend_w_s = df_lineage_trend_w_s.join(df_lineage_trend_w_s_prop, how='outer')
 
+            logging.debug(f'update_df_lineage_week_us_regions df= {df_lineage_trend_w_s}')
+            
             return ColumnDataSource(df_lineage_trend_w_s)
 
         def value(r):
@@ -228,7 +232,9 @@ class GISAID_stats():
             #colors = brewer['Paired'][len(location_list)]
 
 
-            # raw counting plot on the top    
+            # raw counting plot on the top
+            logging.debug(f'Title: {title}, ds.data={ds.data}')
+ 
             p_trending_vbar = figure(
                 title=title,
                 plot_width=1000,
@@ -345,15 +351,16 @@ class GISAID_stats():
         for region in region_state_map.get_all_regions():
             # ds_variant_trend_w_s = update_df_lineage_week_us_states(df_meta, region, lineage=target)
             ds_variant_trend_w_s = update_df_lineage_week_us_states(df_meta, region, pango_lineage=target_lineage)
-            p_variant_trend_w_s_col = plot_trend(ds_variant_trend_w_s, f'{target_lineage} (regions {region})')
+            if 'week' in ds_variant_trend_w_s.data:
+                p_variant_trend_w_s_col = plot_trend(ds_variant_trend_w_s, f'{target_lineage} (regions {region})')
 
-            for l in p_variant_trend_w_s_col.children[1].legend.items:
-                l.label['value'] = l.label['value'].replace('_prop', '')
+                for l in p_variant_trend_w_s_col.children[1].legend.items:
+                    l.label['value'] = l.label['value'].replace('_prop', '')
 
-            panel = Panel(child=p_variant_trend_w_s_col, title=f'Region {region}')
-            tabs.append(panel)
+                panel = Panel(child=p_variant_trend_w_s_col, title=f'Region {region}')
+                tabs.append(panel)
 
-        region_tabs = Tabs(tabs=tabs)
+            region_tabs = Tabs(tabs=tabs)
 
         return column(p_variant_trend_w_r_col, region_tabs)
 
@@ -472,6 +479,7 @@ class GISAID_stats():
 
         title = ec19_sample_name
         collection = ""
+
         if virus_name:
             title += f" ({virus_name})"
         if collection_date:

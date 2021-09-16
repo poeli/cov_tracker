@@ -180,8 +180,10 @@ class PlotDataSource(object):
         if len(lineage_list) > 10:
             top10_list = lineage_list[:10]
         if self.target_lineage and not self.target_lineage in top10_list:
-            top10_list = top10_list+[lineage_list]
+            top10_list.append(self.target_lineage)
 
+        logging.debug(f'toplist: {top10_list}')
+        
         df_periods['lineage_type'] = df_periods['pango_lineage']
         df_periods.loc[~df_periods['pango_lineage'].isin(top10_list), 'lineage_type'] = 'Others'
         
@@ -419,16 +421,19 @@ class PlotDataSource(object):
         self.trend_lineage_10 = var_list
         self.trend_position_10 = mu_list
 
-    def prepare_mutation_tracking_per_variant(self, variant_name):
+    def prepare_mutation_tracking_per_variant(self, variant_name, gene=None):
         logging.info(f'Preparing datasource for mutations of variant: {variant_name}...')
         # mutation in spike protein
-        df_mutation_S = self.data.df_mutation[self.data.df_mutation.gene=='S']
+        df_mutation = self.data.df_mutation
+        if gene:
+            df_mutation = self.data.df_mutation[self.data.df_mutation.gene==gene]
         
         # mutations in a variant
-        mutation_list = self.data.df_variant[self.data.df_variant.lineage==variant_name].mutation.to_list()
-        
+        mutation_list = self.data.df_variant[self.data.df_variant.lineage==variant_name].mutation.to_list() 
+        logging.debug(f'mutation_list: {mutation_list}')        
+
         # filter in specific variants only (heatmap source: df_lineage)
-        df_mutation_lineage = df_mutation_S[df_mutation_S['mutation'].isin(mutation_list)]
+        df_mutation_lineage = df_mutation[df_mutation['mutation'].isin(mutation_list)]
         df_lineage = df_mutation_lineage.groupby(['week','mutation']).count()['acc'].reset_index()
         df_lineage = df_lineage.rename(columns={'acc':'count'})
         
@@ -438,5 +443,6 @@ class PlotDataSource(object):
         # resorting mutation by first appearance
         m_fisrt_app = list(df_lineage.sort_values(['week'])['mutation'].unique())
         mutation_list.sort(key=lambda x: m_fisrt_app.index(x) if x in m_fisrt_app else 999, reverse=True)
+        logging.debug(f'df_lineage: {df_lineage}')        
         
         return df_lineage, mutation_list
