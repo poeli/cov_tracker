@@ -15,7 +15,7 @@ logging.basicConfig(
 )
 
 @click.group(help=f"""EDGE Covid19 variant viz v{__version__}.""")
-def vizcli():
+def vizcli():    
     pass
 
 @vizcli.command('tsv2pkl')
@@ -43,13 +43,20 @@ def vizcli():
               help='high coverage genomes only (<1% Ns)',
               default=True,
               type=bool)
+@click.option('--debug',
+              help='logging at debug level',
+              is_flag=True)
 
 
-def tsv2pkl(tsv, prefix, country, state, complete, high_coverage):
+def tsv2pkl(tsv, prefix, country, state, complete, high_coverage, debug):
     """
     Convert GISAID metadata.tsv file to .pkl files
     """
-    print(f"Running tsv2pkl command...")
+    print(f"Running CovTracker v{__version__} tsv2pkl command...")
+    if debug:
+        logging.basicConfig(level=logging.DEBUG)
+        logging.debug('Logging level set to DEBUG.')
+
     gisaid = GISAID_stats(gisaid_tsv=tsv, country=country, state=state, complete_only=complete, high_coverage_only=high_coverage)
     gisaid.tsv2pkl(prefix)
 
@@ -79,12 +86,19 @@ def tsv2pkl(tsv, prefix, country, state, complete, high_coverage):
               help='output filename for stats html',
               required=True,
               type=str)
+@click.option('--debug',
+              help='logging at debug level',
+              is_flag=True)
 
-def gisaid_stats(meta_pkl, mut_pkl, geo_type, country, state, output):
+
+def gisaid_stats(meta_pkl, mut_pkl, geo_type, country, state, output, debug):
     """
     Generate a stats html file from GISAID data
     """
-    print(f"Running gisaid_stats command...")
+    print(f"Running CovTracker v{__version__} gisaid_stats command...")
+    if debug:
+        logging.basicConfig(level=logging.DEBUG)
+        logging.debug('Logging level set to DEBUG.')
     if geo_type=='state' and state==None:
         print(f"ERROR: --geo-type is set to 'state' but --state is not specified.")
         sys.exit(1)
@@ -133,16 +147,23 @@ def gisaid_stats(meta_pkl, mut_pkl, geo_type, country, state, output):
               help='specify an US state in fullname (like: "New Mexico")',
               required=False,
               type=str)
+@click.option('--debug',
+              help='logging at debug level',
+              is_flag=True)
 
-def project(meta_pkl, mut_pkl, sample, snps, pango, metadata, output, geo_type, country, state):
+
+def project(meta_pkl, mut_pkl, sample, snps, pango, metadata, output, geo_type, country, state, debug):
     """
     Generate a stats html for a particular EC19 project
     """
+    if debug:
+        logging.getLogger().setLevel(logging.DEBUG)
+        logging.debug('Logging level set to DEBUG.')
     if geo_type=='state' and state==None:
         print(f"ERROR: --geo-type is set to 'state' but --state is not specified.")
         sys.exit(1)
 
-    print(f"Running project command...")
+    print(f"Running CovTracker v{__version__} project command...")
     virus_name=None
     collection_date=None
     location=None
@@ -151,11 +172,11 @@ def project(meta_pkl, mut_pkl, sample, snps, pango, metadata, output, geo_type, 
         line.strip()
         f = line.split('=')
         if line.startswith('virus_name'):
-            virus_name = f[1]
+            virus_name = f[1].strip()
         if line.startswith('collection_date'):
-            collection_date = f[1]
+            collection_date = f[1].strip()
         if line.startswith('location'):
-            location = f[1]
+            location = f[1].strip()
 
     gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl, country=country, state=state)
     gisaid.generate_ec19_sample_html(sample, snps, pango, output, geo_type, virus_name, collection_date, location)
@@ -185,12 +206,20 @@ def project(meta_pkl, mut_pkl, sample, snps, pango, metadata, output, geo_type, 
               help='output filename for EC19 report html',
               required=True,
               type=str)
+@click.option('--debug',
+              help='logging at debug level',
+              is_flag=True)
 
-def report(snps, gaps, alnstats, pango, metadata, output):
+
+def report(snps, gaps, alnstats, pango, metadata, output, debug):
     """
     Generate a visualization report for EDGE-Covid19 workflow
     """
-    print(f"Running report command...")
+    print(f"Running CovTracker v{__version__} report command...")
+    if debug:
+        logging.basicConfig(level=logging.DEBUG)
+        logging.debug('Logging level set to DEBUG.')
+
     report = EC19_data(snps, gaps, alnstats, pango, metadata, output)
     report.generate_EC_repot()
 

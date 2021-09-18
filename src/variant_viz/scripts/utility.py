@@ -125,6 +125,8 @@ class GISAID_stats():
             # join proportional df with the raw count df
             df_lineage_trend_w_s = df_lineage_trend_w_s.join(df_lineage_trend_w_s_prop, how='outer')
             
+            logging.debug(f'update_df_lineage_week_us_states df= {df_lineage_trend_w_s}')
+            
             return ColumnDataSource(df_lineage_trend_w_s)
 
         def update_df_lineage_week_us_regions(df_meta, **kwargs):
@@ -143,6 +145,8 @@ class GISAID_stats():
             # join proportional df with the raw count df
             df_lineage_trend_w_s = df_lineage_trend_w_s.join(df_lineage_trend_w_s_prop, how='outer')
 
+            logging.debug(f'update_df_lineage_week_us_regions df= {df_lineage_trend_w_s}')
+            
             return ColumnDataSource(df_lineage_trend_w_s)
 
         def value(r):
@@ -228,7 +232,9 @@ class GISAID_stats():
             #colors = brewer['Paired'][len(location_list)]
 
 
-            # raw counting plot on the top    
+            # raw counting plot on the top
+            logging.debug(f'Title: {title}, ds.data={ds.data}')
+ 
             p_trending_vbar = figure(
                 title=title,
                 plot_width=1000,
@@ -345,15 +351,16 @@ class GISAID_stats():
         for region in region_state_map.get_all_regions():
             # ds_variant_trend_w_s = update_df_lineage_week_us_states(df_meta, region, lineage=target)
             ds_variant_trend_w_s = update_df_lineage_week_us_states(df_meta, region, pango_lineage=target_lineage)
-            p_variant_trend_w_s_col = plot_trend(ds_variant_trend_w_s, f'{target_lineage} (regions {region})')
+            if 'week' in ds_variant_trend_w_s.data:
+                p_variant_trend_w_s_col = plot_trend(ds_variant_trend_w_s, f'{target_lineage} (regions {region})')
 
-            for l in p_variant_trend_w_s_col.children[1].legend.items:
-                l.label['value'] = l.label['value'].replace('_prop', '')
+                for l in p_variant_trend_w_s_col.children[1].legend.items:
+                    l.label['value'] = l.label['value'].replace('_prop', '')
 
-            panel = Panel(child=p_variant_trend_w_s_col, title=f'Region {region}')
-            tabs.append(panel)
+                panel = Panel(child=p_variant_trend_w_s_col, title=f'Region {region}')
+                tabs.append(panel)
 
-        region_tabs = Tabs(tabs=tabs)
+            region_tabs = Tabs(tabs=tabs)
 
         return column(p_variant_trend_w_r_col, region_tabs)
 
@@ -369,7 +376,7 @@ class GISAID_stats():
         ec19_obj = EC19_data(snps=ec19_snp_file, pango=ec19_pango_file)
         df_ec19 = ec19_obj.df_ec19
 
-        df_ec19_s_mut = df_ec19[df_ec19.Product=='S'].copy()
+        df_ec19_s_mut = df_ec19.copy()
         df_ec19_s_mut['Chromosome'] = ec19_sample_name
         df_ec19_s_mut = df_ec19_s_mut[['Chromosome','Mutation','Product','AA_pos']].rename(columns={'Chromosome':'lineage', 'Mutation':'mutation', 'Product':'gene', 'AA_pos':'pos'})
         df_ec19_s_mut['not_all'] = 'N'
@@ -472,6 +479,7 @@ class GISAID_stats():
 
         title = ec19_sample_name
         collection = ""
+
         if virus_name:
             title += f" ({virus_name})"
         if collection_date:
@@ -607,8 +615,9 @@ class EC19_data():
             df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('nucleocapsid', 'N')
             df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('surface', 'S')
             df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('membrane', 'M')
-            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('envelope', 'E')   
-            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].str.capitalize()
+            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('envelope', 'E')
+            # df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].str.capitalize()
+            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].str.replace('orf', 'ORF', case=True)
             df_ec19['CDS_start']    = df_ec19['CDS_start'].astype(int)
             df_ec19['CDS_end']      = df_ec19['CDS_end'].astype(int)
             df_ec19['SNP_position'] = df_ec19['SNP_position'].astype(int)
@@ -616,6 +625,7 @@ class EC19_data():
             df_ec19['AA_pos']       = df_ec19['AA_pos'].astype(str)
             df_ec19["Mutation"]     = df_ec19.Product + ":" + df_ec19.aa_Ref + df_ec19.AA_pos.astype(str).str.replace(r'\.0$', '') + df_ec19.aa_Sub
             self.df_ec19 = df_ec19
+            logging.debug(df_ec19)
             logging.info(f'EC19 SNPs file ({self.filename_ec19}) loaded.')
         except:
             logging.info(f'EC19 SNPs file ({self.filename_ec19}) not loaded.')
