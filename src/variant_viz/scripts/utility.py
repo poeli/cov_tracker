@@ -376,7 +376,7 @@ class GISAID_stats():
         ec19_obj = EC19_data(snps=ec19_snp_file, pango=ec19_pango_file)
         df_ec19 = ec19_obj.df_ec19
 
-        df_ec19_s_mut = df_ec19[df_ec19.Product=='S'].copy()
+        df_ec19_s_mut = df_ec19.copy()
         df_ec19_s_mut['Chromosome'] = ec19_sample_name
         df_ec19_s_mut = df_ec19_s_mut[['Chromosome','Mutation','Product','AA_pos']].rename(columns={'Chromosome':'lineage', 'Mutation':'mutation', 'Product':'gene', 'AA_pos':'pos'})
         df_ec19_s_mut['not_all'] = 'N'
@@ -615,8 +615,9 @@ class EC19_data():
             df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('nucleocapsid', 'N')
             df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('surface', 'S')
             df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('membrane', 'M')
-            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('envelope', 'E')   
-            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].str.capitalize()
+            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].replace('envelope', 'E')
+            # df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].str.capitalize()
+            df_ec19.loc[:,'Product'] = df_ec19.loc[:,'Product'].str.replace('orf', 'ORF', case=True)
             df_ec19['CDS_start']    = df_ec19['CDS_start'].astype(int)
             df_ec19['CDS_end']      = df_ec19['CDS_end'].astype(int)
             df_ec19['SNP_position'] = df_ec19['SNP_position'].astype(int)
@@ -624,6 +625,7 @@ class EC19_data():
             df_ec19['AA_pos']       = df_ec19['AA_pos'].astype(str)
             df_ec19["Mutation"]     = df_ec19.Product + ":" + df_ec19.aa_Ref + df_ec19.AA_pos.astype(str).str.replace(r'\.0$', '') + df_ec19.aa_Sub
             self.df_ec19 = df_ec19
+            logging.debug(df_ec19)
             logging.info(f'EC19 SNPs file ({self.filename_ec19}) loaded.')
         except:
             logging.info(f'EC19 SNPs file ({self.filename_ec19}) not loaded.')

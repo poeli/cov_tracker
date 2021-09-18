@@ -423,9 +423,10 @@ class PlotDataSource(object):
 
     def prepare_mutation_tracking_per_variant(self, variant_name, gene=None):
         logging.info(f'Preparing datasource for mutations of variant: {variant_name}...')
-        # mutation in spike protein
+        
         df_mutation = self.data.df_mutation
         if gene:
+            # mutation in spike protein
             df_mutation = self.data.df_mutation[self.data.df_mutation.gene==gene]
         
         # mutations in a variant

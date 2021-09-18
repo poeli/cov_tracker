@@ -77,7 +77,7 @@ class CovidMetadata(object):
 
         # add additional info to df_mutation
         if len(self.df_mutation):
-            logging.info(f'Processing mutations...')
+            logging.info(f'Adding metadata to mutations...')
             cols = ['acc', 'lineage', 'date', 'week', 'country', 'division']
             self.df_mutation = self.df_mutation.merge(self.df_meta[cols], on='acc', how='left')
             self.df_mutation[['gene','pos']] = self.df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
@@ -168,12 +168,13 @@ class CovidMetadata(object):
         ## fine touching data
         #df_meta.loc[df_meta.lineage=='B.1.427/429', 'lineage'] = 'Epsilon'
         
+        logging.info(f'Extracting mutations...')
+
         # preparing aa_sub in gisaid
         df_mutation = df_meta[['acc', 'mutation']].copy()
         
         # cleaning parentheses, unwanted strings in aa_sub
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('\(|\)', '')
-        #df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'NS[\w\d]+,?', '') # NSP\d+ and NS\d+ are removed for now until we can map them to the protein
         df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'[^,]+_ins[^,]+', '') # remove insertion
         df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'Spike', 'S')
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('del', '*')
@@ -186,6 +187,55 @@ class CovidMetadata(object):
 
         # dropping reference genomes
         df_mutation = df_mutation[df_mutation.mutation!=""]
+
+        logging.info(f'Converting genes and positions...')
+
+        # converting GISAID mutations to EC19's format
+        gene_prod = {
+            'NSP1':  {'gene': 'ORF1a',  'offset':    0},
+            'NSP2':  {'gene': 'ORF1a',  'offset':  180},
+            'NSP3':  {'gene': 'ORF1a',  'offset':  818},
+            'NSP4':  {'gene': 'ORF1a',  'offset': 2763},
+            'NSP5':  {'gene': 'ORF1a',  'offset': 3263},
+            'NSP6':  {'gene': 'ORF1a',  'offset': 3569},
+            'NSP7':  {'gene': 'ORF1a',  'offset': 3859},
+            'NSP8':  {'gene': 'ORF1a',  'offset': 3942},
+            'NSP9':  {'gene': 'ORF1a',  'offset': 4140},
+            'NSP10': {'gene': 'ORF1a',  'offset': 4253},
+            'NSP11': {'gene': 'ORF1a',  'offset': 4392},
+            'NSP12': {'gene': 'ORF1ab', 'offset':   -9},
+            'NSP13': {'gene': 'ORF1ab', 'offset':  923},
+            'NSP14': {'gene': 'ORF1ab', 'offset': 1524},
+            'NSP15': {'gene': 'ORF1ab', 'offset': 2051},
+            'NSP16': {'gene': 'ORF1ab', 'offset': 2397},
+            'NS3':   {'gene': 'ORF3a',  'offset':    0},
+            'NS6':   {'gene': 'ORF6',   'offset':    0},
+            'NS7a':  {'gene': 'ORF7a',  'offset':    0},
+            'NS7b':  {'gene': 'ORF7b',  'offset':    0},
+            'NS8':   {'gene': 'ORF8',   'offset':    0},
+            'NS10':  {'gene': 'ORF10',  'offset':    0},
+        }
+
+        df_mutation[['aa_Ref', 'aa_Sub']] = df_mutation['mutation'].str.extract(r':(\D+)\d+(\D+)')
+        df_mutation[['gene', 'pos']] = df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
+        df_mutation['pos'] = df_mutation['pos'].astype(int)
+
+        for prod in gene_prod:
+            idx = df_mutation.gene==prod
+            df_mutation.loc[idx, 'gene'] = gene_prod[prod]['gene']
+            df_mutation.loc[idx, 'pos'] = df_mutation.loc[idx, 'pos'] + gene_prod[prod]['offset']
+
+        # remove rows with invalid positions
+        idx = df_mutation.pos<=0
+        df_mutation = df_mutation.loc[~idx,:]
+
+        # update mutations to new gene names and positions
+        df_mutation['mutation'] = df_mutation['gene']+":"+df_mutation['aa_Ref']+df_mutation['pos'].astype(str)+df_mutation['aa_Sub']
+
+        logging.info(f'Cleaning dataframe...')
+
+        # dropping columns
+        df_mutation = df_mutation.drop(columns=['aa_Ref', 'aa_Sub', 'gene', 'pos'])
 
         return df_meta, df_mutation
 

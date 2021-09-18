@@ -16,7 +16,6 @@ logging.basicConfig(
 
 @click.group(help=f"""EDGE Covid19 variant viz v{__version__}.""")
 def vizcli():    
-    print(f"Running CovTracker v{__version__}")
     pass
 
 @vizcli.command('tsv2pkl')
@@ -53,7 +52,7 @@ def tsv2pkl(tsv, prefix, country, state, complete, high_coverage, debug):
     """
     Convert GISAID metadata.tsv file to .pkl files
     """
-    print(f"Running tsv2pkl command...")
+    print(f"Running CovTracker v{__version__} tsv2pkl command...")
     if debug:
         logging.basicConfig(level=logging.DEBUG)
         logging.debug('Logging level set to DEBUG.')
@@ -96,7 +95,7 @@ def gisaid_stats(meta_pkl, mut_pkl, geo_type, country, state, output, debug):
     """
     Generate a stats html file from GISAID data
     """
-    print(f"Running gisaid_stats command...")
+    print(f"Running CovTracker v{__version__} gisaid_stats command...")
     if debug:
         logging.basicConfig(level=logging.DEBUG)
         logging.debug('Logging level set to DEBUG.')
@@ -164,7 +163,7 @@ def project(meta_pkl, mut_pkl, sample, snps, pango, metadata, output, geo_type, 
         print(f"ERROR: --geo-type is set to 'state' but --state is not specified.")
         sys.exit(1)
 
-    print(f"Running project command...")
+    print(f"Running CovTracker v{__version__} project command...")
     virus_name=None
     collection_date=None
     location=None
@@ -216,7 +215,7 @@ def report(snps, gaps, alnstats, pango, metadata, output, debug):
     """
     Generate a visualization report for EDGE-Covid19 workflow
     """
-    print(f"Running report command...")
+    print(f"Running CovTracker v{__version__} report command...")
     if debug:
         logging.basicConfig(level=logging.DEBUG)
         logging.debug('Logging level set to DEBUG.')
