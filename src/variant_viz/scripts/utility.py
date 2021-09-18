@@ -396,6 +396,7 @@ class GISAID_stats():
         ds = cdata.PlotDataSource(self.data, target_lineage=target_lineage)
         # init plots
         sars_cov_2_plots = cplot.CovidPlots()
+        # init pages
         page = cplot.CovidViz(sars_cov_2_plots)
 
         # plot geo visualization (page.plots.geo_plot)

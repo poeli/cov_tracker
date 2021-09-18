@@ -199,9 +199,13 @@ class CovidPlots(object):
                   source=regions_ds)
         
         #all lineages
-        lineages = list(set(regions_lineage_ds.data['lineage_type']))
-        #logging.info(f'Target lineages {lineages}...')
-        #logging.info(f'Lineage colors: {viridis(len(lineages))}...')
+        X = regions_lineage_ds.data['lineage_type']
+        Y = regions_lineage_ds.data['prop']
+        Z = [x for _,x in sorted(zip(Y,X))]
+        lineages = list(set(Z))
+
+        logging.debug(f'Target lineages {lineages}...')
+        logging.debug(f'Lineage colors: {viridis(len(lineages))}...')
 
         # create annular_wedge to indicate the proportion of lineages
         p.annular_wedge(
@@ -213,8 +217,8 @@ class CovidPlots(object):
             end_angle=cumsum('angle'),
             line_color=None,
             fill_color=factor_cmap('lineage_type', palette=list(viridis(len(lineages))), factors=lineages),
-            line_alpha=0.5,
-            alpha=0.5,
+            line_alpha=0.7,
+            alpha=0.7,
             inner_radius_units='screen',
             outer_radius_units='screen',
             name='period_prop',
