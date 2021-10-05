@@ -231,7 +231,6 @@ class GISAID_stats():
             colors = viridis(len(location_count_list))
             #colors = brewer['Paired'][len(location_list)]
 
-
             # raw counting plot on the top
             logging.debug(f'Title: {title}, ds.data={ds.data}')
  
@@ -340,6 +339,12 @@ class GISAID_stats():
 
         # ds_variant_trend_w_r = update_df_lineage_week_us_regions(df_meta, lineage=target)
         ds_variant_trend_w_r = update_df_lineage_week_us_regions(df_meta, pango_lineage=target_lineage)
+
+        # handling no data, for example: B.1.1.289 wasn't found in the US
+        if 'index' in ds_variant_trend_w_r.data and len(ds_variant_trend_w_r.data['index'])==0:
+            from bokeh.models import Paragraph
+            p = Paragraph(text="Data are not available in the US.")
+            return column(p)
 
         p_variant_trend_w_r_col = plot_trend(ds_variant_trend_w_r, target_lineage)
 
