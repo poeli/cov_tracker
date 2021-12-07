@@ -388,8 +388,8 @@ class PlotDataSource(object):
         # get Lineage data from -9 week to current week    
         # df_tl = pd.crosstab(df_tl.week, df_tl.lineage, normalize='index')
         df_tl = pd.crosstab(df_tl.week, df_tl.pango_lineage, normalize='index')
-        # df_tl = df_tl.iloc[-9:, :].copy()
-        df_tl = df_tl.iloc[-9:-1, :].copy()
+        df_tl = df_tl.iloc[-9:, :].copy()
+        #df_tl = df_tl.iloc[-9:-1, :].copy()
 
         # offset the first week to 0 pct
         df_tl_offset = df_tl-df_tl.iloc[0,:]
@@ -405,7 +405,7 @@ class PlotDataSource(object):
         df_mu = pd.crosstab(df_mu.week, df_mu.mutation)
         df_week_total = df_tlmu.groupby('acc').agg({'week':'first'}).reset_index().groupby('week').count()
         df_mu = df_mu.div(df_week_total['acc'], axis=0)
-        df_mu = df_mu.iloc[-9:-1, :].copy()
+        df_mu = df_mu.iloc[-9:, :].copy()
 
         # offset the first week to 0 pct
         df_mu_offset = df_mu-df_mu.iloc[0,:]
