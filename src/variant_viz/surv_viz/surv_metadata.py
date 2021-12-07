@@ -218,6 +218,7 @@ class CovidMetadata(object):
 
         df_mutation[['aa_Ref', 'aa_Sub']] = df_mutation['mutation'].str.extract(r':(\D+)\d+(\D+)')
         df_mutation[['gene', 'pos']] = df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
+        df_mutation = df_mutation.dropna(subset=['gene', 'pos'])
         df_mutation['pos'] = df_mutation['pos'].astype(int)
 
         for prod in gene_prod:
