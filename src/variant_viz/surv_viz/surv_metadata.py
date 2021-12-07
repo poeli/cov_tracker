@@ -83,7 +83,7 @@ class CovidMetadata(object):
             self.df_mutation[['gene','pos']] = self.df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
             self.df_mutation['pos'] = self.df_mutation['pos'].astype(int)
         
-    def _prepare_metadata(self, filename_meta, complete_only=True, high_coverage_only=True):
+    def _prepare_metadata(self, filename_meta, complete_only=True, high_coverage_only=False):
         """
         Loading and prepare metadata tsv file
         
