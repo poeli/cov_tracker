@@ -98,7 +98,7 @@ class CovidMetadata(object):
         import numpy as np
 
         # loading metadata.tsv file
-        df_meta = pd.read_csv(filename_meta, sep="\t", low_memory=False)
+        df_meta = pd.read_csv(filename_meta, chunksize=1000000, sep="\t", low_memory=False)
         
         # accommodate new GISAID metadata
         df_meta = df_meta.rename(columns={
