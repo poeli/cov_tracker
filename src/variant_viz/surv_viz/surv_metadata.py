@@ -32,8 +32,8 @@ class CovidMetadata(object):
                        filename_meta_tsv=None,
                        country=None,
                        division=None, 
-                       complete_only=True, 
-                       high_coverage_only=True):
+                       complete_only=True,
+                       n_content=0.01):
         
         self.df_meta_orig     = pd.DataFrame()
         self.df_meta          = pd.DataFrame()
@@ -64,7 +64,7 @@ class CovidMetadata(object):
             self.df_mutation_orig = pd.read_pickle(filename_mutation_pkl)
         elif filename_meta_tsv:
             logging.info(f'Parsing {filename_meta_tsv} file...')
-            (self.df_meta_orig, self.df_mutation_orig) = self._prepare_metadata(filename_meta_tsv, complete_only, high_coverage_only)
+            (self.df_meta_orig, self.df_mutation_orig) = self._prepare_metadata(filename_meta_tsv, complete_only, n_content)
         
         if country==None and division==None:
             self.df_meta     = self.df_meta_orig
@@ -75,15 +75,15 @@ class CovidMetadata(object):
             logging.info(f'Specifying division to {division}...')
             self.set_division(division)
 
-        # add additional info to df_mutation
-        if len(self.df_mutation):
-            logging.info(f'Adding metadata to mutations...')
-            cols = ['acc', 'lineage', 'date', 'week', 'country', 'division']
-            self.df_mutation = self.df_mutation.merge(self.df_meta[cols], on='acc', how='left')
-            self.df_mutation[['gene','pos']] = self.df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
-            self.df_mutation['pos'] = self.df_mutation['pos'].astype(int)
+        ## add additional info to df_mutation
+        # if len(self.df_mutation):
+        #     logging.info(f'Adding metadata to mutations...')
+        #     cols = ['acc', 'lineage', 'date', 'week', 'country', 'division']
+        #     self.df_mutation = self.df_mutation.merge(self.df_meta[cols], on='acc', how='left')
+        #     self.df_mutation[['gene','pos']] = self.df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
+        #     self.df_mutation['pos'] = self.df_mutation['pos'].astype(int)
         
-    def _prepare_metadata(self, filename_meta, complete_only=True, high_coverage_only=False):
+    def _prepare_metadata(self, filename_meta, complete_only=True, n_content=0.01):
         """
         Loading and prepare metadata tsv file
         
@@ -95,10 +95,12 @@ class CovidMetadata(object):
         :type  high_coverage_only: bool
         """
         import pandas as pd
-        import numpy as np
-
+        
         # loading metadata.tsv file
-        df_meta = pd.read_csv(filename_meta, chunksize=1000000, sep="\t", low_memory=False)
+        df_meta = pd.DataFrame()
+        with pd.read_csv(filename_meta, chunksize=1000000, sep="\t") as reader:
+            for chunk in reader:
+                df_meta = df_meta.append(chunk)
         
         # accommodate new GISAID metadata
         df_meta = df_meta.rename(columns={
@@ -132,9 +134,11 @@ class CovidMetadata(object):
         # Remove mislabeled collection date
         df_meta = df_meta.drop(df_meta[df_meta.date<'2019-12'].index)
         # remove NOT high_coverage genomes
-        if high_coverage_only:
-            df_meta = df_meta[df_meta.is_high_cov==True]
-            df_meta = df_meta[df_meta.n_content<=0.01]
+        # if high_coverage_only:
+        #     df_meta = df_meta[df_meta.is_high_cov==True]
+        # remove genomes with percentage of Ns exess n_content
+        if n_content:
+            df_meta = df_meta[df_meta.n_content<=n_content]
         # remove NOT complete genomes
         if complete_only:
             df_meta = df_meta[df_meta.is_complete==True]
@@ -142,6 +146,7 @@ class CovidMetadata(object):
         # for GISAID
         # df_meta['date'] = df_meta['date'].astype('datetime64[ns]')
         df_meta['date'] = pd.to_datetime(df_meta['date'], errors = 'coerce')
+        df_meta['submission_date'] = pd.to_datetime(df_meta['submission_date'], errors = 'coerce')
         df_meta['week'] = df_meta['date'].dt.strftime('%Y-%Uw')
         df_meta[['region', 'country', 'division', 'location']] = df_meta['Location'].str.split(' / ', expand=True, n=3)
         df_meta['name'] = df_meta['name'].str.replace('hCoV-19/', '')
@@ -174,8 +179,8 @@ class CovidMetadata(object):
         df_mutation = df_meta[['acc', 'mutation']].copy()
         
         # cleaning parentheses, unwanted strings in aa_sub
-        df_mutation['mutation'] = df_mutation['mutation'].str.replace('\(|\)', '')
-        df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'[^,]+_ins[^,]+', '') # remove insertion
+        df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'\(|\)', '', regex=True)
+        df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'[^,]+_ins[^,]+', '', regex=True) # remove insertion
         df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'Spike', 'S')
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('del', '*')
         df_mutation['mutation'] = df_mutation['mutation'].str.replace('_', ':')

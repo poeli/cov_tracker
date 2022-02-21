@@ -39,16 +39,20 @@ def vizcli():
               help='complete genomes only (>29Kbp))',
               default=True,
               type=bool)
-@click.option('-hc', '--high-coverage',
-              help='high coverage genomes only (<1% Ns)',
-              default=True,
-              type=bool)
+# @click.option('-hc', '--high-coverage',
+#               help='high coverage genomes only (default: True)',
+#               default=True,
+#               type=bool)
+@click.option('-n', '--n-content',
+              help='remove genomes if percentage of Ns excess this parameter (default: 0.01)',
+              default=0.01,
+              type=float)
 @click.option('--debug',
               help='logging at debug level',
               is_flag=True)
 
 
-def tsv2pkl(tsv, prefix, country, state, complete, high_coverage, debug):
+def tsv2pkl(tsv, prefix, country, state, complete, n_content, debug):
     """
     Convert GISAID metadata.tsv file to .pkl files
     """
@@ -57,7 +61,7 @@ def tsv2pkl(tsv, prefix, country, state, complete, high_coverage, debug):
         logging.basicConfig(level=logging.DEBUG)
         logging.debug('Logging level set to DEBUG.')
 
-    gisaid = GISAID_stats(gisaid_tsv=tsv, country=country, state=state, complete_only=complete, high_coverage_only=high_coverage)
+    gisaid = GISAID_stats(gisaid_tsv=tsv, country=country, state=state, complete_only=complete, n_content=n_content)
     gisaid.tsv2pkl(prefix)
 
 
