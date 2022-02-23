@@ -1,5 +1,6 @@
 import pandas as pd
 import logging
+import numpy as np
 
 class CovidMetadata(object):
     """
@@ -147,13 +148,14 @@ class CovidMetadata(object):
         # df_meta['date'] = df_meta['date'].astype('datetime64[ns]')
         df_meta['date'] = pd.to_datetime(df_meta['date'], errors = 'coerce')
         df_meta['submission_date'] = pd.to_datetime(df_meta['submission_date'], errors = 'coerce')
-        df_meta['week'] = df_meta['date'].dt.strftime('%Y-%Uw')
+        df_meta['week'] = df_meta['date'] - df_meta['date'].dt.weekday * np.timedelta64(1, 'D')
+        # df_meta['week'] = df_meta['week'].astype(str)
         df_meta[['region', 'country', 'division', 'location']] = df_meta['Location'].str.split(' / ', expand=True, n=3)
         df_meta['name'] = df_meta['name'].str.replace('hCoV-19/', '')
         df_meta = df_meta.drop(columns=['type', 'Location', 'Location_add', 'gc_content'])
 
-        # deleete "-00w" rows
-        df_meta = df_meta.drop(df_meta[df_meta.week.str.contains('-00w')].index)
+        # delete "-00w" rows
+        # df_meta = df_meta.drop(df_meta[df_meta.week.str.contains('-00w')].index)
 
         # for Genbank
         #df_meta['acc'] = df_meta['genbank_accession']
@@ -177,6 +179,7 @@ class CovidMetadata(object):
 
         # preparing aa_sub in gisaid
         df_mutation = df_meta[['acc', 'mutation']].copy()
+        df_meta = df_meta.drop(columns=['mutation'])
         
         # cleaning parentheses, unwanted strings in aa_sub
         df_mutation['mutation'] = df_mutation['mutation'].str.replace(r'\(|\)', '', regex=True)
