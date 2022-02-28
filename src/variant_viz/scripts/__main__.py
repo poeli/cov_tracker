@@ -68,7 +68,7 @@ def tsv2pkl(tsv, prefix, country, state, complete, n_content, date_start, date_e
         logging.basicConfig(level=logging.DEBUG)
         logging.debug('Logging level set to DEBUG.')
 
-    gisaid = GISAID_stats(gisaid_tsv=tsv, country=country, state=state, complete_only=complete, n_content=n_content, date_start=date_start, date_end=date_end)
+    gisaid = GISAID_stats(gisaid_tsv=tsv, country=country, state=state, complete_only=complete, n_content=n_content, date_start=date_start, date_end=date_end, merge_meta_to_mut=False)
     gisaid.tsv2pkl(prefix)
 
 

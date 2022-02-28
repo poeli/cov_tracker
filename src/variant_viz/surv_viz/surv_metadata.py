@@ -37,6 +37,7 @@ class CovidMetadata(object):
                        n_content=None,
                        date_start=None,
                        date_end=None,
+                       merge_meta_to_mut=True,
                        ):
         
         self.df_meta_orig     = pd.DataFrame()
@@ -95,7 +96,7 @@ class CovidMetadata(object):
             self.df_mutation = self.df_mutation[self.df_mutation.acc.isin(self.df_meta.acc)]
 
         # add additional info to df_mutation
-        if len(self.df_mutation):
+        if len(self.df_mutation)>0 and merge_meta_to_mut:
             logging.info(f'Adding metadata to mutations...')
             cols = ['acc', 'lineage', 'date', 'week', 'country', 'division']
             self.df_mutation = self.df_mutation.merge(self.df_meta[cols], on='acc', how='left')

@@ -62,6 +62,7 @@ class CovidPlots(object):
                 hatch_color='white',
                 hatch_alpha=0.3,
                 hatch_weight=1,
+                legend_label=ds.dis_lineage,
                 source=source
             )
             
@@ -69,13 +70,20 @@ class CovidPlots(object):
 
         # week_lineage_bar_plot raw number
         p_tl = lineage_plot(ds.ds_week_variant)
+        p_tl.legend.location = 'top_left'
+        p_tl.legend.label_text_font_size = "8pt"
+        p_tl.legend.orientation = "horizontal"
 
         t = Title()
-        t.text = 'Lineage'
+        t.text = 'Variant'
         p_tl.title = t
-        
+
+        # legend = Legend(items=[(x, [p_tl[i]]) for i, x in enumerate(ds.dis_lineage)], location=(0, -30))
+        # p_tl.add_layout(legend, 'left')
+
         # week_lineage_bar_plot raw freq
         p_tl_freq = lineage_plot(ds.ds_week_variant_freq)
+        p_tl_freq.legend.visible = False
         
         # plots in grid
         p_week_lineage = gridplot([[p_tl],[p_tl_freq]], toolbar_options=dict(logo=None))
@@ -162,7 +170,7 @@ class CovidPlots(object):
     
     def plot_geo_regions(self, regions_ds, regions_lineage_ds, boundrey_ds, x_range, y_range):
         from bokeh.transform import cumsum, factor_cmap
-        from bokeh.palettes import viridis
+        from bokeh.palettes import brewer, Spectral11
             
         # init variables
         tile_source = get_provider(CARTODBPOSITRON)
@@ -205,7 +213,10 @@ class CovidPlots(object):
         lineages = list(set(Z))
 
         logging.debug(f'Target lineages {lineages}...')
-        logging.debug(f'Lineage colors: {viridis(len(lineages))}...')
+
+        lineages.remove("Others")
+        lineages = lineages+["Others"]
+        palette=list(brewer["Spectral"][len(lineages)-1])+["#BBBBBB"]
 
         # create annular_wedge to indicate the proportion of lineages
         p.annular_wedge(
@@ -216,7 +227,7 @@ class CovidPlots(object):
             start_angle=cumsum('angle', include_zero=True), 
             end_angle=cumsum('angle'),
             line_color=None,
-            fill_color=factor_cmap('lineage_type', palette=list(viridis(len(lineages))), factors=lineages),
+            fill_color=factor_cmap('lineage_type', palette=palette, factors=lineages),
             line_alpha=0.7,
             alpha=0.7,
             inner_radius_units='screen',
