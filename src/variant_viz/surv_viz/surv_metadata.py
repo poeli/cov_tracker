@@ -167,7 +167,7 @@ class CovidMetadata(object):
         df_meta['date'] = pd.to_datetime(df_meta['date'], errors = 'coerce')
         df_meta['submission_date'] = pd.to_datetime(df_meta['submission_date'], errors = 'coerce')
         df_meta['week'] = df_meta['date'] - df_meta['date'].dt.weekday * np.timedelta64(1, 'D')
-        # df_meta['week'] = df_meta['week'].astype(str)
+        df_meta['week'] = df_meta['week'].astype(str)
         df_meta[['region', 'country', 'division', 'location']] = df_meta['Location'].str.split(' / ', expand=True, n=3)
         df_meta['name'] = df_meta['name'].str.replace('hCoV-19/', '')
         df_meta = df_meta.drop(columns=['type', 'Location', 'Location_add', 'gc_content'])
