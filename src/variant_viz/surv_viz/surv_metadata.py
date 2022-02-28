@@ -119,7 +119,7 @@ class CovidMetadata(object):
         df_meta = pd.DataFrame()
         with pd.read_csv(filename_meta, chunksize=1000000, sep="\t") as reader:
             for chunk in reader:
-                df_meta = df_meta.append(chunk)
+                df_meta = pd.concat([df_meta, chunk], ignore_index=True)
         
         # accommodate new GISAID metadata
         df_meta = df_meta.rename(columns={
