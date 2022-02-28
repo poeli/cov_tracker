@@ -4,6 +4,7 @@ Commands for variant_viz
 import click
 import sys
 import logging
+import datetime
 from variant_viz import __version__
 from variant_viz.scripts.utility import EC19_data
 from variant_viz.scripts.utility import GISAID_stats
@@ -39,20 +40,26 @@ def vizcli():
               help='complete genomes only (>29Kbp))',
               default=True,
               type=bool)
-# @click.option('-hc', '--high-coverage',
-#               help='high coverage genomes only (default: True)',
-#               default=True,
-#               type=bool)
 @click.option('-n', '--n-content',
               help='remove genomes if percentage of Ns excess this parameter (default: 0.01)',
               default=0.01,
               type=float)
+@click.option('-ds', '--date-start',
+              help='select data from this date in YYYY-MM-DD format',
+              type=str,
+              required=False,
+              default=None)
+@click.option('-de', '--date-end',
+              help='select data ending this date in YYYY-MM-DD format',
+              type=str,
+              required=False,
+              default=None)
 @click.option('--debug',
               help='logging at debug level',
               is_flag=True)
 
 
-def tsv2pkl(tsv, prefix, country, state, complete, n_content, debug):
+def tsv2pkl(tsv, prefix, country, state, complete, n_content, date_start, date_end, debug):
     """
     Convert GISAID metadata.tsv file to .pkl files
     """
@@ -61,7 +68,7 @@ def tsv2pkl(tsv, prefix, country, state, complete, n_content, debug):
         logging.basicConfig(level=logging.DEBUG)
         logging.debug('Logging level set to DEBUG.')
 
-    gisaid = GISAID_stats(gisaid_tsv=tsv, country=country, state=state, complete_only=complete, n_content=n_content)
+    gisaid = GISAID_stats(gisaid_tsv=tsv, country=country, state=state, complete_only=complete, n_content=n_content, date_start=date_start, date_end=date_end)
     gisaid.tsv2pkl(prefix)
 
 
@@ -90,12 +97,22 @@ def tsv2pkl(tsv, prefix, country, state, complete, n_content, debug):
               help='output filename for stats html',
               required=True,
               type=str)
+@click.option('-ds', '--date-start',
+              help='select data from this date in YYYY-MM-DD format',
+              type=str,
+              required=False,
+              default=None)
+@click.option('-de', '--date-end',
+              help='select data ending this date in YYYY-MM-DD format',
+              type=str,
+              required=False,
+              default=None)
 @click.option('--debug',
               help='logging at debug level',
               is_flag=True)
 
 
-def gisaid_stats(meta_pkl, mut_pkl, geo_type, country, state, output, debug):
+def gisaid_stats(meta_pkl, mut_pkl, geo_type, country, state, output, date_start, date_end, debug):
     """
     Generate a stats html file from GISAID data
     """
@@ -106,7 +123,7 @@ def gisaid_stats(meta_pkl, mut_pkl, geo_type, country, state, output, debug):
     if geo_type=='state' and state==None:
         print(f"ERROR: --geo-type is set to 'state' but --state is not specified.")
         sys.exit(1)
-    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl, country=country, state=state)
+    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl, country=country, state=state, date_start=date_start, date_end=date_end)
     gisaid.generate_stats_html(geo_type, output)
 
 
@@ -151,12 +168,22 @@ def gisaid_stats(meta_pkl, mut_pkl, geo_type, country, state, output, debug):
               help='specify an US state in fullname (like: "New Mexico")',
               required=False,
               type=str)
+@click.option('-ds', '--date-start',
+              help='select data from this date in YYYY-MM-DD format',
+              type=str,
+              required=False,
+              default=None)
+@click.option('-de', '--date-end',
+              help='select data ending this date in YYYY-MM-DD format',
+              type=str,
+              required=False,
+              default=None)
 @click.option('--debug',
               help='logging at debug level',
               is_flag=True)
 
 
-def project(meta_pkl, mut_pkl, sample, snps, pango, metadata, output, geo_type, country, state, debug):
+def project(meta_pkl, mut_pkl, sample, snps, pango, metadata, output, geo_type, country, state, date_start, date_end, debug):
     """
     Generate a stats html for a particular EC19 project
     """
@@ -182,7 +209,7 @@ def project(meta_pkl, mut_pkl, sample, snps, pango, metadata, output, geo_type, 
         if line.startswith('location'):
             location = f[1].strip()
 
-    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl, country=country, state=state)
+    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl, country=country, state=state, date_start=date_start, date_end=date_end)
     gisaid.generate_ec19_sample_html(sample, snps, pango, output, geo_type, virus_name, collection_date, location)
 
 @vizcli.command('report')

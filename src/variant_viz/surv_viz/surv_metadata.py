@@ -34,7 +34,10 @@ class CovidMetadata(object):
                        country=None,
                        division=None, 
                        complete_only=True,
-                       n_content=0.01):
+                       n_content=None,
+                       date_start=None,
+                       date_end=None,
+                       ):
         
         self.df_meta_orig     = pd.DataFrame()
         self.df_meta          = pd.DataFrame()
@@ -76,13 +79,28 @@ class CovidMetadata(object):
             logging.info(f'Specifying division to {division}...')
             self.set_division(division)
 
-        ## add additional info to df_mutation
-        # if len(self.df_mutation):
-        #     logging.info(f'Adding metadata to mutations...')
-        #     cols = ['acc', 'lineage', 'date', 'week', 'country', 'division']
-        #     self.df_mutation = self.df_mutation.merge(self.df_meta[cols], on='acc', how='left')
-        #     self.df_mutation[['gene','pos']] = self.df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
-        #     self.df_mutation['pos'] = self.df_mutation['pos'].astype(int)
+        # selecting records between start and end dates
+        if date_start!=None and date_end!=None:
+            logging.info(f'Selecting metadata between {date_start} and {date_end}...')
+            self.df_meta = self.df_meta.query('date >= @date_start and date <= @date_end')
+        elif date_start!=None:
+            logging.info(f'Selecting metadata starting {date_start}...')
+            self.df_meta = self.df_meta.query('date >= @date_start')
+        elif date_end!=None:
+            logging.info(f'Selecting metadata ending {date_end}...')
+            self.df_meta = self.df_meta.query('date <= @date_end')
+
+        if date_start!=None or date_end!=None:
+            logging.info(f'Selecting corresponding mutation records...')
+            self.df_mutation = self.df_mutation[self.df_mutation.acc.isin(self.df_meta.acc)]
+
+        # add additional info to df_mutation
+        if len(self.df_mutation):
+            logging.info(f'Adding metadata to mutations...')
+            cols = ['acc', 'lineage', 'date', 'week', 'country', 'division']
+            self.df_mutation = self.df_mutation.merge(self.df_meta[cols], on='acc', how='left')
+            self.df_mutation[['gene','pos']] = self.df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
+            self.df_mutation['pos'] = self.df_mutation['pos'].astype(int)
         
     def _prepare_metadata(self, filename_meta, complete_only=True, n_content=0.01):
         """

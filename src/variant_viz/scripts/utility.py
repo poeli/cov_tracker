@@ -17,7 +17,7 @@ from bokeh.layouts import column, row, layout, gridplot
 from bokeh.models import HoverTool, ColumnDataSource
 
 class GISAID_stats():
-    def __init__(self, gisaid_tsv=None, gisaid_pkl=None, gisaid_mutation_pkl=None, country=None, state=None, complete_only=True, n_content=0.01):
+    def __init__(self, gisaid_tsv=None, gisaid_pkl=None, gisaid_mutation_pkl=None, country=None, state=None, complete_only=True, n_content=0.01, date_start=None, date_end=None):
         self.country = country
         self.state = state
 
@@ -33,6 +33,8 @@ class GISAID_stats():
             country               = country,
             division              = state,
             complete_only         = complete_only,
+            date_start            = date_start,
+            date_end              = date_end,
             n_content             = n_content
         )
 

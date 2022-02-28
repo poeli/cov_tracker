@@ -152,6 +152,9 @@ class PlotDataSource(object):
         df = self.data.df_meta
         df_group_country = df.groupby('country').count()[['acc']].reset_index()
         df_group_country = df_group_country.merge(self.data.df_country, on='country')
+
+        logging.debug("Qualified data n=",len(df_group_country))
+
         df_group_country['size'] = self.get_size_bin(df_group_country.acc, min_s=10, max_s=200)
         ds_geo_country = ColumnDataSource(df_group_country)
     
