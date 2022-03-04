@@ -612,8 +612,8 @@ class CovidPlots(object):
             return p_trending
 
         week_since = ds.ds_trend_lineage.data['week'][0]
-        p_trending_lin = plot_trend(ds.ds_trend_lineage, ds.trend_lineage_10, f"Variant/lineage proportion changes sicne {week_since}")
-        p_trending_mu = plot_trend(ds.ds_trend_position, ds.trend_position_10, f"S protein position of mutation proportion changes sicne {week_since}")
+        p_trending_lin = plot_trend(ds.ds_trend_lineage, ds.trend_lineage_10, f"Variant/lineage proportion changes since {week_since}")
+        p_trending_mu = plot_trend(ds.ds_trend_position, ds.trend_position_10, f"S protein position of mutation proportion changes since {week_since}")
                 
         self.trending_plot = row(p_trending_lin, p_trending_mu)
     
@@ -889,7 +889,7 @@ H2 {
         # trending_t
         # trending_p
 
-        self.trending_t = Div(text="""<H2>Trending Variants</H2>""", width=self.plots.main_plot_width)
+        self.trending_t = Div(text="""<H2>Trending Lineages and Mutations</H2>""", width=self.plots.main_plot_width)
         self.trending_p = Paragraph(text="""
         The trending SASRS-CoV-2 variants are estimated from weekly growth rates over the past 8 weeks.
         """, width=self.plots.main_plot_width)
