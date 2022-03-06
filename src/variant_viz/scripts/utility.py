@@ -571,6 +571,7 @@ H2 {
 }
 </style>
 {% endblock %}"""
+        
         page.save_html(outfile=outfile, template=template)
 
 
@@ -816,8 +817,20 @@ H2 {
 
         plots.append(p)
 
+        # save html
+        template = """
+{% block postamble %}
+<style type="text/css">
+.bk-root {
+    margin: 2.5em;
+    display: flex !important;
+    justify-content: center !important;
+}
+</style>
+{% endblock %}"""
+
         # save the results to a file
-        save(column(plots))
+        save(column(plots), template=template)
 
 
 
