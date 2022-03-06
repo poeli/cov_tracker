@@ -713,6 +713,8 @@ H2 {
 
         
         # Global
+        logging.info(f'Summarizing GLOBAL data...')
+
         df_meta = self.data.df_meta
 
         idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=15))
@@ -729,7 +731,7 @@ H2 {
         p_week = week_lineage_plot(df_90, lineages, colors)
 
         df_ct = pd.crosstab(df.country, df.pango_lineage)
-        p_geo = lineage_geo_plot(df_ct, lineages, colors)
+        p_geo = lineage_geo_plot(df_ct, lineages, colors, title="Country - Lineage (15d)")
 
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/'>GLOBAL</a>].", width=980, height=20)
 
@@ -748,6 +750,8 @@ H2 {
 
 
         # USA
+        logging.info(f'Summarizing USA data...')
+
         df_meta = df_meta = self.data.df_meta
         df_meta = df_meta.query('country=="USA"')
 
@@ -761,11 +765,11 @@ H2 {
         other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
         df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
-        (p_lineage, lineages, colors) = lineage_pie_chart(df, title="Lineages (15d)")
+        (p_lineage, lineages, colors) = lineage_pie_chart(df, title="Lineage (15d)")
         p_week = week_lineage_plot(df_90, lineages, colors)
 
         df_ct = pd.crosstab(df.division, df.pango_lineage)
-        p_geo = lineage_geo_plot(df_ct, lineages, colors)
+        p_geo = lineage_geo_plot(df_ct, lineages, colors, title="State - Lineage (30d)")
 
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/usa/'>USA</a>].", width=980, height=20)
 
@@ -783,6 +787,8 @@ H2 {
         plots.append(p)
 
         # NM
+        logging.info(f'Summarizing NM data...')
+
         df_meta = df_meta = self.data.df_meta
         df_meta = df_meta.query('division=="New Mexico"')
 
@@ -796,11 +802,11 @@ H2 {
         other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
         df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
-        (p_lineage, lineages, colors) = lineage_pie_chart(df, title="Lineages (30d)")
+        (p_lineage, lineages, colors) = lineage_pie_chart(df, title="Lineage (30d)")
         p_week = week_lineage_plot(df_90, lineages, colors)
 
         df_ct = pd.crosstab(df.location, df.pango_lineage)
-        p_geo = lineage_geo_plot(df_ct, lineages, colors, title="Locations - lineages (30d)")
+        p_geo = lineage_geo_plot(df_ct, lineages, colors, title="County - Lineage (30d)")
 
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/usa/nm'>New Mexico</a>].", width=980, height=20)
 
@@ -821,8 +827,13 @@ H2 {
         template = """
 {% block postamble %}
 <style type="text/css">
+H1 {
+    font-size: 2em;
+    font-weight: 400;
+    font-color: '#777777';
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
+}
 .bk-root {
-    margin: 2.5em;
     display: flex !important;
     justify-content: center !important;
 }
@@ -831,6 +842,8 @@ H2 {
 
         # save the results to a file
         save(column(plots), template=template)
+        
+        logging.info(f'Done.')
 
 
 
