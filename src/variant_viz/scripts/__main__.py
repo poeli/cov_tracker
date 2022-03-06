@@ -254,5 +254,35 @@ def report(snps, gaps, alnstats, pango, metadata, output, debug):
     report = EC19_data(snps, gaps, alnstats, pango, metadata, output)
     report.generate_EC_repot()
 
+
+@vizcli.command('lanl_summary')
+@click.option('-mk', '--meta-pkl',
+              help='GISAID metadata pre-parsed .pkl file',
+              required=True,
+              type=click.File(mode='r'))
+@click.option('-tk', '--mut-pkl',
+              help='GISAID mutation pre-parsed .pkl file',
+              required=True,
+              type=click.File(mode='r'))
+@click.option('-o', '--output',
+              help='output filename for stats html',
+              required=True,
+              type=str)
+@click.option('--debug',
+              help='logging at debug level',
+              is_flag=True)
+
+
+def lanl_summary(meta_pkl, mut_pkl, output, debug):
+    """
+    Generate a lanl_summary html file from GISAID data
+    """
+    print(f"Running CovTracker v{__version__} lanl_summary command...")
+    if debug:
+        logging.basicConfig(level=logging.DEBUG)
+        logging.debug('Logging level set to DEBUG.')
+    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl)
+    gisaid.generate_lanl_summary_html(output)
+
 if __name__ == '__main__':
     vizcli()

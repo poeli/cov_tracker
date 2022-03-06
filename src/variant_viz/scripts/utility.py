@@ -574,6 +574,253 @@ H2 {
         page.save_html(outfile=outfile, template=template)
 
 
+
+    def generate_lanl_summary_html(self, outfile):
+        from bokeh.models import ColumnDataSource, Legend, LegendItem, Div
+        from bokeh.palettes import brewer, d3, viridis, Category20c, cividis
+        from bokeh.plotting import figure, show, curdoc
+        from bokeh.layouts import column, row, layout, gridplot
+        from bokeh.transform import cumsum
+        from bokeh.io import output_notebook, output_file, save
+        from datetime import datetime
+
+
+        def lineage_pie_chart(df, title="Lineages (15d)"):
+            data = pd.crosstab(df.host, df.pango_lineage).T.reset_index().sort_values('Human', ascending=False).rename(columns={'Human': 'value'})
+            
+            colors = []
+            if len(data)<3:
+                colors = brewer['Spectral'][6][:len(data)]
+            elif len(data)<=11:
+                colors = brewer['Spectral'][len(data)]
+            else:
+                colors = cividis(len(data))
+            
+            data['prop'] = data['value']/data['value'].sum()
+            data['angle'] = data['prop'] * 2*pi
+            data['color'] = colors
+
+            p = figure(height=350, 
+                    width=300, 
+                    title=title, 
+                    toolbar_location=None,
+                    output_backend='svg',
+                    tools="hover", tooltips="@pango_lineage: @value (@prop{0.0%})", x_range=(-0.5, 1.0))
+
+            p.add_layout(Legend(), 'below')
+            
+            p.wedge(x=0.25, y=3, radius=0.63,
+                    start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
+                    line_color="white", fill_color='color', legend_field='pango_lineage', source=data)
+
+            p.axis.axis_label = None
+            p.axis.visible = False
+            p.grid.grid_line_color = None
+            p.legend.label_text_font_size = '8pt'
+            p.legend.border_line_width = 0
+            p.legend.glyph_width = 10
+            p.legend.glyph_height = 10
+            # p.legend.location = "bottom_left"
+            p.legend.orientation = "horizontal"
+            p.legend.margin = 3
+            p.legend.padding = 2
+            p.outline_line_color = None
+
+            return (p, data.pango_lineage.to_list(), colors)
+
+
+        def week_lineage_plot(df, lineages, colors, title="Weeks - lineages (90d)"):
+            df_ct = pd.crosstab(df.week, df.pango_lineage)
+
+            ds = ColumnDataSource(df_ct)
+            weeks = df_ct.index.to_list()
+
+            p = figure(x_range=weeks,
+                    width=500,
+                    height=350,
+                    toolbar_location=None, 
+                    output_backend='svg',
+                    title=title,
+                    tools="hover", 
+                    tooltips="$name (@week): @$name")
+
+            p.add_layout(Legend(), 'right')
+
+            p.vbar_stack(lineages, x='week', width=0.7, color=colors, source=ds, legend_label=lineages)
+
+            p.y_range.start = 0
+            p.x_range.range_padding = 0.1
+            p.xgrid.grid_line_color = None
+            p.axis.minor_tick_line_color = None
+            p.outline_line_color = None
+            p.xaxis.major_label_orientation = pi/3
+            # p.xaxis.axis_label = 'Lineages'
+            # p.legend.orientation = "horizontal"
+            p.legend.label_text_font_size = '8pt'
+            p.legend.border_line_width = 0
+            p.legend.glyph_width = 10
+            p.legend.glyph_height = 10
+            p.legend.location = "top_left"
+            p.legend.background_fill_alpha = 0.5
+            p.legend.spacing = 0
+            p.legend.click_policy="hide"
+            
+            return p
+
+        def lineage_geo_plot(df_ct, lineages, colors, title="Locations - lineages (15d)"):
+            df_ct.index.name = 'location'
+            ds = ColumnDataSource(df_ct)
+            geos = df_ct.index.to_list()
+
+            p = figure(x_range=geos,
+                    width=980,
+                    height=350,
+                    toolbar_location=None, 
+                    output_backend='svg',
+                    title=title,
+                    tools="hover", 
+                    tooltips="$name (@location): @$name")
+
+            p.add_layout(Legend(), 'right')
+            
+            p.vbar_stack(lineages, x='location', width=0.7, color=colors, source=ds, legend_label=lineages)
+            
+            p.y_range.start = 0
+            p.x_range.range_padding = 0.1
+            p.xgrid.grid_line_color = None
+            p.axis.minor_tick_line_color = None
+            p.outline_line_color = None
+            p.xaxis.major_label_orientation = pi/3
+            # p.xaxis.axis_label = 'Lineages'
+            # p.legend.orientation = "horizontal"
+            p.legend.label_text_font_size = '8pt'
+            p.legend.border_line_width = 0
+            p.legend.glyph_width = 10
+            p.legend.glyph_height = 10
+            p.legend.location = "top_left"
+            p.legend.background_fill_alpha = 0.5
+            p.legend.spacing = 0
+            p.legend.click_policy="hide"
+            # p.legend.location = (0,0)
+            
+            return p
+
+        plots = []
+        today = datetime.today().strftime('%Y-%m-%d')
+        # set output to static HTML file
+        output_file(filename=outfile, title="LANL SARS-CoV-2 Summary Report")
+
+        
+        # Global
+        df_meta = self.data.df_meta
+
+        idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=15))
+        df = df_meta[idx].copy()
+
+        idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=90))
+        df_90 = df_meta[idx].copy()
+
+        top_5_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False).head(5).index.to_list()
+        other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
+        df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
+
+        (p_lineage, lineages, colors) = lineage_pie_chart(df, title="Lineages (15d)")
+        p_week = week_lineage_plot(df_90, lineages, colors)
+
+        df_ct = pd.crosstab(df.country, df.pango_lineage)
+        p_geo = lineage_geo_plot(df_ct, lineages, colors)
+
+        div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/'>GLOBAL</a>].", width=980, height=20)
+
+        div_loc  = Div(text=f"LOCATION: <h2>Global</h2>", width=170, height=75)
+        div_tol  = Div(text=f"GISAID GENOMES: <h2>{len(df_meta):,}</h2>", width=170, height=75)
+        div_15d  = Div(text=f"LAST 15 DAYS:<h2>+{len(df):,}</h2>", width=170, height=75)
+
+        div_info = column(div_loc, div_tol, div_15d)
+
+        p = gridplot([[row(div_info, p_lineage, p_week)],
+                    [p_geo],
+                    [div_footage]
+                    ])
+
+        plots.append(p)
+
+
+        # USA
+        df_meta = df_meta = self.data.df_meta
+        df_meta = df_meta.query('country=="USA"')
+
+        idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=15))
+        df = df_meta[idx].copy()
+
+        idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=90))
+        df_90 = df_meta[idx].copy()
+
+        top_5_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False).head(5).index.to_list()
+        other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
+        df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
+
+        (p_lineage, lineages, colors) = lineage_pie_chart(df, title="Lineages (15d)")
+        p_week = week_lineage_plot(df_90, lineages, colors)
+
+        df_ct = pd.crosstab(df.division, df.pango_lineage)
+        p_geo = lineage_geo_plot(df_ct, lineages, colors)
+
+        div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/usa/'>USA</a>].", width=980, height=20)
+
+        div_loc  = Div(text=f"LOCATION: <h2>USA</h2>", width=170, height=75)
+        div_tol  = Div(text=f"GISAID GENOMES: <h2>{len(df_meta):,}</h2>", width=170, height=75)
+        div_15d  = Div(text=f"LAST 15 DAYS:<h2>+{len(df):,}</h2>", width=170, height=75)
+
+        div_info = column(div_loc, div_tol, div_15d)
+
+        p = gridplot([[row(div_info, p_lineage, p_week)],
+                    [p_geo],
+                    [div_footage]
+                    ])
+
+        plots.append(p)
+
+        # NM
+        df_meta = df_meta = self.data.df_meta
+        df_meta = df_meta.query('division=="New Mexico"')
+
+        idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=30))
+        df = df_meta[idx].copy()
+
+        idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=90))
+        df_90 = df_meta[idx].copy()
+
+        top_5_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False).head(5).index.to_list()
+        other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
+        df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
+
+        (p_lineage, lineages, colors) = lineage_pie_chart(df, title="Lineages (30d)")
+        p_week = week_lineage_plot(df_90, lineages, colors)
+
+        df_ct = pd.crosstab(df.location, df.pango_lineage)
+        p_geo = lineage_geo_plot(df_ct, lineages, colors, title="Locations - lineages (30d)")
+
+        div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/usa/nm'>New Mexico</a>].", width=980, height=20)
+
+        div_loc  = Div(text=f"LOCATION: <h2>New Mexico</h2>", width=170, height=75)
+        div_tol  = Div(text=f"GISAID GENOMES: <h2>{len(df_meta):,}</h2>", width=170, height=75)
+        div_15d  = Div(text=f"LAST 30 DAYS:<h2>+{len(df):,}</h2>", width=170, height=75)
+
+        div_info = column(div_loc, div_tol, div_15d)
+
+        p = gridplot([[row(div_info, p_lineage, p_week)],
+                      [p_geo],
+                      [div_footage]
+                    ])
+
+        plots.append(p)
+
+        # save the results to a file
+        save(column(plots))
+
+
+
 class EC19_data():
     """
     Generate a visualization report for EDGE-Covid19 workflow
