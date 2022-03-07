@@ -162,11 +162,11 @@ class CovidMetadata(object):
         # remove genomes with percentage of Ns exess n_content
         if n_content:
             df_meta = df_meta[df_meta.n_content<=n_content]
-            logging.info(f'{len(df_meta)} after n_content filtering...')
+            logging.info(f'{len(df_meta)} after n_content<={n_content} filtering...')
         # remove NOT complete genomes
         if complete_only:
             df_meta = df_meta[df_meta.is_complete==True]
-            logging.info(f'{len(df_meta)} after is_complete filtering...')
+            logging.info(f'{len(df_meta)} after is_complete==True filtering...')
         
         # for GISAID
         # df_meta['date'] = df_meta['date'].astype('datetime64[ns]')
