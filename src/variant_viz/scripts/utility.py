@@ -840,8 +840,10 @@ H1 {
 </style>
 {% endblock %}"""
 
+        div_header = Div(text=f"<h1>SARS-CoV-2 Summary Report</h1><p>The report is based on sample collection date and location provided by GISAID as of {today}.</p>", width=980, height=80)
+
         # save the results to a file
-        save(column(plots), template=template)
+        save(column([div_header]+plots), template=template)
         
         logging.info(f'Done.')
 
