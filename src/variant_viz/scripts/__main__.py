@@ -281,7 +281,7 @@ def lanl_summary(meta_pkl, mut_pkl, output, debug):
     if debug:
         logging.basicConfig(level=logging.DEBUG)
         logging.debug('Logging level set to DEBUG.')
-    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl)
+    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl, merge_meta_to_mut=False)
     gisaid.generate_lanl_summary_html(output)
 
 if __name__ == '__main__':
