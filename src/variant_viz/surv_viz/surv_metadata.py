@@ -122,6 +122,8 @@ class CovidMetadata(object):
             for chunk in reader:
                 df_meta = pd.concat([df_meta, chunk], ignore_index=True)
         
+        logging.info(f'{len(df_meta)} records loaded from tsv file...')
+
         # accommodate new GISAID metadata
         df_meta = df_meta.rename(columns={
             'Virus name': 'name',
@@ -153,15 +155,18 @@ class CovidMetadata(object):
         df_meta = df_meta[df_meta.host=='Human']
         # Remove mislabeled collection date
         df_meta = df_meta.drop(df_meta[df_meta.date<'2019-12'].index)
+        logging.info(f'{len(df_meta)} after filtering out date before 2019-12...')
         # remove NOT high_coverage genomes
         # if high_coverage_only:
         #     df_meta = df_meta[df_meta.is_high_cov==True]
         # remove genomes with percentage of Ns exess n_content
         if n_content:
             df_meta = df_meta[df_meta.n_content<=n_content]
+            logging.info(f'{len(df_meta)} after n_content filtering...')
         # remove NOT complete genomes
         if complete_only:
             df_meta = df_meta[df_meta.is_complete==True]
+            logging.info(f'{len(df_meta)} after is_complete filtering...')
         
         # for GISAID
         # df_meta['date'] = df_meta['date'].astype('datetime64[ns]')
