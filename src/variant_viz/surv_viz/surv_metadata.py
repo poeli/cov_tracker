@@ -34,6 +34,7 @@ class CovidMetadata(object):
                        country=None,
                        division=None, 
                        complete_only=True,
+                       high_coverage_only=False,
                        n_content=None,
                        date_start=None,
                        date_end=None,
@@ -69,7 +70,7 @@ class CovidMetadata(object):
             self.df_mutation_orig = pd.read_pickle(filename_mutation_pkl)
         elif filename_meta_tsv:
             logging.info(f'Parsing {filename_meta_tsv} file...')
-            (self.df_meta_orig, self.df_mutation_orig) = self._prepare_metadata(filename_meta_tsv, complete_only, n_content)
+            (self.df_meta_orig, self.df_mutation_orig) = self._prepare_metadata(filename_meta_tsv, complete_only, high_coverage_only, n_content)
         
         if country==None and division==None:
             self.df_meta     = self.df_meta_orig
@@ -103,7 +104,7 @@ class CovidMetadata(object):
             self.df_mutation[['gene','pos']] = self.df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
             self.df_mutation['pos'] = self.df_mutation['pos'].astype(int)
         
-    def _prepare_metadata(self, filename_meta, complete_only=True, n_content=0.01):
+    def _prepare_metadata(self, filename_meta, complete_only=True, high_coverage_only=False, n_content=0.01):
         """
         Loading and prepare metadata tsv file
         
@@ -111,6 +112,8 @@ class CovidMetadata(object):
         :type  filename_meta: str
         :param complete_only: filter in the complete_only filed
         :type  complete_only: bool
+        :param n_content: filter in n_content less than this parameter
+        :type  n_content: float
         :param high_coverage_only: filter in the high_coverage_only filed
         :type  high_coverage_only: bool
         """
@@ -153,12 +156,17 @@ class CovidMetadata(object):
         df_meta = df_meta.drop(df_meta[df_meta.date.str.contains('-XX')].index)
         # df_meta = df_meta.drop(df_meta[df_meta.date.str.len()!=10].index) # remove records with 'year' only
         df_meta = df_meta[df_meta.host=='Human']
+
+        df_meta['n_content'] = df_meta['n_content'].fillna(0)
+
         # Remove mislabeled collection date
         df_meta = df_meta.drop(df_meta[df_meta.date<'2019-12'].index)
         logging.info(f'{len(df_meta)} after filtering out date before 2019-12...')
+
         # remove NOT high_coverage genomes
-        # if high_coverage_only:
-        #     df_meta = df_meta[df_meta.is_high_cov==True]
+        if high_coverage_only:
+            df_meta = df_meta[df_meta.is_high_cov==True]
+            logging.info(f'{len(df_meta)} after is_high_cov==True filtering...')
 
         # remove NOT complete genomes
         if complete_only:
