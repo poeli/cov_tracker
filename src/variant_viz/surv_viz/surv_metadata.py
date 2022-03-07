@@ -156,27 +156,29 @@ class CovidMetadata(object):
         df_meta = df_meta.drop(df_meta[df_meta.date.str.contains('-XX')].index)
         # df_meta = df_meta.drop(df_meta[df_meta.date.str.len()!=10].index) # remove records with 'year' only
         df_meta = df_meta[df_meta.host=='Human']
+        logging.info(f'{len(df_meta)} records from Human host...')
 
+        # fill n_content
         df_meta['n_content'] = df_meta['n_content'].fillna(0)
 
         # Remove mislabeled collection date
         df_meta = df_meta.drop(df_meta[df_meta.date<'2019-12'].index)
-        logging.info(f'{len(df_meta)} after filtering out date before 2019-12...')
+        logging.info(f'{len(df_meta)} records collected in or after 2019-12...')
 
         # remove NOT high_coverage genomes
         if high_coverage_only:
             df_meta = df_meta[df_meta.is_high_cov==True]
-            logging.info(f'{len(df_meta)} after is_high_cov==True filtering...')
+            logging.info(f'{len(df_meta)} records with is_high_cov==True...')
 
         # remove NOT complete genomes
         if complete_only:
             df_meta = df_meta[df_meta.is_complete==True]
-            logging.info(f'{len(df_meta)} after is_complete==True filtering...')
+            logging.info(f'{len(df_meta)} records with is_complete==True...')
         
         # remove genomes with percentage of Ns exess n_content
         if n_content:
             df_meta = df_meta[df_meta.n_content<=n_content]
-            logging.info(f'{len(df_meta)} after n_content<={n_content} filtering...')
+            logging.info(f'{len(df_meta)} records with n_content<={n_content}...')
         
         # for GISAID
         # df_meta['date'] = df_meta['date'].astype('datetime64[ns]')
