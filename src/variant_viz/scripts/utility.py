@@ -841,7 +841,8 @@ H1 {
 </style>
 {% endblock %}"""
 
-        div_header = Div(text=f"<h1>SARS-CoV-2 Summary Report</h1><p>The report is based on sample collection date and location provided by GISAID as of {today}.</p>", width=980, height=80)
+        div_header = Div(text=f"<h1>SARS-CoV-2 Summary Report</h1>\
+        <p>The metadata of sequences are downloaded from GISAID on {today}. Complete (>29 kb), low coverage excluded (Ns <5%) and Human hosted SARS-CoV-2 genomes are used in this report.</p>", width=980, height=80)
 
         # save the results to a file
         save(column([div_header]+plots), template=template)
