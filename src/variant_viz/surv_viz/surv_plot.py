@@ -214,9 +214,12 @@ class CovidPlots(object):
 
         logging.debug(f'Target lineages {lineages}...')
 
-        lineages.remove("Others")
-        lineages = lineages+["Others"]
-        palette=list(brewer["Spectral"][len(lineages)-1])+["#BBBBBB"]
+        palette=list(brewer["Spectral"][len(lineages)-1])
+
+        if "Others" in lineages:
+            lineages.remove("Others")
+            lineages += ["Others"]
+            palette += ["#BBBBBB"]
 
         # create annular_wedge to indicate the proportion of lineages
         p.annular_wedge(

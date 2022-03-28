@@ -618,7 +618,7 @@ H2 {
             p.axis.axis_label = None
             p.axis.visible = False
             p.grid.grid_line_color = None
-            p.legend.label_text_font_size = '8pt'
+            p.legend.label_text_font_size = '9pt'
             p.legend.border_line_width = 0
             p.legend.glyph_width = 10
             p.legend.glyph_height = 10
@@ -658,7 +658,7 @@ H2 {
             p.xaxis.major_label_orientation = pi/3
             # p.xaxis.axis_label = 'Lineages'
             # p.legend.orientation = "horizontal"
-            p.legend.label_text_font_size = '8pt'
+            p.legend.label_text_font_size = '9pt'
             p.legend.border_line_width = 0
             p.legend.glyph_width = 10
             p.legend.glyph_height = 10
@@ -695,7 +695,7 @@ H2 {
             p.xaxis.major_label_orientation = pi/3
             # p.xaxis.axis_label = 'Lineages'
             # p.legend.orientation = "horizontal"
-            p.legend.label_text_font_size = '8pt'
+            p.legend.label_text_font_size = '9pt'
             p.legend.border_line_width = 0
             p.legend.glyph_width = 10
             p.legend.glyph_height = 10
@@ -709,14 +709,21 @@ H2 {
 
         plots = []
         today = datetime.today().strftime('%Y-%m-%d')
+
         # set output to static HTML file
         output_file(filename=outfile, title="LANL SARS-CoV-2 Summary Report")
-
         
+        df_meta = self.data.df_meta
+
+        repo = 'GISAID'
+        if 'sra_acc' in df_meta or 'Geo_Location' in df_meta or 'submitters' in df_meta:
+            repo = 'NCBI Genbank'
+
+        # Global
+        logging.info(f'{repo} data identified...')
+
         # Global
         logging.info(f'Summarizing GLOBAL data...')
-
-        df_meta = self.data.df_meta
 
         idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=15))
         df = df_meta[idx].copy()
@@ -737,7 +744,7 @@ H2 {
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/'>GLOBAL</a>].", width=980, height=20)
 
         div_loc  = Div(text=f"LOCATION: <h2>Global</h2>", width=170, height=75)
-        div_tol  = Div(text=f"GISAID GENOMES: <h2>{len(df_meta):,}</h2>", width=170, height=75)
+        div_tol  = Div(text=f"{repo.upper()} GENOME: <h2>{len(df_meta):,}</h2>", width=170, height=75)
         div_15d  = Div(text=f"LAST 15 DAYS:<h2>+{len(df):,}</h2>", width=170, height=75)
 
         div_info = column(div_loc, div_tol, div_15d)
@@ -775,7 +782,7 @@ H2 {
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/usa/'>USA</a>].", width=980, height=20)
 
         div_loc  = Div(text=f"LOCATION: <h2>USA</h2>", width=170, height=75)
-        div_tol  = Div(text=f"GISAID GENOMES: <h2>{len(df_meta):,}</h2>", width=170, height=75)
+        div_tol  = Div(text=f"{repo.upper()} GENOME: <h2>{len(df_meta):,}</h2>", width=170, height=75)
         div_15d  = Div(text=f"LAST 15 DAYS:<h2>+{len(df):,}</h2>", width=170, height=75)
 
         div_info = column(div_loc, div_tol, div_15d)
@@ -791,7 +798,7 @@ H2 {
         logging.info(f'Summarizing NM data...')
 
         df_meta = df_meta = self.data.df_meta
-        df_meta = df_meta.query('division=="New Mexico"')
+        df_meta = df_meta.query('division=="New Mexico" or division=="NM"')
 
         idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=30))
         df = df_meta[idx].copy()
@@ -812,7 +819,7 @@ H2 {
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/usa/nm'>New Mexico</a>].", width=980, height=20)
 
         div_loc  = Div(text=f"LOCATION: <h2>New Mexico</h2>", width=170, height=75)
-        div_tol  = Div(text=f"GISAID GENOMES: <h2>{len(df_meta):,}</h2>", width=170, height=75)
+        div_tol  = Div(text=f"{repo.upper()} GENOME: <h2>{len(df_meta):,}</h2>", width=170, height=75)
         div_15d  = Div(text=f"LAST 30 DAYS:<h2>+{len(df):,}</h2>", width=170, height=75)
 
         div_info = column(div_loc, div_tol, div_15d)
@@ -842,7 +849,13 @@ H1 {
 {% endblock %}"""
 
         div_header = Div(text=f"<h1>SARS-CoV-2 Summary Report</h1>\
-        <p>The metadata of sequences are downloaded from GISAID on {today}. Complete (>29 kb), low coverage excluded (Ns <5%) and Human hosted SARS-CoV-2 genomes are used in this report.</p>", width=980, height=80)
+        <p>The metadata for the sequences are downloaded from {repo} on {today}. Complete (>29 kb), low coverage excluded (Ns <5%) and human-hosted SARS-CoV-2 genomes are used in this report.</p>"
+        , width=980, height=100)
+
+        if repo == "NCBI Genbank":
+            div_header = Div(text=f"<h1>SARS-CoV-2 Summary Report</h1>\
+            <p>The metadata for the sequences are downloaded from {repo} on {today}. Complete (>29 kb) and human-hosted SARS-CoV-2 genomes are used in this report.</p>"
+            , width=980, height=100)
 
         # save the results to a file
         save(column([div_header]+plots), template=template)

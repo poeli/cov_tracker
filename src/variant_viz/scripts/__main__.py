@@ -72,7 +72,15 @@ def tsv2pkl(tsv, prefix, country, state, complete, high_coverage_only, n_content
         logging.basicConfig(level=logging.DEBUG)
         logging.debug('Logging level set to DEBUG.')
 
-    gisaid = GISAID_stats(gisaid_tsv=tsv, country=country, state=state, complete_only=complete, high_coverage_only=high_coverage_only, n_content=n_content, date_start=date_start, date_end=date_end, merge_meta_to_mut=False)
+    gisaid = GISAID_stats(gisaid_tsv=tsv, 
+                          country=country, 
+                          state=state, 
+                          complete_only=complete, 
+                          high_coverage_only=high_coverage_only, 
+                          n_content=n_content, 
+                          date_start=date_start, 
+                          date_end=date_end, 
+                          merge_meta_to_mut=False)
     gisaid.tsv2pkl(prefix)
 
 
@@ -264,10 +272,6 @@ def report(snps, gaps, alnstats, pango, metadata, output, debug):
               help='GISAID metadata pre-parsed .pkl file',
               required=True,
               type=click.File(mode='r'))
-@click.option('-tk', '--mut-pkl',
-              help='GISAID mutation pre-parsed .pkl file',
-              required=True,
-              type=click.File(mode='r'))
 @click.option('-o', '--output',
               help='output filename for stats html',
               required=True,
@@ -277,7 +281,7 @@ def report(snps, gaps, alnstats, pango, metadata, output, debug):
               is_flag=True)
 
 
-def lanl_summary(meta_pkl, mut_pkl, output, debug):
+def lanl_summary(meta_pkl, output, debug):
     """
     Generate a lanl_summary html file from GISAID data
     """
@@ -285,7 +289,7 @@ def lanl_summary(meta_pkl, mut_pkl, output, debug):
     if debug:
         logging.basicConfig(level=logging.DEBUG)
         logging.debug('Logging level set to DEBUG.')
-    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl, merge_meta_to_mut=False)
+    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, merge_meta_to_mut=False)
     gisaid.generate_lanl_summary_html(output)
 
 if __name__ == '__main__':
