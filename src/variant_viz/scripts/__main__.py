@@ -292,5 +292,57 @@ def lanl_summary(meta_pkl, output, debug):
     gisaid = GISAID_stats(gisaid_pkl=meta_pkl, merge_meta_to_mut=False)
     gisaid.generate_lanl_summary_html(output)
 
+
+@vizcli.command('lanl_ec19_summary')
+# @click.option('-s', '--snps',
+#               help='EC19 SNPs tsv file',
+#               required=True,
+#               type=click.File(mode='r'))
+# @click.option('-g', '--gaps',
+#               help='EC19 gaps tsv file',
+#               required=True,
+#               type=click.File(mode='r'))
+# @click.option('-a', '--alnstats',
+#               help='EC19 gaps alnstats file',
+#               required=True,
+#               type=click.File(mode='r'))
+@click.option('-p', '--pango',
+              help='Pangolin lineage tsv file',
+              required=True,
+              type=click.File(mode='r'))
+@click.option('-m', '--metadata',
+              help='Metadata',
+              required=True,
+              type=click.File(mode='r'))
+@click.option('-u', '--url',
+              help='EDGE-COVID19 report url',
+              required=True,
+              type=str)
+@click.option('-o', '--output',
+              help='output filename for EC19 report html',
+              required=True,
+              type=str)
+@click.option('--debug',
+              help='logging at debug level',
+              is_flag=True)
+
+
+def lanl_ec19_summary(#snps, gaps, alnstats, 
+                      pango, metadata, url, output, debug):
+    """
+    Generate a visualization report for EDGE-Covid19 workflow
+    """
+    print(f"Running CovTracker v{__version__} report command...")
+    if debug:
+        logging.basicConfig(level=logging.DEBUG)
+        logging.debug('Logging level set to DEBUG.')
+
+    report = EC19_data(#snps, gaps, alnstats, 
+                       pango=pango, metadata=metadata, output=output)
+    report.generate_lanl_ec19_summary(url)
+
+
+
+
 if __name__ == '__main__':
     vizcli()
