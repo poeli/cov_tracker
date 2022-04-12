@@ -596,12 +596,14 @@ H2 {
         data['angle'] = data['prop'] * 2*pi
         data['color'] = colors
 
-        p = figure(height=350, 
-                width=300, 
-                title=title, 
-                toolbar_location=None,
-                output_backend='svg',
-                tools="hover", tooltips="@pango_lineage: @value (@prop{0.0%})", x_range=(-0.5, 1.0))
+        p = figure(x_range=(-0.5, 1.0),
+                   height=350, 
+                   width=300, 
+                   title=title, 
+                   toolbar_location=None,
+                   output_backend='svg',
+                   tools="hover", 
+                   tooltips="@pango_lineage: @value (@prop{0.0%})")
 
         p.add_layout(Legend(), 'below')
         
@@ -628,6 +630,9 @@ H2 {
         from bokeh.models import ColumnDataSource, Legend
         from bokeh.models import Panel, Tabs
         from bokeh.transform import cumsum
+
+        lineages = lineages+['Others']
+        colors = list(colors)+['#BBBBBB']
 
         def plotting_figure(df_ct):
             ds = ColumnDataSource(df_ct)
@@ -761,9 +766,12 @@ H2 {
         idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=90))
         df_90 = df_meta[idx].copy()
 
+        # find top 5 genomes and assign rest of them to 'Others'
         top_5_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False).head(5).index.to_list()
         other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
         df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
+        other_lineage_idx = ~df_90.pango_lineage.isin(top_5_lineage)
+        df_90.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
         (p_lineage, lineages, colors) = self.lineage_pie_chart(df, title="Lineages (15d)")
         p_week = self.week_lineage_plot(df_90, lineages, colors)
@@ -800,6 +808,8 @@ H2 {
         top_5_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False).head(5).index.to_list()
         other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
         df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
+        other_lineage_idx = ~df_90.pango_lineage.isin(top_5_lineage)
+        df_90.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
         (p_lineage, lineages, colors) = self.lineage_pie_chart(df, title="Lineage (15d)")
         p_week = self.week_lineage_plot(df_90, lineages, colors)
@@ -835,6 +845,8 @@ H2 {
         top_5_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False).head(5).index.to_list()
         other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
         df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
+        other_lineage_idx = ~df_90.pango_lineage.isin(top_5_lineage)
+        df_90.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
         (p_lineage, lineages, colors) = self.lineage_pie_chart(df, title="Lineage (30d)")
         p_week = self.week_lineage_plot(df_90, lineages, colors)
@@ -1812,7 +1824,7 @@ class EC19_data():
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For the full report, please visit EDGE-COVID19 website [<a href='{url}'>report</a>].", width=980, height=20)
 
         div_loc  = Div(text=f"LOCATION: <h2>All</h2>", width=170, height=75)
-        div_tol  = Div(text=f"LANL OccuMed: <h2>{len(df_meta):,}</h2>", width=170, height=75)
+        div_tol  = Div(text=f"LANL OccMed: <h2>{len(df_meta):,}</h2>", width=170, height=75)
         div_15d  = Div(text=f"LAST 30 DAYS:<h2>+{len(df):,}</h2>", width=170, height=75)
 
         div_info = column(div_loc, div_tol, div_15d)
