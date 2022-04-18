@@ -45,8 +45,8 @@ def vizcli():
               default=False,
               type=bool)
 @click.option('-n', '--n-content',
-              help='remove genomes if percentage of Ns excess this parameter (default: 0.01)',
-              default=0.01,
+              help='remove genomes if percentage of Ns excess this parameter (default: 0.05)',
+              default=0.05,
               type=float)
 @click.option('-ds', '--date-start',
               help='select data from this date in YYYY-MM-DD format',
@@ -135,7 +135,7 @@ def gisaid_stats(meta_pkl, mut_pkl, geo_type, country, state, output, date_start
     if geo_type=='state' and state==None:
         print(f"ERROR: --geo-type is set to 'state' but --state is not specified.")
         sys.exit(1)
-    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl, country=country, state=state, date_start=date_start, date_end=date_end)
+    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl, country=country, state=state, date_start=date_start, date_end=date_end, n_content=0.05)
     gisaid.generate_stats_html(geo_type, output)
 
 
@@ -221,7 +221,7 @@ def project(meta_pkl, mut_pkl, sample, snps, pango, metadata, output, geo_type, 
         if line.startswith('location'):
             location = f[1].strip()
 
-    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl, country=country, state=state, date_start=date_start, date_end=date_end)
+    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, gisaid_mutation_pkl=mut_pkl, country=country, state=state, date_start=date_start, date_end=date_end, n_content=0.05)
     gisaid.generate_ec19_sample_html(sample, snps, pango, output, geo_type, virus_name, collection_date, location)
 
 @vizcli.command('report')
@@ -289,7 +289,7 @@ def lanl_summary(meta_pkl, output, debug):
     if debug:
         logging.basicConfig(level=logging.DEBUG)
         logging.debug('Logging level set to DEBUG.')
-    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, merge_meta_to_mut=False)
+    gisaid = GISAID_stats(gisaid_pkl=meta_pkl, merge_meta_to_mut=False, n_content=0.05)
     gisaid.generate_lanl_summary_html(output)
 
 
