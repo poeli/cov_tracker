@@ -77,6 +77,7 @@ class CovidMetadata(object):
             self.df_mutation_orig = pd.read_pickle(filename_mutation_pkl)
 
         df_meta = self.df_meta_orig
+        df_mutation = self.df_mutation_orig
 
         logging.info(f'Specifying country to {country}...')
         self.set_meta_country(country)
@@ -125,14 +126,13 @@ class CovidMetadata(object):
         if len(self.df_mutation)>0 and merge_meta_to_mut:
             logging.info(f'Adding metadata to mutations...')
             cols = ['acc', 'lineage', 'date', 'week', 'country', 'division']
-            self.df_mutation = self.df_mutation.merge(df_meta[cols], on='acc', how='left')
-            self.df_mutation[['gene','pos']] = self.df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
-            self.df_mutation['pos'] = self.df_mutation['pos'].astype(int)
-            self.df_mutation = self.df_mutation_orig[self.df_mutation_orig.acc.isin(df_meta.acc)].copy()
-        else:
-            self.df_mutation = self.df_mutation_orig
+            df_mutation = df_mutation[df_mutation.acc.isin(df_meta.acc)].copy()
+            df_mutation = df_mutation.merge(df_meta[cols], on='acc', how='left')
+            df_mutation[['gene','pos']] = df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
+            df_mutation['pos'] = df_mutation['pos'].astype(int)
 
         self.df_meta = df_meta
+        self.df_mutation = df_mutation
 
     def _prepare_metadata(self, filename_meta, complete_only=True, high_coverage_only=False, n_content=0.01):
         """
