@@ -87,15 +87,15 @@ class CovidMetadata(object):
         # selecting records between start and end dates
         if date_start!=None and date_end!=None:
             logging.info(f'Selecting metadata between {date_start} and {date_end}...')
-            df_meta = self.df_meta.query('date >= @date_start and date <= @date_end')
+            df_meta = df_meta.query('date >= @date_start and date <= @date_end')
             self.update_mutation = True
         elif date_start!=None:
             logging.info(f'Selecting metadata starting {date_start}...')
-            df_meta = self.df_meta.query('date >= @date_start')
+            df_meta = df_meta.query('date >= @date_start')
             self.update_mutation = True
         elif date_end!=None:
             logging.info(f'Selecting metadata ending {date_end}...')
-            df_meta = self.df_meta.query('date <= @date_end')
+            df_meta = df_meta.query('date <= @date_end')
             self.update_mutation = True
 
         # remove NOT complete genomes

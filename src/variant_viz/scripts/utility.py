@@ -396,7 +396,7 @@ class GISAID_stats():
         # 1) Retrieving pango-lineage and related information
         # 2) Finding the first date and country of the lineage
         # 3) Add this sample as a variant to ds.data.df_v_info
-        [target_lineage, variant, version, pangolin_ver, pangolearn_ver, pango_ver] = ec19_obj.df_ec19_pango.loc[0, ['lineage', 'variant', 'version', 'pangolin_version', 'pangoLEARN_version', 'pango_version']].to_list()
+        [target_lineage, variant, version, pangolin_ver, constellation_ver] = ec19_obj.df_ec19_pango.loc[0, ['lineage', 'variant', 'version', 'pangolin_version', 'constellation_version']].to_list()
         temp = self.data.df_meta_orig[self.data.df_meta_orig.pango_lineage==target_lineage].sort_values(by='date').head(1)[['date', 'country']].values.tolist()[0]
         first_date = str(temp[0].date())
         first_country = temp[1]
@@ -501,14 +501,13 @@ class GISAID_stats():
         if collection:
             collection = f"| Collection: {collection}"
 
-        # Pango ver: {pango_ver} | 
         # Pangolin ver: {pangolin_ver} | 
 
         page.header.text = f"""
         <H1>{title}</H1>
         <div>
         {target_lineage} {collection} |
-        PangoLEARN ver: {pangolearn_ver} |
+        PangoLEARN ver: {constellation_ver} |
         Report generated: {update_date} |
         Enabled by data from 
             <a href="https://www.gisaid.org/" target="_blank"><img src="http://gisaid.org/fileadmin/gisaid/img/schild.png" style="width: 71px; height: 25px; vertical-align: middle;" alt="GISAID Initiative" class="ml-2"></a>
@@ -1710,9 +1709,8 @@ class EC19_data():
 
         update_date = date.today().strftime("%Y-%m-%d")
 
-        pango_ver = df_ec19_pango.loc[0, 'version']
         pangolin_ver = df_ec19_pango.loc[0, 'pangolin_version']
-        pangolearn_ver = df_ec19_pango.loc[0, 'pangoLEARN_version']
+        constellation_ver = df_ec19_pango.loc[0, 'constellation_version']
         sample_num = len(df_ec19_alnstats)
         submitted_num = len(df_ec19_meta)
 
@@ -1720,7 +1718,7 @@ class EC19_data():
         div_header = Div(text=f"""
         <H2>EDGE COVID-19 Report</H2>
         <div style='margin-bottom: 1em'>
-        {sample_num} samples | Pango ver: {pango_ver} | Pangolin ver: {pangolin_ver} | PangoLEARN ver: {pangolearn_ver} | Report date: {update_date}
+        {sample_num} samples | Pangolin: {pangolin_ver} | Constellation: {constellation_ver} | Report date: {update_date}
         </div>
         """, style={'width':'100%', 'margin-left':'10px', 'margin-top': '20px'})
 
