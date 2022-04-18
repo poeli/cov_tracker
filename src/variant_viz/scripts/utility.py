@@ -624,15 +624,22 @@ H2 {
         p.legend.padding = 2
         p.outline_line_color = None
 
-        return (p, data.pango_lineage.to_list(), colors)
+        lineages = data.pango_lineage.to_list()
+        colors = list(colors)
 
-    def week_lineage_plot(self, df, lineages, colors, title="Weeks - lineages (90d)"):
+        if not 'Others' in lineages:
+            lineages = lineages+['Others']
+            colors += ['#BBBBBB']
+        else:
+            index = lineages.index('Others')
+            colors[index] = '#BBBBBB'
+
+        return (p, lineages, colors)
+
+    def week_lineage_plot(self, df1, df2, lineages, colors, title="Weeks - lineages (90d)"):
         from bokeh.models import ColumnDataSource, Legend
         from bokeh.models import Panel, Tabs
         from bokeh.transform import cumsum
-
-        lineages = lineages+['Others']
-        colors = list(colors)+['#BBBBBB']
 
         def plotting_figure(df_ct):
             ds = ColumnDataSource(df_ct)
@@ -670,9 +677,9 @@ H2 {
 
             return p
 
-        df_ct = pd.crosstab(df.week, df.pango_lineage)
+        df_ct = pd.crosstab(df1, df2)
         p1 = plotting_figure(df_ct)
-        df_ct = pd.crosstab(df.week, df.pango_lineage, normalize='index')
+        df_ct = pd.crosstab(df1, df2, normalize='index')
         p2 = plotting_figure(df_ct)
 
         tab1 = Panel(child=p1, title="Count")
@@ -768,13 +775,14 @@ H2 {
 
         # find top 5 genomes and assign rest of them to 'Others'
         top_5_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False).head(5).index.to_list()
+        
         other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
         df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
         other_lineage_idx = ~df_90.pango_lineage.isin(top_5_lineage)
         df_90.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
         (p_lineage, lineages, colors) = self.lineage_pie_chart(df, title="Lineages (15d)")
-        p_week = self.week_lineage_plot(df_90, lineages, colors)
+        p_week = self.week_lineage_plot(df_90.week, df_90.pango_lineage, lineages, colors)
         p_geo = self.lineage_geo_plot(df.country, df.pango_lineage, lineages, colors, title="Country - Lineage (15d)")
 
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/'>GLOBAL</a>].", width=980, height=20)
@@ -812,7 +820,7 @@ H2 {
         df_90.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
         (p_lineage, lineages, colors) = self.lineage_pie_chart(df, title="Lineage (15d)")
-        p_week = self.week_lineage_plot(df_90, lineages, colors)
+        p_week = self.week_lineage_plot(df_90.week, df_90.pango_lineage, lineages, colors)
         p_geo = self.lineage_geo_plot(df.division, df.pango_lineage, lineages, colors, title="State - Lineage (30d)")
 
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/usa/'>USA</a>].", width=980, height=20)
@@ -849,7 +857,7 @@ H2 {
         df_90.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
         (p_lineage, lineages, colors) = self.lineage_pie_chart(df, title="Lineage (30d)")
-        p_week = self.week_lineage_plot(df_90, lineages, colors)
+        p_week = self.week_lineage_plot(df_90.week, df_90.pango_lineage, lineages, colors)
         p_geo = self.lineage_geo_plot(df.location, df.pango_lineage, lineages, colors, title="County - Lineage (30d)")
 
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/usa/nm'>New Mexico</a>].", width=980, height=20)
@@ -1818,7 +1826,7 @@ class EC19_data():
         df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
         (p_lineage, lineages, colors) = lineage_pie_chart(df, title="Lineage (30d)")
-        p_week = week_lineage_plot(df_90, lineages, colors)
+        p_week = self.week_lineage_plot(df_90.week, df_90.pango_lineage, lineages, colors)
         p_geo = lineage_geo_plot(df.location, df.pango_lineage, lineages, colors, title="County - Lineage (30d)")
 
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For the full report, please visit EDGE-COVID19 website [<a href='{url}'>report</a>].", width=980, height=20)
