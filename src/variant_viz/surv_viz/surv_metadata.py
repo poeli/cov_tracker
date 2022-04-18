@@ -123,7 +123,7 @@ class CovidMetadata(object):
             logging.info(f'{len(df_meta)} records with n_content<={n_content}...')
 
         # add additional info to df_mutation
-        if len(self.df_mutation)>0 and merge_meta_to_mut:
+        if len(df_mutation)>0 and merge_meta_to_mut:
             logging.info(f'Adding metadata to mutations...')
             cols = ['acc', 'lineage', 'date', 'week', 'country', 'division']
             df_mutation = df_mutation[df_mutation.acc.isin(df_meta.acc)].copy()
