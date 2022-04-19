@@ -126,7 +126,8 @@ class CovidMetadata(object):
         if len(df_mutation)>0 and merge_meta_to_mut:
             logging.info(f'Adding metadata to mutations...')
             cols = ['acc', 'lineage', 'date', 'week', 'country', 'division']
-            df_mutation = df_mutation[df_mutation.acc.isin(df_meta.acc)].copy()
+            idx = df_mutation.acc.isin(df_meta.acc)
+            df_mutation = df_mutation[idx]
             df_mutation = df_mutation.merge(df_meta[cols], on='acc', how='left')
             df_mutation[['gene','pos']] = df_mutation['mutation'].str.extract(r'(\w+):\w(\d+)')
             df_mutation['pos'] = df_mutation['pos'].astype(int)
