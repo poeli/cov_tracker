@@ -76,14 +76,14 @@ class CovidMetadata(object):
             logging.info(f'Loading {filename_mutation_pkl}...')
             self.df_mutation_orig = pd.read_pickle(filename_mutation_pkl)
 
-        df_meta = self.df_meta_orig
-        df_mutation = self.df_mutation_orig
-
         logging.info(f'Specifying country to {country}...')
         self.set_meta_country(country)
 
         logging.info(f'Specifying division to {division}...')
         self.set_meta_division(division)
+
+        df_meta = self.df_meta_orig
+        df_mutation = self.df_mutation_orig
 
         # selecting records between start and end dates
         if date_start!=None and date_end!=None:
@@ -350,9 +350,9 @@ class CovidMetadata(object):
         :type  country: str
         """
         if country:
-            self.df_meta         = self.df_meta_orig[self.df_meta_orig['country']==country].copy()
+            self.df_meta_orig    = self.df_meta_orig[self.df_meta_orig['country']==country].copy()
             self.update_mutation = True
-    
+                
     def set_meta_division(self, division):
         """
         Specific division/state
@@ -361,5 +361,5 @@ class CovidMetadata(object):
         :type  division: str
         """
         if division:
-            self.df_meta         = self.df_meta_orig[self.df_meta_orig['division']==division].copy()
+            self.df_meta_orig    = self.df_meta_orig[self.df_meta_orig['division']==division].copy()
             self.update_mutation = True
