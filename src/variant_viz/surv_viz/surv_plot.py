@@ -214,7 +214,11 @@ class CovidPlots(object):
 
         logging.debug(f'Target lineages {lineages}...')
 
-        palette=list(brewer["Spectral"][len(lineages)-1])
+        palette=[]
+        if len(lineages)-1 < 3:
+            palette=list(brewer["Spectral"][3][:2])
+        else:
+            palette=list(brewer["Spectral"][len(lineages)-1])
 
         if "Others" in lineages:
             lineages.remove("Others")
