@@ -1525,7 +1525,7 @@ class EC19_data():
 
         from bokeh.palettes import Set1
 
-        df_ec19 = df_ec19_alnstats.merge(df_ec19_pango[['taxon','status','variant']], how='left', left_on='Sample', right_on='taxon')
+        df_ec19 = df_ec19_alnstats.merge(df_ec19_pango[['taxon', 'variant']], how='left', left_on='Sample', right_on='taxon')
         df_ec19 = df_ec19.merge(df_ec19_meta[['sample','virus_passage','collection_date','gender','age','sequencing_technology','location']], how='left', left_on='Sample', right_on='sample')
 
         def plot_meta(ds, p_var_count, title):

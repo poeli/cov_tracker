@@ -76,6 +76,8 @@ class CovidMetadata(object):
             logging.info(f'Loading {filename_mutation_pkl}...')
             self.df_mutation_orig = pd.read_pickle(filename_mutation_pkl)
 
+        logging.info(f'{len(self.df_meta_orig)} records loaded...')
+
         logging.info(f'Specifying country to {country}...')
         self.set_meta_country(country)
 
@@ -85,19 +87,21 @@ class CovidMetadata(object):
         df_meta = self.df_meta_orig
         df_mutation = self.df_mutation_orig
 
+        logging.info(f'{len(df_meta)} records qualified...')
+
         # selecting records between start and end dates
         if date_start!=None and date_end!=None:
-            logging.info(f'Selecting metadata between {date_start} and {date_end}...')
             df_meta = df_meta.query('date >= @date_start and date <= @date_end')
             self.update_mutation = True
+            logging.info(f'{len(df_meta)} records between {date_start} and {date_end}...')
         elif date_start!=None:
-            logging.info(f'Selecting metadata starting {date_start}...')
             df_meta = df_meta.query('date >= @date_start')
             self.update_mutation = True
+            logging.info(f'{len(df_meta)} records starting {date_start}...')
         elif date_end!=None:
-            logging.info(f'Selecting metadata ending {date_end}...')
             df_meta = df_meta.query('date <= @date_end')
             self.update_mutation = True
+            logging.info(f'{len(df_meta)} records ending {date_end}...')
 
         # remove NOT complete genomes
         if complete_only and 'is_complete' in df_meta:
@@ -124,7 +128,7 @@ class CovidMetadata(object):
 
         # add additional info to df_mutation
         if len(df_mutation)>0 and merge_meta_to_mut:
-            logging.info(f'Adding metadata to mutations...')
+            logging.info(f'Adding features to mutations...')
             cols = ['acc', 'lineage', 'date', 'week', 'country', 'division']
             idx = df_mutation.acc.isin(df_meta.acc)
             df_mutation = df_mutation[idx]
