@@ -592,19 +592,25 @@ H2 {
         from bokeh.transform import cumsum
 
         data = pd.crosstab(df.host, df.pango_lineage).T.reset_index().sort_values('Human', ascending=False).rename(columns={'Human': 'value'})
-        
-        colors = []
+        lineages = data.pango_lineage.to_list()
+
+        colors = None
         if len(data)<3:
             colors = brewer['Spectral'][6][:len(data)]
         elif len(data)<=11:
             colors = brewer['Spectral'][len(data)]
         else:
             colors = cividis(len(data))
-        
+    
+        colors = list(colors)
+        if 'Others' in lineages:
+            index = lineages.index('Others')
+            colors[index] = '#BBBBBB'
+
         data['prop'] = data['value']/data['value'].sum()
         data['angle'] = data['prop'] * 2*pi
         data['color'] = colors
-
+        
         p = figure(x_range=(-0.5, 1.0),
                    height=350, 
                    width=300, 
@@ -633,15 +639,9 @@ H2 {
         p.legend.padding = 2
         p.outline_line_color = None
 
-        lineages = data.pango_lineage.to_list()
-        colors = list(colors)
-
         if not 'Others' in lineages:
             lineages = lineages+['Others']
             colors += ['#BBBBBB']
-        else:
-            index = lineages.index('Others')
-            colors[index] = '#BBBBBB'
 
         return (p, lineages, colors)
 
