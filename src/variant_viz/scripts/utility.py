@@ -633,7 +633,7 @@ H2 {
         p.legend.border_line_width = 0
         p.legend.glyph_width = 10
         p.legend.glyph_height = 10
-        # p.legend.location = "bottom_left"
+        p.legend.location = "bottom_left"
         p.legend.orientation = "horizontal"
         p.legend.margin = 3
         p.legend.padding = 2
