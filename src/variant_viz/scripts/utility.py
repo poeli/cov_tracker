@@ -633,7 +633,7 @@ H2 {
         p.legend.border_line_width = 0
         p.legend.glyph_width = 10
         p.legend.glyph_height = 10
-        p.legend.location = "bottom_left"
+        # p.legend.location = "bottom_left"
         p.legend.orientation = "horizontal"
         p.legend.margin = 3
         p.legend.padding = 2
@@ -783,7 +783,13 @@ H2 {
         df_90 = df_meta[idx].copy()
 
         # find top 5 genomes and assign rest of them to 'Others'
-        top_5_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False).head(5).index.to_list()
+        df_top_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False)
+        top_5_lineage = df_top_lineage.head(5).index.to_list()
+
+        logging.info(f'records 15d - {len(df)}')
+        logging.info(df_top_lineage)
+        logging.info(top_5_lineage)
+        logging.info(f'records 90d - {len(df_90)}')
         
         other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
         df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
