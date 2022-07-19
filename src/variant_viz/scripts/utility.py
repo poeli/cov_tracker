@@ -797,7 +797,7 @@ H2 {
         df_90.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
         (p_lineage, lineages, colors) = self.lineage_pie_chart(df, title="Lineages (15d)")
-        p_week = self.week_lineage_plot(df_90.week, df_90.pango_lineage, lineages, colors)
+        p_week = self.week_lineage_plot(df_90.week, df_90.pango_lineage, lineages, colors, title="Weeks - lineages (180d)")
         p_geo = self.lineage_geo_plot(df.country, df.pango_lineage, lineages, colors, title="Country - Lineage (15d)")
 
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/'>GLOBAL</a>].", width=980, height=20)
@@ -1829,25 +1829,32 @@ class EC19_data():
 
         # df_meta = df_meta.query('division=="New Mexico" or division=="NM"')
 
-        idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=30))
+        idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=60))
         df = df_meta[idx].copy()
 
-        idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=90))
-        df_90 = df_meta[idx].copy()
+        idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=180))
+        df_180 = df_meta[idx].copy()
 
-        top_5_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False).head(5).index.to_list()
+        df_top_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False)
+        top_5_lineage = df_top_lineage.head(5).index.to_list()
+
+        logging.info(f'records 60d - {len(df)}')
+        logging.info(df_top_lineage)
+        logging.info(top_5_lineage)
+        logging.info(f'records 180d - {len(df_180)}')
+
         other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
         df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
-        (p_lineage, lineages, colors) = lineage_pie_chart(df, title="Lineage (30d)")
-        p_week = self.week_lineage_plot(df_90.week, df_90.pango_lineage, lineages, colors)
-        p_geo = lineage_geo_plot(df.location, df.pango_lineage, lineages, colors, title="County - Lineage (30d)")
+        (p_lineage, lineages, colors) = lineage_pie_chart(df, title="Lineage (60d)")
+        p_week = week_lineage_plot(df_180.week, df_180.pango_lineage, lineages, colors)
+        p_geo = lineage_geo_plot(df.location, df.pango_lineage, lineages, colors, title="County - Lineage (60d)")
 
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For the full report, please visit EDGE-COVID19 website [<a href='{url}'>report</a>].", width=980, height=20)
 
         div_loc  = Div(text=f"LOCATION: <h2>All</h2>", width=170, height=75)
         div_tol  = Div(text=f"LANL OccMed: <h2>{len(df_meta):,}</h2>", width=170, height=75)
-        div_15d  = Div(text=f"LAST 30 DAYS:<h2>+{len(df):,}</h2>", width=170, height=75)
+        div_15d  = Div(text=f"LAST 60 DAYS:<h2>+{len(df):,}</h2>", width=170, height=75)
 
         div_info = column(div_loc, div_tol, div_15d)
 
