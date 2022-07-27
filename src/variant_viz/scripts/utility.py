@@ -2,6 +2,7 @@ import imp
 import os
 import io
 import logging
+import sys
 import variant_viz.surv_viz.surv_datasource as cdata
 import variant_viz.surv_viz.surv_metadata as cm
 import variant_viz.surv_viz.surv_plot as cplot
@@ -50,6 +51,8 @@ class GISAID_stats():
             n_content             = n_content,
             merge_meta_to_mut     = merge_meta_to_mut
         )
+
+        self.lanl_summary_colors_mapping = {}
 
     def tsv2pkl(self, prefix):
         """
@@ -594,18 +597,37 @@ H2 {
         data = pd.crosstab(df.host, df.pango_lineage).T.reset_index().sort_values('Human', ascending=False).rename(columns={'Human': 'value'})
         lineages = data.pango_lineage.to_list()
 
-        colors = None
-        if len(data)<3:
-            colors = brewer['Spectral'][6][:len(data)]
-        elif len(data)<=11:
-            colors = brewer['Spectral'][len(data)]
+        colors_mapping = self.lanl_summary_colors_mapping
+        colors = []
+
+        if not colors_mapping:
+            if len(data)<3:
+                colors = brewer['Spectral'][6][:len(data)]
+            elif len(data)<=11:
+                colors = brewer['Spectral'][len(data)]
+            else:
+                colors = cividis(len(data))
+        
+            colors = list(colors)
+            if 'Others' in lineages:
+                index = lineages.index('Others')
+                colors[index] = '#BBBBBB'
+
+            colors_mapping = dict(zip(lineages, colors))
         else:
-            colors = cividis(len(data))
-    
-        colors = list(colors)
-        if 'Others' in lineages:
-            index = lineages.index('Others')
-            colors[index] = '#BBBBBB'
+            for lin in lineages:
+                if lin in colors_mapping:
+                    colors.append(colors_mapping[lin])
+                else:
+                    new_color = '#EEEEEE'
+                    c_candidates = list(set(list(brewer['Spectral'][11])) - set(list(colors_mapping.values())))
+                    if len(c_candidates)==0:
+                        c_candidates = list(set(list(colors = cividis(30))) - set(list(colors_mapping.values())))
+                    if len(c_candidates)>0:
+                        new_color = c_candidates[0]
+                    
+                    colors.append(new_color)
+                    colors_mapping[lin] = new_color
 
         data['prop'] = data['value']/data['value'].sum()
         data['angle'] = data['prop'] * 2*pi
@@ -633,7 +655,7 @@ H2 {
         p.legend.border_line_width = 0
         p.legend.glyph_width = 10
         p.legend.glyph_height = 10
-        # p.legend.location = "bottom_left"
+        p.legend.location = "bottom_left"
         p.legend.orientation = "horizontal"
         p.legend.margin = 3
         p.legend.padding = 2
@@ -642,6 +664,8 @@ H2 {
         if not 'Others' in lineages:
             lineages = lineages+['Others']
             colors += ['#BBBBBB']
+
+        self.lanl_summary_colors_mapping = colors_mapping
 
         return (p, lineages, colors)
 
@@ -782,22 +806,34 @@ H2 {
         idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=90))
         df_90 = df_meta[idx].copy()
 
+        if len(df)==0:
+            logging.warn(f"No data in the past 15 days - last date sets to {df_meta['date'].max()}")
+            idx = df_meta['date'] >= (df_meta['date'].max() - pd.Timedelta(days=30))
+            df = df_meta[idx].copy()
+
+            idx = df_meta['date'] >= (df_meta['date'].max() - pd.Timedelta(days=90))
+            df_90 = df_meta[idx].copy()
+
+        if len(df_90)==0:
+            logging.fatal("No data in the past 90 days")
+            sys.exit(1)
+
         # find top 5 genomes and assign rest of them to 'Others'
         df_top_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False)
-        top_5_lineage = df_top_lineage.head(5).index.to_list()
+        top_lineage = df_top_lineage.head(7).index.to_list()
 
         logging.info(f'records 15d - {len(df)}')
         logging.info(df_top_lineage)
-        logging.info(top_5_lineage)
+        logging.info(top_lineage)
         logging.info(f'records 90d - {len(df_90)}')
         
-        other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
+        other_lineage_idx = ~df.pango_lineage.isin(top_lineage)
         df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
-        other_lineage_idx = ~df_90.pango_lineage.isin(top_5_lineage)
+        other_lineage_idx = ~df_90.pango_lineage.isin(top_lineage)
         df_90.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
         (p_lineage, lineages, colors) = self.lineage_pie_chart(df, title="Lineages (15d)")
-        p_week = self.week_lineage_plot(df_90.week, df_90.pango_lineage, lineages, colors, title="Weeks - lineages (180d)")
+        p_week = self.week_lineage_plot(df_90.week, df_90.pango_lineage, lineages, colors, title="Weeks - lineages (90d)")
         p_geo = self.lineage_geo_plot(df.country, df.pango_lineage, lineages, colors, title="Country - Lineage (15d)")
 
         div_footage = Div(text=f"LANL SARS-CoV-2 summary report as of {today}. For more detail, visit our cov-tracker website [<a href='https://edge-dl.lanl.gov/cov_tracker/'>GLOBAL</a>].", width=980, height=20)
@@ -828,10 +864,22 @@ H2 {
         idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=90))
         df_90 = df_meta[idx].copy()
 
-        top_5_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False).head(5).index.to_list()
-        other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
+        if len(df)==0:
+            logging.warn(f"No data in the past 15 days - last date sets to {df_meta['date'].max()}")
+            idx = df_meta['date'] >= (df_meta['date'].max() - pd.Timedelta(days=30))
+            df = df_meta[idx].copy()
+
+            idx = df_meta['date'] >= (df_meta['date'].max() - pd.Timedelta(days=90))
+            df_90 = df_meta[idx].copy()
+
+        if len(df_90)==0:
+            logging.fatal("No data in the past 90 days")
+            sys.exit(1)
+
+        top_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False).head(7).index.to_list()
+        other_lineage_idx = ~df.pango_lineage.isin(top_lineage)
         df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
-        other_lineage_idx = ~df_90.pango_lineage.isin(top_5_lineage)
+        other_lineage_idx = ~df_90.pango_lineage.isin(top_lineage)
         df_90.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
         (p_lineage, lineages, colors) = self.lineage_pie_chart(df, title="Lineage (15d)")
@@ -865,10 +913,24 @@ H2 {
         idx = df_meta['date'] >= (pd.to_datetime('today') - pd.Timedelta(days=90))
         df_90 = df_meta[idx].copy()
 
-        top_5_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False).head(5).index.to_list()
-        other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
+        if len(df)==0:
+            logging.warn(f"No data in the past 15 days - last date sets to {df_meta['date'].max()}")
+            idx = df_meta['date'] >= (df_meta['date'].max() - pd.Timedelta(days=30))
+            df = df_meta[idx].copy()
+
+            idx = df_meta['date'] >= (df_meta['date'].max() - pd.Timedelta(days=90))
+            df_90 = df_meta[idx].copy()
+
+            # sys.exit(1)
+
+        if len(df_90)==0:
+            logging.fatal("No data in the past 90 days")
+            sys.exit(1)
+
+        top_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False).head(7).index.to_list()
+        other_lineage_idx = ~df.pango_lineage.isin(top_lineage)
         df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
-        other_lineage_idx = ~df_90.pango_lineage.isin(top_5_lineage)
+        other_lineage_idx = ~df_90.pango_lineage.isin(top_lineage)
         df_90.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
         (p_lineage, lineages, colors) = self.lineage_pie_chart(df, title="Lineage (30d)")
@@ -1836,14 +1898,14 @@ class EC19_data():
         df_180 = df_meta[idx].copy()
 
         df_top_lineage = pd.crosstab(df.host, df.pango_lineage).T.sort_values('Human', ascending=False)
-        top_5_lineage = df_top_lineage.head(5).index.to_list()
+        top_lineage = df_top_lineage.head(7).index.to_list()
 
         logging.info(f'records 60d - {len(df)}')
         logging.info(df_top_lineage)
-        logging.info(top_5_lineage)
+        logging.info(top_lineage)
         logging.info(f'records 180d - {len(df_180)}')
 
-        other_lineage_idx = ~df.pango_lineage.isin(top_5_lineage)
+        other_lineage_idx = ~df.pango_lineage.isin(top_lineage)
         df.loc[other_lineage_idx, 'pango_lineage'] = 'Others'
 
         (p_lineage, lineages, colors) = lineage_pie_chart(df, title="Lineage (60d)")
