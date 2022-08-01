@@ -622,7 +622,7 @@ H2 {
                     new_color = '#EEEEEE'
                     c_candidates = list(set(list(brewer['Spectral'][11])) - set(list(colors_mapping.values())))
                     if len(c_candidates)==0:
-                        c_candidates = list(set(list(colors = cividis(30))) - set(list(colors_mapping.values())))
+                        c_candidates = list(set(list(cividis(30))) - set(list(colors_mapping.values())))
                     if len(c_candidates)>0:
                         new_color = c_candidates[0]
                     
